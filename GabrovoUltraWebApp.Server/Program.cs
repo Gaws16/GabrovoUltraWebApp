@@ -1,4 +1,6 @@
 using GabrovoUltraWebApp.Server.Data;
+using GabrovoUltraWebApp.Server.Services;
+using GabrovoUltraWebApp.Server.Services.Contracts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,12 +17,22 @@ string? connectionString = builder.Configuration.GetConnectionString("DefaultCon
 builder.Services.AddDbContext<GabrovoUltraContext>
     (options => options.UseSqlServer(connectionString));
 
-builder.Services.AddAuthorization();
 builder.Services.AddAuthentication();
+builder.Services.AddAuthorization();
 
-builder.Services.AddIdentityApiEndpoints<IdentityUser>()
-    .AddEntityFrameworkStores<GabrovoUltraContext>();
-                                                       
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+{
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequiredLength = 6;
+})
+    .AddEntityFrameworkStores<GabrovoUltraContext>()
+    .AddDefaultTokenProviders();
+                                           
+builder.Services.AddScoped<IAuthService, AuthService>();
+
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
@@ -35,7 +47,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.MapIdentityApi<IdentityUser>();
+//app.MapIdentityApi<IdentityUser>();
 
 app.UseHttpsRedirection();
 
