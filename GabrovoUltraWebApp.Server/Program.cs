@@ -20,9 +20,22 @@ builder.Services.AddDbContext<GabrovoUltraContext>
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
 
+//fix cors
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", 
+        builder => 
+        builder.AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowAnyOrigin());
+});
+
+
+
+
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 {
-    options.Password.RequireDigit = false;
+    options.Password.RequireDigit = true;
     options.Password.RequireLowercase = false;
     options.Password.RequireUppercase = false;
     options.Password.RequireNonAlphanumeric = false;
@@ -49,6 +62,7 @@ if (app.Environment.IsDevelopment())
 
 //app.MapIdentityApi<IdentityUser>();
 
+app.UseCors("CorsPolicy");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
