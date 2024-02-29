@@ -44,7 +44,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
     .AddEntityFrameworkStores<GabrovoUltraContext>()
     .AddDefaultTokenProviders();
                                            
-builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddTransient<IAuthService, AuthService>();
 
 builder.Services.AddSwaggerGen();
 

@@ -16,10 +16,38 @@ namespace GabrovoUltraWebApp.Server.Controllers
         {
                 this.authService = authService;
         }
-        [HttpPost("register")]
+        [HttpPost("Register")]
         public async Task<IActionResult> Register(LoginRequestModel user)
         {
-            return Ok(await authService.RegisterUser(user));
+            if (await authService.RegisterUser(user))
+            {
+            return Ok("Succesfully registered!");
+            }
+            return BadRequest("romething went wrong!");
+
         }
+
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login(LoginRequestModel user)
+        {
+            if(ModelState.IsValid == false)
+            {
+                return BadRequest("Invalid data");
+            }
+            var result =  await authService.LoginUser(user);
+
+            if(result)
+            {
+                //var token sssssss swwwwiwenerateJwtTokenuser);
+                //Response.Cookies.Append("jwt", token, new CookieOptions
+                //{
+                //    HttpOnly = true
+                //});
+                return Ok("Done");
+            }
+            return BadRequest();
+        }
+
+
     }
 }

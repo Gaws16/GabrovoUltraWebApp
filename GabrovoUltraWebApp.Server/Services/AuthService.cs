@@ -14,6 +14,17 @@ namespace GabrovoUltraWebApp.Server.Services
             this.userManager = userManager;
         }
 
+        public async Task<bool> LoginUser(LoginRequestModel loginRequest)
+        {
+            var identityUser = await userManager.FindByEmailAsync(loginRequest.Username);
+         if(identityUser is null)
+            {
+                return false;
+            }
+         var result = await userManager.CheckPasswordAsync(identityUser, loginRequest.Password);
+            return result;
+        }
+
         public async Task<bool> RegisterUser(LoginRequestModel loginRequest)
         {
             var user = new IdentityUser
