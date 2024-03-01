@@ -1,14 +1,14 @@
 import React from "react";
-// Import all of Bootstrap's CSS
+import { useState } from "react";
 
 export default function Header() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   return (
-    //change class to className
-
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
         <a className="navbar-brand" href="#">
-          Navbar
+          GabrovoUltra
         </a>
         <button
           className="navbar-toggler"
@@ -69,20 +69,54 @@ export default function Header() {
                 Disabled
               </a>
             </li>
+            <li className="nav-item">
+              <a className="nav-link disabled" aria-disabled="true">
+                Disabled
+              </a>
+            </li>
           </ul>
           <form className="d-flex" role="search">
             <input
               className="form-control me-2"
-              type="search"
-              placeholder="Search"
+              type="username"
+              placeholder="username"
               aria-label="Search"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
-            <button className="btn btn-outline-success" type="submit">
-              Search
+            <input
+              className="form-control me-2"
+              type="password"
+              placeholder="password"
+              aria-label="Search"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button
+              className="btn btn-outline-success"
+              type="button"
+              onClick={() => LoginUser(username, password)}
+            >
+              Login
+            </button>
+            <button
+              className="btn btn-outline-success"
+              type="button"
+              onClick={() => LoginUser(username, password)}
+            >
+              Register
             </button>
           </form>
         </div>
       </div>
     </nav>
   );
+}
+async function LoginUser(username, password) {
+  const response = await fetch(`https://localhost:7263/api/Auth/login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, password }),
+  });
+  console.log(await response.json());
 }

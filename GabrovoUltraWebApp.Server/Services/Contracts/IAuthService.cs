@@ -7,5 +7,6 @@ namespace GabrovoUltraWebApp.Server.Services.Contracts
     {
         Task<bool> RegisterUser(LoginRequestModel loginRequest);
         Task<bool> LoginUser(LoginRequestModel loginRequest);
+        string GenerateTokenString(LoginRequestModel user);
     }
 }

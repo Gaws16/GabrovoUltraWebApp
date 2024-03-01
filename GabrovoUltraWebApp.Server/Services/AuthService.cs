@@ -2,16 +2,46 @@
 using GabrovoUltraWebApp.Server.Services.Contracts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace GabrovoUltraWebApp.Server.Services
 {
     public class AuthService : IAuthService
     {
         private readonly UserManager<IdentityUser> userManager;
+        private readonly IConfiguration config;
 
-        public AuthService(UserManager<IdentityUser> userManager)
+        public AuthService(UserManager<IdentityUser> userManager, IConfiguration config)
         {
             this.userManager = userManager;
+            this.config = config;
+        }
+
+        public string GenerateTokenString(LoginRequestModel user)
+        {
+            IEnumerable<Claim> claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Email, user.Username),
+                new Claim(ClaimTypes.Role, "Admin")
+
+            };
+            //Setting up encryption key
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.GetSection("Jwt:Key").Value));
+                    SigningCredentials signingInCredential = new SigningCredentials(securityKey
+               , SecurityAlgorithms.HmacSha512Signature
+               );
+            var token = new JwtSecurityToken(
+                claims:claims,
+                expires:DateTime.Now.AddMinutes(60),
+                issuer:config.GetSection("Jwt:Issuer").Value,
+                audience:config.GetSection("Jwt:Audience").Value,
+                signingCredentials:signingInCredential
+                );
+            string tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+            return tokenString;
         }
 
         public async Task<bool> LoginUser(LoginRequestModel loginRequest)

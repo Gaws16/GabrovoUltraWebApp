@@ -1,8 +1,10 @@
 using GabrovoUltraWebApp.Server.Data;
 using GabrovoUltraWebApp.Server.Services;
 using GabrovoUltraWebApp.Server.Services.Contracts;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +19,26 @@ string? connectionString = builder.Configuration.GetConnectionString("DefaultCon
 builder.Services.AddDbContext<GabrovoUltraContext>
     (options => options.UseSqlServer(connectionString));
 
-builder.Services.AddAuthentication();
+builder.Services.AddAuthentication(options=>
+{
+    options.DefaultAuthenticateScheme =JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    }
+).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidateActor = true,
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        RequireExpirationTime=true,
+        ValidateIssuerSigningKey=true,
+        ValidIssuer=builder.Configuration.GetSection("Jwt:Issuer").Value,
+        ValidAudience=builder.Configuration.GetSection("Jwt:Audience").Value,
+
+    };
+    
+   });
 builder.Services.AddAuthorization();
 
 //fix cors
@@ -63,7 +84,10 @@ if (app.Environment.IsDevelopment())
 //app.MapIdentityApi<IdentityUser>();
 
 app.UseCors("CorsPolicy");
+
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

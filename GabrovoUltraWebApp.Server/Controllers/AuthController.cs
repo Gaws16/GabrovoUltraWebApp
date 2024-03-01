@@ -23,7 +23,7 @@ namespace GabrovoUltraWebApp.Server.Controllers
             {
             return Ok("Succesfully registered!");
             }
-            return BadRequest("romething went wrong!");
+            return BadRequest("Something went wrong!");
 
         }
 
@@ -38,12 +38,8 @@ namespace GabrovoUltraWebApp.Server.Controllers
 
             if(result)
             {
-                //var token sssssss swwwwiwenerateJwtTokenuser);
-                //Response.Cookies.Append("jwt", token, new CookieOptions
-                //{
-                //    HttpOnly = true
-                //});
-                return Ok("Done");
+               var token = authService.GenerateTokenString(user); 
+                return Ok(token);
             }
             return BadRequest();
         }
