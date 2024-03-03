@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,18 @@ string? connectionString = builder.Configuration.GetConnectionString("DefaultCon
 
 builder.Services.AddDbContext<GabrovoUltraContext>
     (options => options.UseSqlServer(connectionString));
+
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+{
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequiredLength = 6;
+})
+    .AddEntityFrameworkStores<GabrovoUltraContext>()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddAuthentication(options=>
 {
@@ -35,8 +48,9 @@ builder.Services.AddAuthentication(options=>
         ValidateIssuerSigningKey=true,
         ValidIssuer=builder.Configuration.GetSection("Jwt:Issuer").Value,
         ValidAudience=builder.Configuration.GetSection("Jwt:Audience").Value,
-
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("Jwt:Key").Value))
     };
+
     
    });
 builder.Services.AddAuthorization();
@@ -54,16 +68,6 @@ builder.Services.AddCors(options =>
 
 
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
-{
-    options.Password.RequireDigit = true;
-    options.Password.RequireLowercase = false;
-    options.Password.RequireUppercase = false;
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequiredLength = 6;
-})
-    .AddEntityFrameworkStores<GabrovoUltraContext>()
-    .AddDefaultTokenProviders();
                                            
 builder.Services.AddTransient<IAuthService, AuthService>();
 

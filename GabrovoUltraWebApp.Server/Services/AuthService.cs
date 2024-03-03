@@ -7,6 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
+
 namespace GabrovoUltraWebApp.Server.Services
 {
     public class AuthService : IAuthService
@@ -40,6 +41,8 @@ namespace GabrovoUltraWebApp.Server.Services
                 audience:config.GetSection("Jwt:Audience").Value,
                 signingCredentials:signingInCredential
                 );
+            
+                
             string tokenString = new JwtSecurityTokenHandler().WriteToken(token);
             return tokenString;
         }
