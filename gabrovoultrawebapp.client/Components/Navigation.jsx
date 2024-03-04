@@ -44,7 +44,12 @@ export default function Navigation() {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="#">
+              <a
+                className="nav-link active"
+                aria-current="page"
+                href="#"
+                onClick={() => test()}
+              >
                 Home
               </a>
             </li>
@@ -138,13 +143,29 @@ async function LoginUser(username, password) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ username, password }),
   });
-  console.log(await response.json());
+  if (response.ok) {
+    console.log("Logged in");
+    localStorage.setItem("token", (await response.json()).token);
+    console.log(localStorage.getItem("token"));
+  } else {
+    console.log(await response.json());
+  }
 }
 async function RegisterUser(username, password) {
   const response = await fetch(`https://localhost:7263/api/Auth/register`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ username, password }),
+  });
+  console.log(await response.json());
+}
+async function test() {
+  const response = await fetch(`https://localhost:7263/api/Test`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
   });
   console.log(await response.json());
 }

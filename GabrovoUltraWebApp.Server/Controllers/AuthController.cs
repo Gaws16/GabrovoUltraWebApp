@@ -3,6 +3,7 @@ using GabrovoUltraWebApp.Core.Services.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace GabrovoUltraWebApp.Server.Controllers
 {
@@ -38,8 +39,9 @@ namespace GabrovoUltraWebApp.Server.Controllers
 
             if(result)
             {
-               var token = authService.GenerateTokenString(user); 
-                return Ok(token);
+               var token = authService.GenerateTokenString(user);
+               var response = JsonConvert.SerializeObject(new { token });
+                return Ok(response);
             }
             return BadRequest();
         }
