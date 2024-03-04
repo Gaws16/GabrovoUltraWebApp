@@ -122,7 +122,7 @@ export default function Navigation() {
             <button
               className="btn btn-outline-success"
               type="button"
-              onClick={() => LoginUser(username, password)}
+              onClick={() => RegisterUser(username, password)}
             >
               Register
             </button>
@@ -134,6 +134,14 @@ export default function Navigation() {
 }
 async function LoginUser(username, password) {
   const response = await fetch(`https://localhost:7263/api/Auth/login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, password }),
+  });
+  console.log(await response.json());
+}
+async function RegisterUser(username, password) {
+  const response = await fetch(`https://localhost:7263/api/Auth/register`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ username, password }),
