@@ -1,4 +1,4 @@
-﻿namespace GabrovoUltraWebApp.Server.Common
+﻿namespace GabrovoUltraWebApp.Infrastructure.Common
 {
     public static class DataValidationConstants
     {

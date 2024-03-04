@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using static GabrovoUltraWebApp.Server.Common.DataValidationConstants.Race;
-namespace GabrovoUltraWebApp.Server.Data.Models
+using static GabrovoUltraWebApp.Infrastructure.Common.DataValidationConstants.Race;
+namespace GabrovoUltraWebApp.Infrastructure.Data.Models
 {
     public class Race
     {

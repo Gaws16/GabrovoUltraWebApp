@@ -1,8 +1,8 @@
-﻿using GabrovoUltraWebApp.Server.Data.Models;
+﻿using GabrovoUltraWebApp.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace GabrovoUltraWebApp.Server.Data
+namespace GabrovoUltraWebApp.Infrastructure.Data
 {
     public class GabrovoUltraContext: IdentityDbContext
     {

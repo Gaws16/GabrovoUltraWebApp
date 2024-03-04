@@ -1,5 +1,5 @@
-﻿using GabrovoUltraWebApp.Server.Models;
-using GabrovoUltraWebApp.Server.Services.Contracts;
+﻿using GabrovoUltraWebApp.Infrastructure.Models;
+using GabrovoUltraWebApp.Core.Services.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

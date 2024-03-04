@@ -1,11 +1,12 @@
-using GabrovoUltraWebApp.Server.Data;
-using GabrovoUltraWebApp.Server.Services;
-using GabrovoUltraWebApp.Server.Services.Contracts;
+using GabrovoUltraWebApp.Infrastructure.Data;
+using GabrovoUltraWebApp.Core.Services;
+using GabrovoUltraWebApp.Core.Services.Contracts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using GabrovoUltraWebApp.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

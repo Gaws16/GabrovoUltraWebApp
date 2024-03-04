@@ -1,14 +1,14 @@
-﻿using GabrovoUltraWebApp.Server.Models;
-using GabrovoUltraWebApp.Server.Services.Contracts;
+﻿using GabrovoUltraWebApp.Core.Services.Contracts;
+using GabrovoUltraWebApp.Infrastructure.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
 
-namespace GabrovoUltraWebApp.Server.Services
+namespace GabrovoUltraWebApp.Infrastructure.Services
 {
     public class AuthService : IAuthService
     {

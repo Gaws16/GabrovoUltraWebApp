@@ -1,7 +1,5 @@
-﻿using GabrovoUltraWebApp.Server.Models;
-using Microsoft.AspNetCore.Mvc;
-
-namespace GabrovoUltraWebApp.Server.Services.Contracts
+﻿using GabrovoUltraWebApp.Infrastructure.Models;
+namespace GabrovoUltraWebApp.Core.Services.Contracts
 {
     public interface IAuthService
     {

@@ -1,4 +1,4 @@
-﻿namespace GabrovoUltraWebApp.Server.Models
+﻿namespace GabrovoUltraWebApp.Infrastructure.Models
 {
     public class LoginRequestModel
     {

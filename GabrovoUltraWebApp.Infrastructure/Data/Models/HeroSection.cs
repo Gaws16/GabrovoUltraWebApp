@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using static GabrovoUltraWebApp.Server.Common.DataValidationConstants.HeroSection;
-namespace GabrovoUltraWebApp.Server.Data.Models
+
+using static GabrovoUltraWebApp.Infrastructure.Common.DataValidationConstants.HeroSection;
+namespace GabrovoUltraWebApp.Infrastructure.Data.Models
 {
     public class HeroSection
     {
