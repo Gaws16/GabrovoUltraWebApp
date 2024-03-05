@@ -2,15 +2,19 @@
 using GabrovoUltraWebApp.Infrastructure.Data.SeedDB;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace GabrovoUltraWebApp.Infrastructure.Data
 {
     public class GabrovoUltraContext: IdentityDbContext
     {
-        public GabrovoUltraContext(DbContextOptions<GabrovoUltraContext> options) : base(options)
+              
+        public GabrovoUltraContext(DbContextOptions<GabrovoUltraContext> context): base(context)
         {
-            
+           
         }
+        
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

@@ -8,7 +8,7 @@ using System.Security.Claims;
 using System.Text;
 
 
-namespace GabrovoUltraWebApp.Infrastructure.Services
+namespace GabrovoUltraWebApp.Core.Services
 {
     public class AuthService : IAuthService
     {
