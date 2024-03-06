@@ -10,7 +10,7 @@ export default function Navigation() {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollPos = window.scrollY;
-      setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 10);
+      setVisible(prevScrollPos > currentScrollPos || currentScrollPos > 10);
       setPrevScrollPos(currentScrollPos);
     };
 
