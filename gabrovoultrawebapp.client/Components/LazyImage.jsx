@@ -25,7 +25,7 @@ const LazyImage = ({ src, alt, className }) => {
       ref={imageRef}
       alt={alt}
       className={className}
-      style={{ width: "100%", height: "auto" }}
+      //style={{ width: "100%", height: "auto" }}
     />
   );
 };
