@@ -13,16 +13,22 @@ namespace GabrovoUltraWebApp.Server.Controllers
         
         private readonly IHeroSectionService heroSectionService;
 
+        
         public HeroSectionController(IHeroSectionService service)
         {
             heroSectionService = service;
         }
 
         [HttpGet("All")]
-        
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Produces("application/json")]
         public async Task<IActionResult> GetAllHeroSections()
         {
-            var sections = JsonConvert.SerializeObject( await heroSectionService.GetAllHeroSectionsAsyncReadOnly(),Formatting.Indented);
+            var sections = JsonConvert.SerializeObject
+                ( await heroSectionService.GetAllHeroSectionsAsyncReadOnly()
+                ,Formatting.Indented);
 
 
 

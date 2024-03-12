@@ -18,6 +18,9 @@ namespace GabrovoUltraWebApp.Server.Controllers
                 this.authService = authService;
         }
         [HttpPost("Register")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Produces("application/json")]
         public async Task<IActionResult> Register(LoginRequestModel user)
         {
             if (await authService.RegisterUser(user))
@@ -29,6 +32,9 @@ namespace GabrovoUltraWebApp.Server.Controllers
         }
 
         [HttpPost("Login")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Produces("application/json")]
         public async Task<IActionResult> Login(LoginRequestModel user)
         {
             if(ModelState.IsValid == false)
