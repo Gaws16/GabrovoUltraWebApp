@@ -1,0 +1,50 @@
+body {
+  font-family: "Euclid Circular A", "Poppins";
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-image: url("./kula-peyzazh-scaled.jpg");
+  background-position: 100% 50%;
+  background-repeat: no-repeat;
+  padding: 0%;
+  height: 100vh;
+  object-fit: fill;
+  transition: 0.1s linear;
+  max-width: 2460px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+.container {
+  color: #000;
+}
+.banner h2 {
+  font-size: 48px;
+  color: #f8f8f8;
+  padding-top: 0;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.banner button {
+  border: 0;
+  background: #ffffff;
+  color: #222222;
+  padding: 10px 24px;
+  border-radius: 30px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+section {
+  background: #ffffff;
+}

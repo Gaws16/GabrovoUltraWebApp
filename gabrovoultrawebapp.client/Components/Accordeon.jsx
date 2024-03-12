@@ -12,7 +12,7 @@ export const ImageAccordion = () => {
       setHeroSections(await response.json());
     }
     fetchHeroSections();
-  });
+  }, []);
   const handleToggle = (index) => setActive(index);
 
   return (
