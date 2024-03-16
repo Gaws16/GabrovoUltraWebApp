@@ -16,12 +16,7 @@ export default function Parallax() {
 
   return (
     <>
-      <section
-        style={{
-          backgroundSize: `${(window.outerHeight - scrollPosition) / 2}%`,
-        }}
-        className="banner container"
-      >
+      <section className="banner container">
         <h2>Gabrovo Ultra</h2>
         <button>Get Started</button>
       </section>

@@ -21,11 +21,11 @@ export const ImageAccordion = () => {
         const isActive = active === index ? "active" : "";
         return (
           <div
-            key={item.ImageUrl}
+            key={item.imageUrl}
             className={`image-accordion-item ${isActive}`}
             onClick={() => handleToggle(index)}
           >
-            <img src={item.ImageUrl} />
+            <img src={item.imageUrl} />
             <div className="content">
               <span className="material-symbols-outlined">G</span>
               <div>

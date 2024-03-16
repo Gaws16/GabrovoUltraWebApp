@@ -26,9 +26,8 @@ namespace GabrovoUltraWebApp.Server.Controllers
         [Produces("application/json")]
         public async Task<IActionResult> GetAllHeroSections()
         {
-            var sections = JsonConvert.SerializeObject
-                ( await heroSectionService.GetAllHeroSectionsAsyncReadOnly()
-                ,Formatting.Indented);
+            var sections = await heroSectionService.GetAllHeroSectionsAsyncReadOnly();
+               
 
 
 
