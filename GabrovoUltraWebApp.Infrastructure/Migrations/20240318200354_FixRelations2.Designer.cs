@@ -4,6 +4,7 @@ using GabrovoUltraWebApp.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GabrovoUltraWebApp.Infrastructure.Migrations
 {
     [DbContext(typeof(GabrovoUltraContext))]
-    partial class GabrovoUltraContextModelSnapshot : ModelSnapshot
+    [Migration("20240318200354_FixRelations2")]
+    partial class FixRelations2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -217,13 +220,7 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasComment("Name of the team");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Runners");
                 });
@@ -454,17 +451,6 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                     b.Navigation("Race");
 
                     b.Navigation("Runner");
-                });
-
-            modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.Runner", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

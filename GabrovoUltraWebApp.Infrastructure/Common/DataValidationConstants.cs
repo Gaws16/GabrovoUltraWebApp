@@ -35,5 +35,20 @@
 
             public const string StartTimeRegex = @"^(?:[01][0-9]|2[0-3]):[0-5][0-9]$";
         }
+
+        public static class Runner
+        {
+            public const int NameMaxLength = 50;
+            public const int NameMinLength = 5;
+
+            public const int TeamMaxLength = 50;
+            public const int TeamMinLength = 5;
+
+            public const int StartingNumberMaxLength = 6;
+            public const int StartingNumberMinLength = 1;
+
+            public const int CategoryMaxLength = 50;
+            public const int CategoryMinLength = 5;
+        }
     }
 }

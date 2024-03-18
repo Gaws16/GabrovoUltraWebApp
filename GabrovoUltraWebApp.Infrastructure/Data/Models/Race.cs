@@ -31,7 +31,8 @@ namespace GabrovoUltraWebApp.Infrastructure.Data.Models
         public virtual ICollection<Distance> Distances { get; set; } = new HashSet<Distance>();
         [Comment("Collection of runners from all distances")]
         [Required]
-        public virtual ICollection<Runner> Participants { get; set; } = new HashSet<Runner>();
+
+        public virtual ICollection<RaceRunner> RacesRunners { get; set; } = new HashSet<RaceRunner>();
 
 
     }

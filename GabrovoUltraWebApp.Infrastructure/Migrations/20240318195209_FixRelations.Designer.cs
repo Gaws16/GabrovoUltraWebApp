@@ -4,6 +4,7 @@ using GabrovoUltraWebApp.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GabrovoUltraWebApp.Infrastructure.Migrations
 {
     [DbContext(typeof(GabrovoUltraContext))]
-    partial class GabrovoUltraContextModelSnapshot : ModelSnapshot
+    [Migration("20240318195209_FixRelations")]
+    partial class FixRelations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -206,6 +209,9 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasComment("Name of the runner");
 
+                    b.Property<int?>("RaceId")
+                        .HasColumnType("int");
+
                     b.Property<string>("StartingNumber")
                         .IsRequired()
                         .HasMaxLength(6)
@@ -217,13 +223,9 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasComment("Name of the team");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("RaceId");
 
                     b.ToTable("Runners");
                 });
@@ -440,13 +442,13 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
             modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.RaceRunner", b =>
                 {
                     b.HasOne("GabrovoUltraWebApp.Infrastructure.Data.Models.Race", "Race")
-                        .WithMany("RacesRunners")
+                        .WithMany()
                         .HasForeignKey("RaceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("GabrovoUltraWebApp.Infrastructure.Data.Models.Runner", "Runner")
-                        .WithMany("RacesRunners")
+                        .WithMany()
                         .HasForeignKey("RunnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -458,13 +460,9 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
 
             modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.Runner", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
+                    b.HasOne("GabrovoUltraWebApp.Infrastructure.Data.Models.Race", null)
+                        .WithMany("Participants")
+                        .HasForeignKey("RaceId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -522,12 +520,7 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                 {
                     b.Navigation("Distances");
 
-                    b.Navigation("RacesRunners");
-                });
-
-            modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.Runner", b =>
-                {
-                    b.Navigation("RacesRunners");
+                    b.Navigation("Participants");
                 });
 #pragma warning restore 612, 618
         }
