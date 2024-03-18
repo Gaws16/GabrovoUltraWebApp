@@ -23,7 +23,9 @@ export default function Navigation() {
   return (
     <nav
       className={`navbar ${
-        visible ? "navbar-expand-lg bg-body-tertiary" : "d-none"
+        visible
+          ? "navbar-expand-lg bg-body-tertiary d-sticky sticky-top"
+          : "d-none"
       } `}
     >
       <div className="container-fluid ">

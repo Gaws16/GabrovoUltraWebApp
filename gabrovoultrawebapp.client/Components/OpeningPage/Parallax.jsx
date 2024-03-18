@@ -1,24 +1,14 @@
-import { useState, useEffect } from "react";
+import { Button, NavLink } from "react-bootstrap";
 import "./styles.css";
 
 export default function Parallax() {
-  const [scrollPosition, setScrollPosition] = useState(0);
-
-  const handleScroll = () => setScrollPosition(window.scrollY);
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
   return (
     <>
       <section className="banner container">
         <h2>Gabrovo Ultra</h2>
-        <button>Get Started</button>
+        <NavLink href="gallery">
+          <button className="btn btn-primary">Wellcome!</button>
+        </NavLink>
       </section>
     </>
   );
