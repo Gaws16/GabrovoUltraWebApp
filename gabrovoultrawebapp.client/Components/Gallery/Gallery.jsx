@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Col, Container } from "react-bootstrap";
 import Spinner from "react-bootstrap/Spinner";
-//import "./styles.css";
+import LazyImage from "../LazyImage";
 
-export const ImageAccordion = () => {
+export const Gallery = () => {
   const [active, setActive] = useState(0);
   const [heroSections, setHeroSections] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -35,7 +35,7 @@ export const ImageAccordion = () => {
     );
   }
   return (
-    <section className="image-accordion">
+    <section className="image-accordion mt-5">
       {heroSections.map((item, index) => {
         const isActive = active === index ? "active" : "";
         return (
@@ -44,7 +44,7 @@ export const ImageAccordion = () => {
             className={`image-accordion-item ${isActive}`}
             onClick={() => handleToggle(index)}
           >
-            <img src={item.imageUrl} />
+            <LazyImage src={item.imageUrl} />
             <div className="content">
               <div>
                 <h2>{item.name}</h2>

@@ -1,0 +1,70 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
+
+main {
+  height: 75vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wrapper {
+  font-size: 20vmin;
+  height: 2em;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  mix-blend-mode: screen;
+
+  &.invert {
+    span {
+      color: black;
+
+      &::before {
+        -webkit-text-stroke: 0.1em var(--color);
+      }
+    }
+  }
+
+  span {
+    --color: #c8c3ef;
+    font-family: Impact, "Anton", Haettenschweiler, "Arial Narrow Bold",
+      sans-serif;
+    font-weight: 700;
+    font-style: italic;
+    display: block;
+    position: absolute;
+    color: var(--color);
+    letter-spacing: -0.005em;
+
+    &::before,
+    &::after {
+      content: attr(data-text);
+      display: block;
+      position: relative;
+      padding: 0 0.1em;
+      z-index: 1;
+    }
+
+    &::before {
+      position: absolute;
+      -webkit-text-stroke: 0.1em black;
+      z-index: 0;
+    }
+
+    &:first-child {
+      transform: translate(-0.255em, -0.25em);
+    }
+
+    &:last-child {
+      --color: #c8c3ef;
+      transform: translate(0.255em, 0.25em);
+    }
+  }
+}
+.shadow {
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
