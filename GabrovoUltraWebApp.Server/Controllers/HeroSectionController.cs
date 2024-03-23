@@ -21,8 +21,6 @@ namespace GabrovoUltraWebApp.Server.Controllers
 
         [HttpGet("All")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Produces("application/json")]
         public async Task<IActionResult> GetAllHeroSections()
         {
