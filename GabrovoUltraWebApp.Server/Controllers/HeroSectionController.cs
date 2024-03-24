@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
-using GabrovoUltraWebApp.Core.Services;
 using GabrovoUltraWebApp.Core.Services.Contracts;
 using GabrovoUltraWebApp.Infrastructure.Data.Models;
 using GabrovoUltraWebApp.Infrastructure.Models.DTO;
 using GabrovoUltraWebApp.Infrastructure.Models.ImportDTO;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace GabrovoUltraWebApp.Server.Controllers
 {

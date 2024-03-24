@@ -10,30 +10,49 @@ namespace GabrovoUltraWebApp.Core.Services
         private readonly IRepository repository;
         public RaceService(IRepository _repository)
         {
-           repository = _repository;
+            repository = _repository;
         }
 
-        public Task<Race?> CreateAsync(Race Race)
+        public async Task<Race?> CreateAsync(Race Race)
         {
-            throw new NotImplementedException();
+            await repository.AddAsync(Race);
+            await repository.SaveChangesAsync();
+            return Race;
         }
 
-        public Task<Race?> DeleteAsync(int id)
+        public async Task<Race?> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var deletedRace= await repository.DeleteAsync<Race>(id);
+            if (deletedRace == null)
+            {
+                return null;
+            }
+            await repository.SaveChangesAsync();
+            return deletedRace;
         }
 
         public async Task<List<Race>> GetAllAsync()
        => await repository.All<Race>().ToListAsync();
 
-        public Task<Race?> GetByIdAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<Race?> GetByIdAsync(int id)
+        => await repository.GetByIdAsync<Race>(id);
 
-        public Task<Race?> UpdateAsync(int id, Race Race)
+        public async Task<Race?> UpdateAsync(int id, Race race)
         {
-            throw new NotImplementedException();
+            var raceToUpdate = await repository.GetByIdAsync<Race>(id);
+            if (raceToUpdate == null)
+            {
+                return null;
+            }
+            
+            raceToUpdate.Location = race.Location;
+            raceToUpdate.Name = race.Name;
+            raceToUpdate.Date =race.Date;
+            repository.Update(raceToUpdate); 
+            await repository.SaveChangesAsync();
+            return raceToUpdate;
         }
     }
+            
+
 }
