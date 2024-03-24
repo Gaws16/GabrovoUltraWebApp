@@ -4,6 +4,7 @@ function Title() {
     <main className={`${styles.shadow}`}>
       <div className={`${styles.wrapper} ${styles.invert} `}>
         <span data-text="Gabrovo"></span>
+
         <span data-text="Ultra"></span>
       </div>
     </main>

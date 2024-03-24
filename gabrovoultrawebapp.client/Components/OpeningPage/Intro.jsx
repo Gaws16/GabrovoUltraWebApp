@@ -21,7 +21,10 @@ export default function Parallax() {
       <section className="banner container">
         <CustomNav display={display} dynamicStyles={display ? `visible` : ""} />
         <Title />
-        <NavLink href="gallery">
+        <a href="#AboutUs" className="btn btn-primary">
+          Drasti
+        </a>
+        <NavLink href="AboutUs">
           {/* <button className="btn btn-primary">Wellcome!</button> */}
         </NavLink>
       </section>

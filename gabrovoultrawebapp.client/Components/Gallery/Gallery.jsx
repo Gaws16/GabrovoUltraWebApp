@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { Col, Container } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import Spinner from "react-bootstrap/Spinner";
-import LazyImage from "../LazyImage";
+import LazyImage from "./LazyImage";
 
 export const Gallery = () => {
   const [active, setActive] = useState(0);
