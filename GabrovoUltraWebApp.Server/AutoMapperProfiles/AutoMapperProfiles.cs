@@ -17,6 +17,10 @@ namespace GabrovoUltraWebApp.Infrastructure.AutoMapperProfiles
             CreateMap<Distance, DistanceDTO>().ReverseMap();
             CreateMap<Distance, CreateDistanceRequestDTO>().ReverseMap();
             CreateMap<Distance, UpdateDistanceRequestDTO>().ReverseMap();
+
+            CreateMap<HeroSection, HeroSectionDTO>().ReverseMap();
+            CreateMap<HeroSection, CreateHeroSectionRequestDTO>().ReverseMap();
+            CreateMap<HeroSection, UpdateHeroSectionRequestDTO>().ReverseMap();
         }
     }
 }

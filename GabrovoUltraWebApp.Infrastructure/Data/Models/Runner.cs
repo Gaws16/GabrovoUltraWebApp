@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using GabrovoUltraWebApp.Infrastructure.Data.Enums;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using static GabrovoUltraWebApp.Infrastructure.Common.DataValidationConstants.Runner;
@@ -18,8 +19,18 @@ namespace GabrovoUltraWebApp.Infrastructure.Data.Models
 
         [Required]
         [MaxLength(NameMaxLength)]
-        [Comment("Name of the runner")]
-        public string Name { get; set; } = null!;
+        [Comment("FirstName of the runner")]
+        public string FirstName { get; set; } = null!;
+        [Required]
+        [MaxLength(NameMaxLength)]
+        [Comment("LastName of the runner")]
+        public string LastName { get; set; } = null!;
+
+        [Required]
+        public int Age { get; set; }
+
+        [Required]
+        public Gender Gender { get; set; }
 
         [MaxLength(TeamMaxLength)]
         [Comment("Name of the team")]

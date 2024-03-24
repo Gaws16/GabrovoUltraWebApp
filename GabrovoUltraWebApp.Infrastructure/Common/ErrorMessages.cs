@@ -11,6 +11,9 @@ namespace GabrovoUltraWebApp.Infrastructure.Common
         public const string LengthErrorMessage = "{0} must be between {2} and {1} characters long!";
 
         public const string StartTimeErrorMessage = "Start time must be in format HH:MM and between 00:00 and 23:59!";
-       
+
+        public const string InvalidImageUrlErrorMessage = "Invalid image URL format!";
+
+
     }
 }

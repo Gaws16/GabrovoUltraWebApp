@@ -8,12 +8,12 @@ namespace GabrovoUltraWebApp.Core.Services
 {
     public class DistanceService : IDistanceService
     {
-        private readonly GabrovoUltraContext   context;
+        
         private readonly IRepository repository;
 
         public DistanceService(GabrovoUltraContext _context , IRepository _repository)
         {
-            context = _context;
+            
             repository = _repository;
         }
 
@@ -37,15 +37,14 @@ namespace GabrovoUltraWebApp.Core.Services
         }
 
         public async Task<List<Distance>> GetAllAsync()
-        => await repository.AllReadonly<Distance>().ToListAsync();
+        => await repository.All<Distance>().ToListAsync();
 
         public async Task<Distance?> GetByIdAsync(int id)
-        => await context.Distances
-            .FirstOrDefaultAsync(d=>d.Id==id);
+        => await repository.GetByIdAsync<Distance>(id);
 
         public async Task<Distance?> UpdateAsync(int id, Distance distance)
         {
-            var distanceToUpdate = await context.Distances.FirstOrDefaultAsync(d=>d.Id == id);
+            var distanceToUpdate = await repository.GetByIdAsync<Distance>(id);
             if (distanceToUpdate == null)
             {
                 return null;
@@ -54,7 +53,7 @@ namespace GabrovoUltraWebApp.Core.Services
             distanceToUpdate.Description = distance.Description;
             distanceToUpdate.Length = distance.Length;
             distanceToUpdate.StartTime = distance.StartTime;
-            await context.SaveChangesAsync();
+            await repository.SaveChangesAsync();
             return distanceToUpdate;
         }
     }

@@ -20,6 +20,8 @@
             public const int NameMinLength = 5;
             public const int DescriptionMaxLength = 250;
             public const int DescriptionMinLength = 5;
+
+            public const string ValidateImageUrlRegex= @"^\/[a-zA-Z0-9]+(?:\.jpg|\.png|\.webp|\.gif)$";
         }
 
         public static class Distance
