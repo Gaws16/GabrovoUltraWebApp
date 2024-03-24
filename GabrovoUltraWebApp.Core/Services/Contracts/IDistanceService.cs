@@ -14,7 +14,7 @@ namespace GabrovoUltraWebApp.Core.Services.Contracts
 
         Task<Distance?> GetByIdAsync(int id);
 
-        Task<Distance> CreateAsync(Distance distance);
+        Task<Distance?> CreateAsync(Distance distance);
 
         Task<Distance?> UpdateAsync(int id, Distance distance);
 

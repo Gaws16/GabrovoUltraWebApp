@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using GabrovoUltraWebApp.Infrastructure.AutoMapperProfiles;
+using GabrovoUltraWebApp.Infrastructure.Data.Common;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -17,8 +18,9 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddTransient<IAuthService, AuthService>();
             services.AddScoped<IHeroSectionService, HeroSectionService>();
+            services.AddScoped<IRepository,  Repository>();
             //services.AddScoped<IRunnerService, RunnerService>();
-            //services.AddScoped<IRaceService, RaceService>();
+            services.AddScoped<IRaceService, RaceService>();
             services.AddScoped<IDistanceService, DistanceService>();
             services.AddAutoMapper(typeof(AutoMapperProfiles));
             services.AddSwaggerGen();

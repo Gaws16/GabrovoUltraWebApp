@@ -1,47 +1,43 @@
 ﻿using GabrovoUltraWebApp.Core.Services.Contracts;
 using GabrovoUltraWebApp.Infrastructure.Data;
+using GabrovoUltraWebApp.Infrastructure.Data.Common;
 using GabrovoUltraWebApp.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GabrovoUltraWebApp.Core.Services
 {
     public class DistanceService : IDistanceService
     {
         private readonly GabrovoUltraContext   context;
+        private readonly IRepository repository;
 
-        public DistanceService(GabrovoUltraContext _context) 
+        public DistanceService(GabrovoUltraContext _context , IRepository _repository)
         {
             context = _context;
+            repository = _repository;
         }
 
-        public async Task<Distance> CreateAsync(Distance distance)
+        public async Task<Distance?> CreateAsync(Distance distance)
         {
-            await context.Distances.AddAsync(distance);
-            await context.SaveChangesAsync();
+            await repository.AddAsync<Distance>(distance);
+            await repository.SaveChangesAsync();
             return distance;
         }
 
         public async Task<Distance?> DeleteAsync(int id)
         {
-           var expectedDistance = await context.Distances.FirstOrDefaultAsync(d=>d.Id == id);
+           var expectedDistance = await repository.DeleteAsync<Distance>(id);
             if (expectedDistance == null)
             {
                 return null;
             }
-            context.Distances.Remove(expectedDistance);
-            await context.SaveChangesAsync();
+            
+            await repository.SaveChangesAsync();
             return expectedDistance;
         }
 
         public async Task<List<Distance>> GetAllAsync()
-        => await context.Distances
-            .AsNoTracking()
-            .ToListAsync();
+        => await repository.AllReadonly<Distance>().ToListAsync();
 
         public async Task<Distance?> GetByIdAsync(int id)
         => await context.Distances

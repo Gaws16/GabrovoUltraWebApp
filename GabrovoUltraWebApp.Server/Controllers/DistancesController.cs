@@ -5,6 +5,7 @@ using AutoMapper;
 using GabrovoUltraWebApp.Infrastructure.Models.DTO;
 using GabrovoUltraWebApp.Infrastructure.Data.Models;
 using GabrovoUltraWebApp.Infrastructure.Models.ImportDTO;
+using GabrovoUltraWebApp.Infrastructure.Data.Common;
 namespace GabrovoUltraWebApp.Server.Controllers
 {
     [Route("api/[controller]")]
@@ -53,6 +54,7 @@ namespace GabrovoUltraWebApp.Server.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Produces("application/json")]
         public async Task<IActionResult> Create([FromBody] CreateDistanceRequestDTO distanceDTO)
         {
@@ -64,6 +66,10 @@ namespace GabrovoUltraWebApp.Server.Controllers
             var distance = mapper.Map<Distance>(distanceDTO);
             //Send the data to the service
            var createdDistance = await distanceService.CreateAsync(distance);
+            if (createdDistance == null)
+            {
+                return NotFound();
+            }
             //Map the data to DTO and send to client
             var distanceDTOToReturn = mapper.Map<DistanceDTO>(distance);
             return CreatedAtAction(nameof(GetById), new { id = createdDistance.Id }, distanceDTOToReturn);
