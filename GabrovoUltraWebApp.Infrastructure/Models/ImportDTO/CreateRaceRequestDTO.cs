@@ -5,18 +5,22 @@ namespace GabrovoUltraWebApp.Infrastructure.Models.ImportDTO
 {
     public class CreateRaceRequestDTO
     {
-        public int Id { get; set; }
 
         [Required]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength,
             ErrorMessage = LengthErrorMessage)]
         public string Name { get; set; } = null!;
         [Required]
+        [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength,
+                       ErrorMessage = LengthErrorMessage)]
+        public string Description { get; set; } = null!;
+        [Required]
         [StringLength(LocationMaxLength, MinimumLength = LocationMinLength,
             ErrorMessage = LengthErrorMessage)]
         public string Location { get; set; } = null!;
 
         //TODO validate date
-        public DateTime Date { get; set; }
+        [Required]
+        public string Date { get; set; } = null!;
     }
 }

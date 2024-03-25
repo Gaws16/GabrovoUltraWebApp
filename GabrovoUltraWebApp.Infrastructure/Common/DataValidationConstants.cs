@@ -12,6 +12,8 @@
 
             public const int LocationMaxLength = 100;
             public const int LocationMinLength = 5;
+
+            public const string DateTimeFormat = "dd/MM/yyyy";
         }
 
         public static class HeroSection

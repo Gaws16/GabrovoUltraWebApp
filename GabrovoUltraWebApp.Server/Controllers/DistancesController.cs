@@ -6,6 +6,7 @@ using GabrovoUltraWebApp.Infrastructure.Models.DTO;
 using GabrovoUltraWebApp.Infrastructure.Data.Models;
 using GabrovoUltraWebApp.Infrastructure.Models.ImportDTO;
 using GabrovoUltraWebApp.Infrastructure.Data.Common;
+using GabrovoUltraWebApp.Server.CustomActionFilters;
 namespace GabrovoUltraWebApp.Server.Controllers
 {
     [Route("api/[controller]")]
@@ -52,6 +53,7 @@ namespace GabrovoUltraWebApp.Server.Controllers
         // POST: api/Distances
         //Create a new distance
         [HttpPost]
+        [ValidateModelState]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -78,6 +80,7 @@ namespace GabrovoUltraWebApp.Server.Controllers
 
         [HttpPut]
         [Route("{id:int}")]
+        [ValidateModelState]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

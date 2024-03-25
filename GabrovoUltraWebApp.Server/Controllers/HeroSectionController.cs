@@ -3,6 +3,7 @@ using GabrovoUltraWebApp.Core.Services.Contracts;
 using GabrovoUltraWebApp.Infrastructure.Data.Models;
 using GabrovoUltraWebApp.Infrastructure.Models.DTO;
 using GabrovoUltraWebApp.Infrastructure.Models.ImportDTO;
+using GabrovoUltraWebApp.Server.CustomActionFilters;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GabrovoUltraWebApp.Server.Controllers
@@ -57,6 +58,7 @@ namespace GabrovoUltraWebApp.Server.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ValidateModelState]
         public async Task<IActionResult> CreateHeroSection([FromBody] CreateHeroSectionRequestDTO heroSectionDTO)
         {
             var heroSection = mapper.Map<HeroSection>(heroSectionDTO);
@@ -72,6 +74,7 @@ namespace GabrovoUltraWebApp.Server.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ValidateModelState]
         public async Task<IActionResult> UpdateHeroSection([FromRoute] int id, [FromBody] UpdateHeroSectionRequestDTO heroSectionDTO)
         {
             var heroSection = mapper.Map<HeroSection>(heroSectionDTO);

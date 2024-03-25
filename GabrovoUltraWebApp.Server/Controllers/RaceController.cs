@@ -1,5 +1,8 @@
-﻿using GabrovoUltraWebApp.Core.Services.Contracts;
+﻿using AutoMapper;
+using GabrovoUltraWebApp.Core.Services.Contracts;
+using GabrovoUltraWebApp.Infrastructure.Data.Models;
 using GabrovoUltraWebApp.Infrastructure.Models.ImportDTO;
+using GabrovoUltraWebApp.Server.CustomActionFilters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,9 +13,11 @@ namespace GabrovoUltraWebApp.Server.Controllers
     public class RaceController : ControllerBase
     {
         private readonly IRaceService raceService;
-        public RaceController(IRaceService _raceService)
+        private readonly IMapper mapper;
+        public RaceController(IRaceService _raceService, IMapper _mapper)
         {
             raceService = _raceService;
+            mapper = _mapper;
         }
         // GET: api/Race
         // Get all races
@@ -32,11 +37,18 @@ namespace GabrovoUltraWebApp.Server.Controllers
 
         //POST: api/Race/
         //Create a new race
-        //[HttpPost]
-        //public async Task<IActionResult> Create([FromBody] CreateRaceRequestDTO createRaceRequestDTO)
-        //{
+        [HttpPost]
+        [ValidateDate]
+        [ValidateModelState]
+        public async Task<IActionResult> Create([FromBody] CreateRaceRequestDTO createRaceRequestDTO)
+        {
+           
+           var raceToCreate= mapper.Map<Race>(createRaceRequestDTO);
 
-        //}
+            await raceService.CreateAsync(raceToCreate);
+
+            return CreatedAtAction(nameof(GetById), new { id = raceToCreate.Id }, raceToCreate);
+        }
 
     }
 }
