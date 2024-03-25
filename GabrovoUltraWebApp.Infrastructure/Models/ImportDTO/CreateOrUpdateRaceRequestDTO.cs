@@ -3,7 +3,7 @@ using static GabrovoUltraWebApp.Infrastructure.Common.DataValidationConstants.Ra
 using static GabrovoUltraWebApp.Infrastructure.Common.ErrorMessages;
 namespace GabrovoUltraWebApp.Infrastructure.Models.ImportDTO
 {
-    public class CreateRaceRequestDTO
+    public class CreateOrUpdateRaceRequestDTO
     {
 
         [Required]
