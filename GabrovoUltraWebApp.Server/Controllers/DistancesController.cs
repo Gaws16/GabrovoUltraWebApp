@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
-using GabrovoUltraWebApp.Infrastructure.Models.DTO;
+using GabrovoUltraWebApp.Infrastructure.Models.ResponseDTO;
 using GabrovoUltraWebApp.Infrastructure.Data.Models;
-using GabrovoUltraWebApp.Infrastructure.Models.ImportDTO;
+using GabrovoUltraWebApp.Infrastructure.Models.RequestDTO;
 using GabrovoUltraWebApp.Infrastructure.Data.Common;
 using GabrovoUltraWebApp.Server.CustomActionFilters;
 namespace GabrovoUltraWebApp.Server.Controllers

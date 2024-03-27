@@ -1,13 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using static GabrovoUltraWebApp.Infrastructure.Common.DataValidationConstants.HeroSection;
 using static GabrovoUltraWebApp.Infrastructure.Common.ErrorMessages;
-namespace GabrovoUltraWebApp.Infrastructure.Models.ImportDTO
+
+namespace GabrovoUltraWebApp.Infrastructure.Models.RequestDTO
 {
-    public class UpdateHeroSectionRequestDTO
+    public class CreateHeroSectionRequestDTO
     {
         [Required]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength,
-           ErrorMessage = LengthErrorMessage)]
+            ErrorMessage = LengthErrorMessage)]
         public string Name { get; set; } = null!;
         [Required]
         [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength,

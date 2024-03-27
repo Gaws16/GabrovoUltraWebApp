@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using GabrovoUltraWebApp.Core.Services.Contracts;
 using GabrovoUltraWebApp.Infrastructure.Data.Models;
-using GabrovoUltraWebApp.Infrastructure.Models.DTO;
-using GabrovoUltraWebApp.Infrastructure.Models.ImportDTO;
+using GabrovoUltraWebApp.Infrastructure.Models.ResponseDTO;
+using GabrovoUltraWebApp.Infrastructure.Models.RequestDTO;
 using GabrovoUltraWebApp.Server.CustomActionFilters;
 using Microsoft.AspNetCore.Mvc;
 

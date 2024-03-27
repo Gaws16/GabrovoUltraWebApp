@@ -21,6 +21,7 @@ namespace GabrovoUltraWebApp.Infrastructure.Data
             builder.Entity<RaceRunner>
                 (c => c.HasKey(pk => new { pk.RaceId, pk.RunnerId }));
             builder.ApplyConfiguration(new HeroSectionConfiguration());
+            builder.ApplyConfiguration(new RolesConfiguration());
             base.OnModelCreating(builder);
         }
         public DbSet<HeroSection> HeroSections { get; set; }

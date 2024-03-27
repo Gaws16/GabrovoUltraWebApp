@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using GabrovoUltraWebApp.Infrastructure.Data.Models;
-using GabrovoUltraWebApp.Infrastructure.Models.DTO;
-using GabrovoUltraWebApp.Infrastructure.Models.ExportDTO;
-using GabrovoUltraWebApp.Infrastructure.Models.ImportDTO;
+using GabrovoUltraWebApp.Infrastructure.Models.ResponseDTO;
+using GabrovoUltraWebApp.Infrastructure.Models.ResponseDTO;
+using GabrovoUltraWebApp.Infrastructure.Models.RequestDTO;
 using System.Globalization;
 using static GabrovoUltraWebApp.Infrastructure.Common.DataValidationConstants.Race;
 

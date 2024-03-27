@@ -2,7 +2,7 @@
 using static GabrovoUltraWebApp.Infrastructure.Common.DataValidationConstants.Distance;
 using static GabrovoUltraWebApp.Infrastructure.Common.ErrorMessages;
 
-namespace GabrovoUltraWebApp.Infrastructure.Models.ImportDTO
+namespace GabrovoUltraWebApp.Infrastructure.Models.RequestDTO
 {
     public class UpdateDistanceRequestDTO
     {

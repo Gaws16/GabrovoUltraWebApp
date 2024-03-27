@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using GabrovoUltraWebApp.Infrastructure.AutoMapperProfiles;
 using GabrovoUltraWebApp.Infrastructure.Data.Common;
+using Microsoft.OpenApi.Models;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -23,7 +24,40 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IRaceService, RaceService>();
             services.AddScoped<IDistanceService, DistanceService>();
             services.AddAutoMapper(typeof(AutoMapperProfiles));
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Gabrovo Ultra API",
+                    Version = "v1"
+                });
+                options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
+                {
+                    Name = JwtBearerDefaults.AuthenticationScheme,
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = JwtBearerDefaults.AuthenticationScheme,
+                    BearerFormat = "JWT",
+                    Description = "Enter 'Bearer' [space] and then your token in the text input below. Example: 'Bearer 12345abcdef.....'"
+                });
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = JwtBearerDefaults.AuthenticationScheme
+                            },
+                            Scheme = "Oauth2",
+                            Name = JwtBearerDefaults.AuthenticationScheme,
+                            In = ParameterLocation.Header
+                        },
+                        new List<string>()
+                    }
+                });
+            });
             return services;
         }
 

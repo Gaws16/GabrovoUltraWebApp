@@ -1,4 +1,4 @@
-﻿namespace GabrovoUltraWebApp.Infrastructure.Models.DTO
+﻿namespace GabrovoUltraWebApp.Infrastructure.Models.ResponseDTO
 {
     public class HeroSectionDTO
     {

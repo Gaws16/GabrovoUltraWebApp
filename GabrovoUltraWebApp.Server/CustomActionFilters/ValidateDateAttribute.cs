@@ -1,4 +1,4 @@
-﻿using GabrovoUltraWebApp.Infrastructure.Models.ImportDTO;
+﻿using GabrovoUltraWebApp.Infrastructure.Models.RequestDTO;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Globalization;
 using static GabrovoUltraWebApp.Infrastructure.Common.DataValidationConstants.Race;
