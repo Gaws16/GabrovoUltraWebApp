@@ -1,5 +1,5 @@
 ﻿using GabrovoUltraWebApp.Infrastructure.Data.Models;
-using GabrovoUltraWebApp.Infrastructure.Models.ImportDTO;
+using GabrovoUltraWebApp.Infrastructure.Models.RequestDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,5 +1,6 @@
 ﻿using GabrovoUltraWebApp.Core.Services.Contracts;
 using GabrovoUltraWebApp.Infrastructure.Models;
+using GabrovoUltraWebApp.Infrastructure.Models.RequestDTO;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -21,14 +22,20 @@ namespace GabrovoUltraWebApp.Core.Services
             this.config = config;
         }
 
-        public string GenerateTokenString(LoginRequestModel user)
+        public async Task<string> GenerateTokenString(LoginRequestDTO loginRequestDTO)
         {
+            var user = await userManager.FindByEmailAsync(loginRequestDTO.Username);
             IEnumerable<Claim> claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Email, user.Username),
-                new Claim(ClaimTypes.Role, "Admin")
-
+                new Claim(ClaimTypes.Email, user.UserName),
             };
+            var roles = await userManager.GetRolesAsync(user);
+            foreach (var role in roles)
+            {
+                claims.Append(new Claim(ClaimTypes.Role, role));
+            }
+                
+
             //Setting up encryption key
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.GetSection("Jwt:Key").Value));
                     SigningCredentials signingInCredential = new SigningCredentials(securityKey
@@ -36,7 +43,7 @@ namespace GabrovoUltraWebApp.Core.Services
                );
             var token = new JwtSecurityToken(
                 claims:claims,
-                expires:DateTime.Now.AddMinutes(60),
+                expires:DateTime.Now.AddMinutes(15),
                 issuer:config.GetSection("Jwt:Issuer").Value,
                 audience:config.GetSection("Jwt:Audience").Value,
                 signingCredentials:signingInCredential
@@ -47,7 +54,7 @@ namespace GabrovoUltraWebApp.Core.Services
             return tokenString;
         }
 
-        public async Task<bool> LoginUser(LoginRequestModel loginRequest)
+        public async Task<bool> LoginUser(LoginRequestDTO loginRequest)
         {
             var identityUser = await userManager.FindByEmailAsync(loginRequest.Username);
          if(identityUser is null)
@@ -58,14 +65,20 @@ namespace GabrovoUltraWebApp.Core.Services
             return result;
         }
 
-        public async Task<bool> RegisterUser(LoginRequestModel loginRequest)
+        public async Task<bool> RegisterUser(RegisterRequestDTO registerRequest)
         {
             var user = new IdentityUser
             {
-                UserName = loginRequest.Username,
-                Email = loginRequest.Username
+                UserName = registerRequest.Username,
+                Email = registerRequest.Username
             };
-            var result = await userManager.CreateAsync(user, loginRequest.Password);
+            var result = await userManager.CreateAsync(user, registerRequest.Password);
+
+            if (registerRequest.Roles != null && registerRequest.Roles.Any() && result.Succeeded)
+            {
+                result =  await userManager.AddToRolesAsync(user, registerRequest.Roles);
+            }
+               
 
             return result.Succeeded;
         }
