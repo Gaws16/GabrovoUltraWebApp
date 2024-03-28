@@ -26,13 +26,7 @@ namespace GabrovoUltraWebApp.Infrastructure.Data.Models
         [StringLength(LocationMaxLength)]
         [Comment("Location of the race")]
         public string Location { get; set; } = null!;
-        [Comment("Collection of all distances suported by the race")]
-        [Required]
-        public virtual ICollection<Distance> Distances { get; set; } = new HashSet<Distance>();
-        [Comment("Collection of runners from all distances")]
-        [Required]
-
-        public virtual ICollection<RaceRunner> RacesRunners { get; set; } = new HashSet<RaceRunner>();
+        
 
 
     }

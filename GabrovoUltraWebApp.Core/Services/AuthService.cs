@@ -83,5 +83,10 @@ namespace GabrovoUltraWebApp.Core.Services
             return result.Succeeded;
         }
 
+        public async Task<string?> GetUserIdAsync(string username)
+        {
+            var currentUser = await userManager.FindByEmailAsync(username);
+            return currentUser?.Id;
+        }
     }
 }

@@ -10,9 +10,8 @@ namespace GabrovoUltraWebApp.Infrastructure.Data.Models
         [Key]
         [Comment("PrimaryKey")]
         public int Id { get; set; }
-
-        [Required]
-        public string UserId { get; set; } = null!;
+        [Comment("ForeignKey to AspNetUsers table")]
+        public string? UserId { get; set; } 
 
         [Required]
         public virtual IdentityUser User { get; set; } = null!;
@@ -25,10 +24,14 @@ namespace GabrovoUltraWebApp.Infrastructure.Data.Models
         [MaxLength(NameMaxLength)]
         [Comment("LastName of the runner")]
         public string LastName { get; set; } = null!;
+        [Comment("Email of the runner/user")]
+        [Required]
+        public string Email { get; set; } = null!;
 
+        [Comment("Age of the runner")]
         [Required]
         public int Age { get; set; }
-
+        [Comment("Gender of the runner")]
         [Required]
         public Gender Gender { get; set; }
 
@@ -41,12 +44,6 @@ namespace GabrovoUltraWebApp.Infrastructure.Data.Models
         [Comment("Starting number of the runner")]
         public string StartingNumber { get; set; } = null!;
 
-        [Required]
-        [MaxLength(CategoryMaxLength)]
-        [Comment("Category of the runner")]
-        public string Category { get; set; } = null!;
-
-        [Required]
-        public virtual ICollection<RaceRunner> RacesRunners { get; set; } = new HashSet<RaceRunner>();
+       
     }
 }

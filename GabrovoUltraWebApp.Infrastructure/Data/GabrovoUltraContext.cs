@@ -2,8 +2,6 @@
 using GabrovoUltraWebApp.Infrastructure.Data.SeedDB;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace GabrovoUltraWebApp.Infrastructure.Data
 {
@@ -18,8 +16,7 @@ namespace GabrovoUltraWebApp.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<RaceRunner>
-                (c => c.HasKey(pk => new { pk.RaceId, pk.RunnerId }));
+            
             builder.ApplyConfiguration(new HeroSectionConfiguration());
             builder.ApplyConfiguration(new RolesConfiguration());
             base.OnModelCreating(builder);
@@ -31,6 +28,8 @@ namespace GabrovoUltraWebApp.Infrastructure.Data
         public DbSet<Runner> Runners { get; set; }
 
         public DbSet<Distance> Distances { get; set; }
+
+        public DbSet<Result> Results { get; set; }
 
 
 

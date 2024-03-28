@@ -29,11 +29,7 @@ namespace GabrovoUltraWebApp.Infrastructure.Data.Models
         [Comment("Length of the distance in kilometers")]
         public int Length { get; set; }
 
-        //[Required]
-        //[Comment("ForeignKey to Race table")]
-        //public int RaceId { get; set; }
-        //[ForeignKey(nameof(RaceId))]
-        //public virtual Race Race { get; set; } = null!;
+     
 
 
     }

@@ -20,7 +20,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddTransient<IAuthService, AuthService>();
             services.AddScoped<IHeroSectionService, HeroSectionService>();
             services.AddScoped<IRepository,  Repository>();
-            //services.AddScoped<IRunnerService, RunnerService>();
+            services.AddScoped<IRunnerService, RunnerService>();
             services.AddScoped<IRaceService, RaceService>();
             services.AddScoped<IDistanceService, DistanceService>();
             services.AddAutoMapper(typeof(AutoMapperProfiles));

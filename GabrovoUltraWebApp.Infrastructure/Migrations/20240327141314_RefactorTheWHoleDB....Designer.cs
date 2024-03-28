@@ -4,6 +4,7 @@ using GabrovoUltraWebApp.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GabrovoUltraWebApp.Infrastructure.Migrations
 {
     [DbContext(typeof(GabrovoUltraContext))]
-    partial class GabrovoUltraContextModelSnapshot : ModelSnapshot
+    [Migration("20240327141314_RefactorTheWHoleDB...")]
+    partial class RefactorTheWHoleDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -175,9 +178,6 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                     b.Property<int>("DistanceId")
                         .HasColumnType("int");
 
-                    b.Property<int>("RaceId")
-                        .HasColumnType("int");
-
                     b.Property<int>("RunnerId")
                         .HasColumnType("int");
 
@@ -187,8 +187,6 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("DistanceId");
-
-                    b.HasIndex("RaceId");
 
                     b.HasIndex("RunnerId");
 
@@ -205,13 +203,7 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Age")
-                        .HasColumnType("int")
-                        .HasComment("Age of the runner");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasComment("Email of the runner/user");
+                        .HasColumnType("int");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -220,8 +212,7 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                         .HasComment("FirstName of the runner");
 
                     b.Property<int>("Gender")
-                        .HasColumnType("int")
-                        .HasComment("Gender of the runner");
+                        .HasColumnType("int");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -242,8 +233,7 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)")
-                        .HasComment("ForeignKey to AspNetUsers table");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -474,12 +464,6 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GabrovoUltraWebApp.Infrastructure.Data.Models.Race", "Race")
-                        .WithMany()
-                        .HasForeignKey("RaceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("GabrovoUltraWebApp.Infrastructure.Data.Models.Runner", "Runner")
                         .WithMany()
                         .HasForeignKey("RunnerId")
@@ -487,8 +471,6 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Distance");
-
-                    b.Navigation("Race");
 
                     b.Navigation("Runner");
                 });

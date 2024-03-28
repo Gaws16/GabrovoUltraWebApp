@@ -28,6 +28,7 @@ namespace GabrovoUltraWebApp.Server.Controllers
         {
             if (await authService.RegisterUser(registerRequestDTO))
             {
+                //TODO inject runner controller and create runner on register
                 return Ok("Succesfully registered!");
             }
             return BadRequest("Something went wrong!");
