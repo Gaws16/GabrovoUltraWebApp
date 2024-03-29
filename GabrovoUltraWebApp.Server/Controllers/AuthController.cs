@@ -1,12 +1,10 @@
-﻿using GabrovoUltraWebApp.Infrastructure.Models;
+﻿using AutoMapper;
 using GabrovoUltraWebApp.Core.Services.Contracts;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+using GabrovoUltraWebApp.Infrastructure.Data.Models;
 using GabrovoUltraWebApp.Infrastructure.Models.RequestDTO;
-using GabrovoUltraWebApp.Server.CustomActionFilters;
 using GabrovoUltraWebApp.Infrastructure.Models.ResposneDTO;
+using GabrovoUltraWebApp.Server.CustomActionFilters;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GabrovoUltraWebApp.Server.Controllers
 {
@@ -15,10 +13,14 @@ namespace GabrovoUltraWebApp.Server.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthService authService;
+        private readonly IRunnerService runnerService;
+        private readonly IMapper mapper;
 
-        public AuthController(IAuthService authService)
+        public AuthController(IAuthService _authService, IRunnerService _runnerService, IMapper _mapper)
         {
-            this.authService = authService;
+            authService = _authService;
+            runnerService = _runnerService;
+            mapper = _mapper;
         }
         [HttpPost("Register")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -29,6 +31,8 @@ namespace GabrovoUltraWebApp.Server.Controllers
             if (await authService.RegisterUser(registerRequestDTO))
             {
                 //TODO inject runner controller and create runner on register
+                var runner = mapper.Map<Runner>(registerRequestDTO);
+                await runnerService.CreateAsync(runner);
                 return Ok("Succesfully registered!");
             }
             return BadRequest("Something went wrong!");

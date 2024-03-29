@@ -33,6 +33,8 @@ namespace GabrovoUltraWebApp.Infrastructure.AutoMapperProfiles
                 .ReverseMap();
             CreateMap<CreateRunnerRequestDTO,Runner>()
                 .ReverseMap();
+
+            CreateMap<RegisterRequestDTO, Runner>().ReverseMap();
                 
         }
     }
