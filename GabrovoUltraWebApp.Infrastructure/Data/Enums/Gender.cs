@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace GabrovoUltraWebApp.Infrastructure.Data.Enums
 {
+    //TODO: make case insensitive validate enum attribute
     public enum Gender
     {
         Female = 0,

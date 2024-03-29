@@ -4,14 +4,8 @@ using static GabrovoUltraWebApp.Infrastructure.Common.DataValidationConstants.Ru
 using static GabrovoUltraWebApp.Infrastructure.Common.ErrorMessages;
 namespace GabrovoUltraWebApp.Infrastructure.Models.RequestDTO
 {
-    public class RegisterRequestDTO
+    public class UpdateRunnerRequestDTO
     {
-        [Required]
-        [DataType(DataType.EmailAddress)]
-        public string Username { get; set; } = null!;
-        [Required]
-        [DataType(DataType.Password)]
-        public string Password { get; set; } = null!;
 
         [Required]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength,
@@ -36,6 +30,6 @@ namespace GabrovoUltraWebApp.Infrastructure.Models.RequestDTO
         [StringLength(StartingNumberMaxLength, MinimumLength = StartingNumberMinLength,
             ErrorMessage = LengthErrorMessage)]
         public string StartingNumber { get; set; } = null!;
-        public string[] Roles { get; set; }
+
     }
 }

@@ -24,6 +24,7 @@ namespace GabrovoUltraWebApp.Infrastructure.Models.RequestDTO
         [Range(AgeMinValue,AgeMaxValue)]
         public int Age { get; set; }
         [Required]
+        [EnumDataType(typeof(Gender))]
         public string Gender { get; set; } = null!;
 
         [StringLength(TeamMaxLength, MinimumLength = TeamMinLength,

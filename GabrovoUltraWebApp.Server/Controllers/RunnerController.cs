@@ -76,20 +76,19 @@ namespace GabrovoUltraWebApp.Server.Controllers
         [Route("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ValidateDate]
         [ValidateModelState]
-        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] CreateRunnerRequestDTO raceRequestDTO)
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateRunnerRequestDTO raceRequestDTO)
         {
-            var raceToUpdate = mapper.Map<Runner>(raceRequestDTO);
+            var runnerToUpdate = mapper.Map<Runner>(raceRequestDTO);
 
-            var updatedRace = await runnerService.UpdateAsync(id, raceToUpdate);
+            var updatedRunner = await runnerService.UpdateAsync(id, runnerToUpdate);
 
-            if (updatedRace == null)
+            if (updatedRunner == null)
             {
                 return BadRequest(ModelState);
             }
 
-            return Ok(mapper.Map<RaceDTO>(updatedRace));
+            return Ok(mapper.Map<RunnerDTO>(updatedRunner));
 
         }
         //DELETE: api/Race/id=5
@@ -100,12 +99,12 @@ namespace GabrovoUltraWebApp.Server.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
-            var deletedRace = await runnerService.DeleteAsync(id);
-            if (deletedRace == null)
+            var deletedRunner = await runnerService.DeleteAsync(id);
+            if (deletedRunner == null)
             {
                 return NotFound();
             }
-            return Ok(mapper.Map<RaceDTO>(deletedRace));
+            return Ok(mapper.Map<RunnerDTO>(deletedRunner));
         }
     }
 }
