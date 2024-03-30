@@ -19,6 +19,7 @@ namespace GabrovoUltraWebApp.Infrastructure.Data
             
             builder.ApplyConfiguration(new HeroSectionConfiguration());
             builder.ApplyConfiguration(new RolesConfiguration());
+           // builder.ApplyConfiguration(new RunnerConfiguration());
             base.OnModelCreating(builder);
         }
         public DbSet<HeroSection> HeroSections { get; set; }

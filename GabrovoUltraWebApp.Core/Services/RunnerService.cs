@@ -1,5 +1,6 @@
 ﻿using GabrovoUltraWebApp.Core.Services.Contracts;
 using GabrovoUltraWebApp.Infrastructure.Data.Common;
+using GabrovoUltraWebApp.Infrastructure.Data.Enums;
 using GabrovoUltraWebApp.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -62,7 +63,17 @@ namespace GabrovoUltraWebApp.Core.Services
                         runners = runners.Where(r => r.Age.ToString().Contains(filterQuery));
                         break;
                     case "gender":
-                        runners = runners.Where(r => r.Gender.ToString().ToLower().Contains(filterQuery));
+
+                        if (Enum.TryParse<Gender>(filterQuery, true, out Gender gender))
+                        {
+                            runners = runners.Where(r => r.Gender == gender);
+                        }
+                        else
+                        {
+                            //return empty collection if gencer is invalid
+                           runners = runners.Where(g=>false);
+                        }
+                       
                         break;
                 }
             }
@@ -75,13 +86,13 @@ namespace GabrovoUltraWebApp.Core.Services
                         runners = isAscending == true ? runners.OrderBy(r => r.FirstName) : runners.OrderByDescending(r => r.FirstName);
                         break;
                     case "lastname":
-                        runners = isAscending == true ? runners.OrderBy(r=> r.LastName) : runners.OrderByDescending(r=> r.LastName);
+                        runners = isAscending == true ? runners.OrderBy(r => r.LastName) : runners.OrderByDescending(r => r.LastName);
                         break;
                     case "age":
-                        runners = isAscending == true ? runners.OrderBy(r=> r.Age) : runners.OrderByDescending(r=> r.Age);
+                        runners = isAscending == true ? runners.OrderBy(r => r.Age) : runners.OrderByDescending(r => r.Age);
                         break;
                     case "startingnumber":
-                        runners = isAscending == true ? runners.OrderBy(r=> r.StartingNumber) : runners.OrderByDescending(r=> r.StartingNumber);
+                        runners = isAscending == true ? runners.OrderBy(r => r.StartingNumber) : runners.OrderByDescending(r => r.StartingNumber);
                         break;
                 }
             }

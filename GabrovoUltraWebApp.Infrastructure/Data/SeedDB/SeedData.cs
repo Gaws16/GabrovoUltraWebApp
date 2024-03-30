@@ -1,18 +1,17 @@
 ﻿using GabrovoUltraWebApp.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-
 namespace GabrovoUltraWebApp.Infrastructure.Data.SeedDB
 {
     internal class SeedData
     {
         public ICollection<HeroSection> HeroSection { get; set; } = new HashSet<HeroSection>();
         public ICollection<IdentityRole> Roles { get; set; } = new List<IdentityRole>();
-
+        public ICollection<Runner> Runners { get; set; } = new List<Runner>();
         public SeedData()
         {
             SeedHeroSection();
             SeedRoles();
+            SeedRunners();
         }
         private void SeedHeroSection()
         {
@@ -82,6 +81,118 @@ namespace GabrovoUltraWebApp.Infrastructure.Data.SeedDB
                     NormalizedName = "Writer".ToUpper()
                 }
             );
+        }
+        
+        private void SeedRunners()
+        {
+            Runners.Add(new Runner
+            {
+                Id = 1,
+                UserId = null,
+                FirstName = "Ivan",
+                LastName = "Ivanov",
+                Email = "iva@gmail.com",
+                Age = 25,
+                Team = "Team Rocket",
+                StartingNumber = "0001"
+            });
+            Runners.Add(new Runner
+            {
+                Id = 2,
+                UserId = null,
+                FirstName = "Petar",
+                LastName = "Petrov",
+                Email = "petar@gmai.com",
+                Age = 30,
+                Team = "Team Rocket",
+                StartingNumber = "0002"
+            });
+            Runners.Add(new Runner
+            {
+                Id = 3,
+                UserId = null,
+                FirstName = "Georgi",
+                LastName = "Georgiev",
+                Email = "georgi@gmail.com",
+                Age = 35,
+                Team = "Svinski Trast",
+            });
+            Runners.Add(new Runner
+            {
+                Id = 4,
+                UserId = null,
+                FirstName = "Stoyan",
+                LastName = "Stoyanov",
+                Email = "stoyan@gmail.com",
+                Age = 40,
+                Team = "Svinski Trast",
+                StartingNumber = "0003"
+            });
+            Runners.Add(new Runner
+            {
+                Id = 5,
+                UserId = null,
+                FirstName = "Ivaylo",
+                LastName = "Ivaylov",
+                Email = "ivaylo@gmail.com",
+                Age = 45,
+                Team = "Svinski Trast",
+                StartingNumber = "0004"
+            });
+            Runners.Add(new Runner
+            {
+                Id = 6,
+                UserId = null,
+                FirstName = "Angel",
+                LastName = "Ivanov",
+                Email = "angel@gmailcom",
+                Age = 50,
+                Team = "Buhal v Goratat",
+                StartingNumber = "0005"
+            });
+            Runners.Add(new Runner
+            {
+                Id = 7,
+                UserId = null,
+                FirstName = "Boris",
+                LastName = "Angelov",
+                Email = "boris@gmail.com",
+                Age = 55,
+                Team = "Team Rocket",
+                StartingNumber = "0006"
+            });
+            Runners.Add(new Runner
+            {
+                Id = 8,
+                UserId = null,
+                FirstName = "Vasil",
+                LastName = "Vasilev",
+                Email = "vasko@yahoo.com",
+                Age = 60,
+                Team = "Besni Tigri",
+            });
+            Runners.Add(new Runner
+            {
+                Id = 9,
+                UserId = null,
+                FirstName = "Krasimir",
+                LastName = "Krasimirov",
+                Email = "kras@yahoo.com",
+                Age = 65,
+                Team = "Besni Tigri",
+            });
+            Runners.Add(new Runner
+            {
+                Id = 10,
+                UserId = null,
+                FirstName = "Hristo",
+                LastName = "Krasimirov",
+                Email = "icho@abv.bg",
+                Age = 70,
+                Team = "SoftUni",
+            });
+           
+
         }
     }
 }
