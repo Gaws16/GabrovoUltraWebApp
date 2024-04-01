@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GabrovoUltraWebApp.Infrastructure.Migrations
 {
     [DbContext(typeof(GabrovoUltraContext))]
-    [Migration("20240318201851_UserRunnerRelation")]
-    partial class UserRunnerRelation
+    [Migration("20240401144914_Add nav property to registration, fix cascades")]
+    partial class Addnavpropertytoregistrationfixcascades
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,41 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("MaxAge")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MinAge")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("RaceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RegistrationId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RaceId");
+
+                    b.HasIndex("RegistrationId")
+                        .IsUnique();
+
+                    b.ToTable("Categories");
+                });
 
             modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.Distance", b =>
                 {
@@ -40,8 +75,12 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                         .HasColumnType("nvarchar(250)")
                         .HasComment("Description of the distance");
 
-                    b.Property<int>("Length")
-                        .HasColumnType("int")
+                    b.Property<double>("ElevationGain")
+                        .HasColumnType("float")
+                        .HasComment("Elevation gain of the distance in meters");
+
+                    b.Property<double>("Length")
+                        .HasColumnType("float")
                         .HasComment("Length of the distance in kilometers");
 
                     b.Property<string>("Name")
@@ -51,8 +90,10 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                         .HasComment("Name of the distance");
 
                     b.Property<int>("RaceId")
-                        .HasColumnType("int")
-                        .HasComment("ForeignKey to Race table");
+                        .HasColumnType("int");
+
+                    b.Property<int>("RegistrationId")
+                        .HasColumnType("int");
 
                     b.Property<string>("StartTime")
                         .IsRequired()
@@ -63,6 +104,9 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("RaceId");
+
+                    b.HasIndex("RegistrationId")
+                        .IsUnique();
 
                     b.ToTable("Distances");
                 });
@@ -173,62 +217,73 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                     b.ToTable("Races");
                 });
 
-            modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.RaceRunner", b =>
+            modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.Registration", b =>
                 {
+                    b.Property<int>("RegistrationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasComment("Registration Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RegistrationId"));
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DistanceId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsPaymentConfirmed")
+                        .HasColumnType("bit");
+
                     b.Property<int>("RaceId")
                         .HasColumnType("int");
 
-                    b.Property<int>("RunnerId")
+                    b.Property<DateTime>("RegistrationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ResultId")
                         .HasColumnType("int");
-
-                    b.HasKey("RaceId", "RunnerId");
-
-                    b.HasIndex("RunnerId");
-
-                    b.ToTable("RaceRunner");
-                });
-
-            modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.Runner", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasComment("PrimaryKey");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasComment("Category of the runner");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasComment("Name of the runner");
-
-                    b.Property<string>("StartingNumber")
-                        .IsRequired()
-                        .HasMaxLength(6)
-                        .HasColumnType("nvarchar(6)")
-                        .HasComment("Starting number of the runner");
-
-                    b.Property<string>("Team")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasComment("Name of the team");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(450)")
+                        .HasComment("Foreign key to ASPUsers");
 
-                    b.HasKey("Id");
+                    b.HasKey("RegistrationId");
+
+                    b.HasIndex("RaceId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Runners");
+                    b.ToTable("Registrations");
+                });
+
+            modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.Result", b =>
+                {
+                    b.Property<int>("ResultId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ResultId"));
+
+                    b.Property<int>("CategoryRank")
+                        .HasColumnType("int");
+
+                    b.Property<TimeSpan?>("FinishTme")
+                        .HasColumnType("time");
+
+                    b.Property<int>("OverallRank")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RegistrationId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ResultId");
+
+                    b.HasIndex("RegistrationId")
+                        .IsUnique();
+
+                    b.ToTable("Results");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -256,6 +311,22 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "80908387-bbd3-404f-a019-90f77d87adf8",
+                            ConcurrencyStamp = "80908387-bbd3-404f-a019-90f77d87adf8",
+                            Name = "Reader",
+                            NormalizedName = "READER"
+                        },
+                        new
+                        {
+                            Id = "4be6dd46-69ab-4c08-a820-bcb4bb3d2922",
+                            ConcurrencyStamp = "4be6dd46-69ab-4c08-a820-bcb4bb3d2922",
+                            Name = "Writer",
+                            NormalizedName = "WRITER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -294,6 +365,11 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(21)
+                        .HasColumnType("nvarchar(21)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -346,6 +422,10 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -429,6 +509,63 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.ApplicationUser", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int")
+                        .HasComment("Age of the runner");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("FirstName of the runner");
+
+                    b.Property<int>("Gender")
+                        .HasColumnType("int")
+                        .HasComment("Gender of the runner");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("LastName of the runner");
+
+                    b.Property<string>("StartingNumber")
+                        .IsRequired()
+                        .HasMaxLength(6)
+                        .HasColumnType("nvarchar(6)")
+                        .HasComment("Starting number of the runner");
+
+                    b.Property<string>("Team")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("Name of the team");
+
+                    b.HasDiscriminator().HasValue("ApplicationUser");
+                });
+
+            modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.Category", b =>
+                {
+                    b.HasOne("GabrovoUltraWebApp.Infrastructure.Data.Models.Race", "Race")
+                        .WithMany()
+                        .HasForeignKey("RaceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GabrovoUltraWebApp.Infrastructure.Data.Models.Registration", "Registration")
+                        .WithOne("Category")
+                        .HasForeignKey("GabrovoUltraWebApp.Infrastructure.Data.Models.Category", "RegistrationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Race");
+
+                    b.Navigation("Registration");
+                });
+
             modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.Distance", b =>
                 {
                     b.HasOne("GabrovoUltraWebApp.Infrastructure.Data.Models.Race", "Race")
@@ -437,37 +574,45 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("GabrovoUltraWebApp.Infrastructure.Data.Models.Registration", "Registration")
+                        .WithOne("Distance")
+                        .HasForeignKey("GabrovoUltraWebApp.Infrastructure.Data.Models.Distance", "RegistrationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("Race");
+
+                    b.Navigation("Registration");
                 });
 
-            modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.RaceRunner", b =>
+            modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.Registration", b =>
                 {
                     b.HasOne("GabrovoUltraWebApp.Infrastructure.Data.Models.Race", "Race")
-                        .WithMany("RacesRunners")
+                        .WithMany("Registrations")
                         .HasForeignKey("RaceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GabrovoUltraWebApp.Infrastructure.Data.Models.Runner", "Runner")
-                        .WithMany("RacesRunners")
-                        .HasForeignKey("RunnerId")
+                    b.HasOne("GabrovoUltraWebApp.Infrastructure.Data.Models.ApplicationUser", "User")
+                        .WithMany("Registrations")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Race");
 
-                    b.Navigation("Runner");
+                    b.Navigation("User");
                 });
 
-            modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.Runner", b =>
+            modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.Result", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne("GabrovoUltraWebApp.Infrastructure.Data.Models.Registration", "Registration")
+                        .WithOne("Result")
+                        .HasForeignKey("GabrovoUltraWebApp.Infrastructure.Data.Models.Result", "RegistrationId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.Navigation("Registration");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -525,12 +670,24 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                 {
                     b.Navigation("Distances");
 
-                    b.Navigation("RacesRunners");
+                    b.Navigation("Registrations");
                 });
 
-            modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.Runner", b =>
+            modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.Registration", b =>
                 {
-                    b.Navigation("RacesRunners");
+                    b.Navigation("Category")
+                        .IsRequired();
+
+                    b.Navigation("Distance")
+                        .IsRequired();
+
+                    b.Navigation("Result")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("Registrations");
                 });
 #pragma warning restore 612, 618
         }

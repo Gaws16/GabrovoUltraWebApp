@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GabrovoUltraWebApp.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class createdbv1 : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -32,6 +32,13 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Discriminator = table.Column<string>(type: "nvarchar(21)", maxLength: 21, nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true, comment: "FirstName of the runner"),
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true, comment: "LastName of the runner"),
+                    Age = table.Column<int>(type: "int", nullable: true, comment: "Age of the runner"),
+                    Gender = table.Column<int>(type: "int", nullable: true, comment: "Gender of the runner"),
+                    Team = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true, comment: "Name of the team"),
+                    StartingNumber = table.Column<string>(type: "nvarchar(6)", maxLength: 6, nullable: true, comment: "Starting number of the runner"),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -190,6 +197,28 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Categories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    MinAge = table.Column<int>(type: "int", nullable: false),
+                    MaxAge = table.Column<int>(type: "int", nullable: false),
+                    RaceId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categories", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Categories_Races_RaceId",
+                        column: x => x.RaceId,
+                        principalTable: "Races",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Distances",
                 columns: table => new
                 {
@@ -198,8 +227,9 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "Name of the distance"),
                     Description = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false, comment: "Description of the distance"),
                     StartTime = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false, comment: "Start time of the distance"),
-                    Length = table.Column<int>(type: "int", nullable: false, comment: "Length of the distance in kilometers"),
-                    RaceId = table.Column<int>(type: "int", nullable: false, comment: "ForeignKey to Race table")
+                    Length = table.Column<double>(type: "float", nullable: false, comment: "Length of the distance in kilometers"),
+                    ElevationGain = table.Column<double>(type: "float", nullable: false, comment: "Elevation gain of the distance in meters"),
+                    RaceId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -213,25 +243,81 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Runners",
+                name: "Registrations",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false, comment: "PrimaryKey")
+                    RegistrationId = table.Column<int>(type: "int", nullable: false, comment: "Registration Id")
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "Name of the runner"),
-                    Team = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true, comment: "Name of the team"),
-                    StartingNumber = table.Column<string>(type: "nvarchar(6)", maxLength: 6, nullable: false, comment: "Starting number of the runner"),
-                    Category = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "Category of the runner"),
-                    RaceId = table.Column<int>(type: "int", nullable: true)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false, comment: "Foreign key to ASPUsers"),
+                    RaceId = table.Column<int>(type: "int", nullable: false),
+                    DistanceId = table.Column<int>(type: "int", nullable: false),
+                    RegistrationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ResultId = table.Column<int>(type: "int", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    IsPaymentConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    RaceId1 = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Runners", x => x.Id);
+                    table.PrimaryKey("PK_Registrations", x => x.RegistrationId);
                     table.ForeignKey(
-                        name: "FK_Runners_Races_RaceId",
+                        name: "FK_Registrations_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Registrations_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Registrations_Distances_DistanceId",
+                        column: x => x.DistanceId,
+                        principalTable: "Distances",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Registrations_Races_RaceId",
                         column: x => x.RaceId,
                         principalTable: "Races",
                         principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Registrations_Races_RaceId1",
+                        column: x => x.RaceId1,
+                        principalTable: "Races",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Results",
+                columns: table => new
+                {
+                    ResultId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RegistrationId = table.Column<int>(type: "int", nullable: false),
+                    FinishTme = table.Column<TimeSpan>(type: "time", nullable: true),
+                    OverallRank = table.Column<int>(type: "int", nullable: false),
+                    CategoryRank = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Results", x => x.ResultId);
+                    table.ForeignKey(
+                        name: "FK_Results_Registrations_RegistrationId",
+                        column: x => x.RegistrationId,
+                        principalTable: "Registrations",
+                        principalColumn: "RegistrationId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "4be6dd46-69ab-4c08-a820-bcb4bb3d2922", "4be6dd46-69ab-4c08-a820-bcb4bb3d2922", "Writer", "WRITER" },
+                    { "80908387-bbd3-404f-a019-90f77d87adf8", "80908387-bbd3-404f-a019-90f77d87adf8", "Reader", "READER" }
                 });
 
             migrationBuilder.InsertData(
@@ -287,14 +373,45 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Categories_RaceId",
+                table: "Categories",
+                column: "RaceId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Distances_RaceId",
                 table: "Distances",
                 column: "RaceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Runners_RaceId",
-                table: "Runners",
+                name: "IX_Registrations_CategoryId",
+                table: "Registrations",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Registrations_DistanceId",
+                table: "Registrations",
+                column: "DistanceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Registrations_RaceId",
+                table: "Registrations",
                 column: "RaceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Registrations_RaceId1",
+                table: "Registrations",
+                column: "RaceId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Registrations_UserId",
+                table: "Registrations",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Results_RegistrationId",
+                table: "Results",
+                column: "RegistrationId",
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -316,19 +433,25 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Distances");
-
-            migrationBuilder.DropTable(
                 name: "HeroSections");
 
             migrationBuilder.DropTable(
-                name: "Runners");
+                name: "Results");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "Registrations");
+
+            migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "Distances");
 
             migrationBuilder.DropTable(
                 name: "Races");

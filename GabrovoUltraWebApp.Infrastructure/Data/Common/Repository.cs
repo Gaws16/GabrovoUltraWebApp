@@ -89,5 +89,22 @@ namespace GabrovoUltraWebApp.Infrastructure.Data.Common
 
         public void UpdateRange<T>(IEnumerable<T> entities) where T : class
         => DbSet<T>().UpdateRange(entities);
+
+        //public async Task<bool> EntityExists<T>(T entity) where T : class
+        //{
+        //    var entityType = typeof(T);
+        //    var properties = entityType.GetProperties().ToList();
+        //    return await DbSet<T>().AnyAsync(e =>
+        //    {
+        //        foreach (var property in properties)
+        //        {
+        //            if (property.GetValue(e) != property.GetValue(entity))
+        //            {
+        //                return false;
+        //            }
+        //        }
+        //        return true;
+        //    });
+        
     }
 }

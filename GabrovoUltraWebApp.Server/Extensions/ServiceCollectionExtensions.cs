@@ -10,6 +10,7 @@ using System.Text;
 using GabrovoUltraWebApp.Infrastructure.AutoMapperProfiles;
 using GabrovoUltraWebApp.Infrastructure.Data.Common;
 using Microsoft.OpenApi.Models;
+using GabrovoUltraWebApp.Infrastructure.Data.Models;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -74,7 +75,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
         public static IServiceCollection AddApplicationIdentity(this IServiceCollection services, IConfiguration config)
         {
-            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = false;

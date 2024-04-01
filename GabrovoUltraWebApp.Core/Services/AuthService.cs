@@ -1,4 +1,5 @@
 ﻿using GabrovoUltraWebApp.Core.Services.Contracts;
+using GabrovoUltraWebApp.Infrastructure.Data.Models;
 using GabrovoUltraWebApp.Infrastructure.Models;
 using GabrovoUltraWebApp.Infrastructure.Models.RequestDTO;
 using Microsoft.AspNetCore.Identity;
@@ -13,10 +14,10 @@ namespace GabrovoUltraWebApp.Core.Services
 {
     public class AuthService : IAuthService
     {
-        private readonly UserManager<IdentityUser> userManager;
+        private readonly UserManager<ApplicationUser> userManager;
         private readonly IConfiguration config;
 
-        public AuthService(UserManager<IdentityUser> userManager, IConfiguration config)
+        public AuthService(UserManager<ApplicationUser> userManager, IConfiguration config)
         {
             this.userManager = userManager;
             this.config = config;
@@ -67,7 +68,7 @@ namespace GabrovoUltraWebApp.Core.Services
 
         public async Task<bool> RegisterUser(RegisterRequestDTO registerRequest)
         {
-            var user = new IdentityUser
+            var user = new ApplicationUser
             {
                 UserName = registerRequest.Username,
                 Email = registerRequest.Username

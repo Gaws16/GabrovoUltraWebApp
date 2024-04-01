@@ -93,6 +93,8 @@ namespace GabrovoUltraWebApp.Infrastructure.Data.Common
             /// </summary>
             /// <returns>Error code</returns>
             Task<int> SaveChangesAsync();
+
+       // Task<bool> EntityExists<T>(T entity) where T : class;
         }
     }
 

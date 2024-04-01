@@ -18,7 +18,7 @@ namespace GabrovoUltraWebApp.Core.Services
         }
         public async Task<Runner?> CreateAsync(Runner runner)
         {
-            runner.UserId = await authService.GetUserIdAsync(runner.Email);
+             runner.UserId = await authService.GetUserIdAsync(runner.Email);
             await runnerRepository.AddAsync(runner);
             await runnerRepository.SaveChangesAsync();
             return runner;

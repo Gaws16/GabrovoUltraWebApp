@@ -27,10 +27,19 @@ namespace GabrovoUltraWebApp.Infrastructure.Data.Models
 
         [Required]
         [Comment("Length of the distance in kilometers")]
-        public int Length { get; set; }
+        public double Length { get; set; }
 
+        [Required]
+        [Comment("Elevation gain of the distance in meters")]
+        public double ElevationGain { get; set; }
      
+        public int RaceId { get; set; }
+        [ForeignKey(nameof(RaceId))]
+        [Required]
+        public virtual Race Race { get; set; } = null!;
 
+        public int RegistrationId { get; set; }
 
+        public Registration Registration { get; set; }
     }
 }

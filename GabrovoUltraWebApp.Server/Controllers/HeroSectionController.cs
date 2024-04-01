@@ -61,6 +61,7 @@ namespace GabrovoUltraWebApp.Server.Controllers
         [ValidateModelState]
         public async Task<IActionResult> CreateHeroSection([FromBody] CreateHeroSectionRequestDTO heroSectionDTO)
         {
+            
             var heroSection = mapper.Map<HeroSection>(heroSectionDTO);
             var createdHeroSection = await heroSectionService.CreateHeroSectionAsync(heroSection);
             var createdHeroSectionDTO = mapper.Map<HeroSectionDTO>(createdHeroSection);

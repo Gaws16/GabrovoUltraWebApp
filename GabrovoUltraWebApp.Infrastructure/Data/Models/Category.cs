@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using static GabrovoUltraWebApp.Infrastructure.Common.DataValidationConstants.Category;
 namespace GabrovoUltraWebApp.Infrastructure.Data.Models
 {
@@ -16,5 +17,13 @@ namespace GabrovoUltraWebApp.Infrastructure.Data.Models
 
         [Required]
         public int MaxAge { get; set; }
+
+        [Required]
+        public int RaceId { get; set; }
+        [ForeignKey(nameof(RaceId))]
+        public Race Race { get; set; } = null!;
+        public int RegistrationId { get; set; }
+
+        public Registration Registration { get; set; }
     }
 }
