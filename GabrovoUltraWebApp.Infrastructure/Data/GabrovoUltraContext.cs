@@ -2,7 +2,6 @@
 using GabrovoUltraWebApp.Infrastructure.Data.SeedDB;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection.Emit;
 
 namespace GabrovoUltraWebApp.Infrastructure.Data
 {
@@ -41,7 +40,6 @@ namespace GabrovoUltraWebApp.Infrastructure.Data
                 
             builder.ApplyConfiguration(new HeroSectionConfiguration());
             builder.ApplyConfiguration(new RolesConfiguration());
-            // builder.ApplyConfiguration(new RunnerConfiguration());
             base.OnModelCreating(builder);
         }
         public DbSet<HeroSection> HeroSections { get; set; }

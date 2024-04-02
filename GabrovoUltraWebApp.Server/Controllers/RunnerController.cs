@@ -59,7 +59,7 @@ namespace GabrovoUltraWebApp.Server.Controllers
         public async Task<IActionResult> Create([FromBody] CreateRunnerRequestDTO runnerRequestDTO)
         {
 
-            var runnerToCreate = mapper.Map<Runner>(runnerRequestDTO);
+            var runnerToCreate = mapper.Map<ApplicationUser>(runnerRequestDTO);
 
            var createdRunner= await runnerService.CreateAsync(runnerToCreate);
 
@@ -82,7 +82,7 @@ namespace GabrovoUltraWebApp.Server.Controllers
         [ValidateModelState]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateRunnerRequestDTO raceRequestDTO)
         {
-            var runnerToUpdate = mapper.Map<Runner>(raceRequestDTO);
+            var runnerToUpdate = mapper.Map<ApplicationUser>(raceRequestDTO);
 
             var updatedRunner = await runnerService.UpdateAsync(id, runnerToUpdate);
 

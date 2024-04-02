@@ -16,17 +16,16 @@ namespace GabrovoUltraWebApp.Core.Services
             authService = _authService;
 
         }
-        public async Task<Runner?> CreateAsync(Runner runner)
+        public async Task<ApplicationUser?> CreateAsync(ApplicationUser runner)
         {
-             runner.UserId = await authService.GetUserIdAsync(runner.Email);
             await runnerRepository.AddAsync(runner);
             await runnerRepository.SaveChangesAsync();
             return runner;
         }
 
-        public async Task<Runner?> DeleteAsync(int id)
+        public async Task<ApplicationUser?> DeleteAsync(int id)
         {
-            var deletedRunner = await runnerRepository.DeleteAsync<Runner>(id);
+            var deletedRunner = await runnerRepository.DeleteAsync<ApplicationUser>(id);
             if (deletedRunner == null)
             {
                 return null;
@@ -35,11 +34,11 @@ namespace GabrovoUltraWebApp.Core.Services
             return deletedRunner;
         }
 
-        public async Task<List<Runner>> GetAllAsync(string? filterOn = null, string? filterQuery = null,
+        public async Task<List<ApplicationUser>> GetAllAsync(string? filterOn = null, string? filterQuery = null,
                                         string? sortBy = null, bool? isAscending = true,
                                         int pageNumber = 1, int pageSize = 1000)
         {
-            var runners = runnerRepository.All<Runner>();
+            var runners = runnerRepository.All<ApplicationUser>();
             // Filtering
             if (filterOn != null && filterQuery != null)
             {
@@ -103,14 +102,14 @@ namespace GabrovoUltraWebApp.Core.Services
             return await runners.ToListAsync();
         }
 
-        public async Task<Runner?> GetByIdAsync(int id)
+        public async Task<ApplicationUser?> GetByIdAsync(int id)
         {
-            return await runnerRepository.GetByIdAsync<Runner>(id);
+            return await runnerRepository.GetByIdAsync<ApplicationUser>(id);
         }
 
-        public async Task<Runner?> UpdateAsync(int id, Runner runner)
+        public async Task<ApplicationUser?> UpdateAsync(int id, ApplicationUser runner)
         {
-            var runnerToUpdate = await runnerRepository.GetByIdAsync<Runner>(id);
+            var runnerToUpdate = await runnerRepository.GetByIdAsync<ApplicationUser>(id);
             if (runnerToUpdate == null)
             {
                 return null;
@@ -122,7 +121,7 @@ namespace GabrovoUltraWebApp.Core.Services
             runnerToUpdate.Team = runner.Team;
             runnerToUpdate.StartingNumber = runner.StartingNumber;
 
-            runnerRepository.Update<Runner>(runnerToUpdate);
+            runnerRepository.Update<ApplicationUser>(runnerToUpdate);
 
             await runnerRepository.SaveChangesAsync();
             return runnerToUpdate;
