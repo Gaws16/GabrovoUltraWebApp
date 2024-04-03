@@ -1,201 +1,227 @@
+import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
-import * as formik from "formik";
-import * as yup from "yup";
-import { Container } from "react-bootstrap";
 import styles from "./Register.module.css";
-function FormExample() {
-  const { Formik } = formik;
+import { Container } from "react-bootstrap";
+import { useNavigate } from "react-router";
 
-  const schema = yup.object().shape({
-    firstName: yup.string().required(),
-    lastName: yup.string().required(),
-    username: yup.string().required(),
-    password: yup.string().required(),
-    city: yup.string().required(),
-    state: yup.string().required(),
-    zip: yup.string().required(),
-    terms: yup.bool().required().oneOf([true], "Terms must be accepted"),
+function Register() {
+  const [validated, setValidated] = useState(false);
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+    confirmPassword: "",
+    firstName: "",
+    lastName: "",
+    gender: "Male",
+    age: "",
+    team: "",
+    city: "",
+    country: "",
+    Roles: ["Reader"],
   });
+
+  const [errors, setErrors] = useState({});
+  const handleSubmit = async (event) => {
+    const form = event.currentTarget;
+    event.preventDefault();
+    if (form.checkValidity === false) {
+      event.stopPropagation();
+    }
+
+    const response = await fetch("https://localhost:7263/api/Auth/Register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+    const data = await response.json();
+    console.log(data.errors);
+    if (data.errors) {
+      setErrors(data.errors);
+    }
+    console.log(errors.Team);
+    setValidated(true);
+    navigate("/gallery");
+  };
 
   return (
     <Container
+      className={`${styles.background} d-flex  justify-content-center align-items-center`}
       fluid
-      className={`d-flex justify-content-center ${styles.background} `}
     >
-      <Formik
-        validationSchema={schema}
-        onSubmit={console.log}
-        initialValues={{
-          email: "",
-          Password: "",
-          firstName: "",
-          lastName: "",
-          city: "",
-          state: "",
-          zip: "",
-          terms: false,
-        }}
+      <Form
+        noValidate
+        validated={validated}
+        onSubmit={handleSubmit}
+        className={`${styles.formContainer} p-5 m-5 rounded-3`}
       >
-        {({ handleSubmit, handleChange, values, touched, errors }) => (
-          <Form
-            noValidate
-            onSubmit={handleSubmit}
-            className={`m-5 ${styles.formContainer} p-5 rounded-3 `}
-          >
-            <Row className="mb-3">
-              <Form.Group as={Col} md="" controlId="validationFormikEmail">
-                <Form.Label>Email</Form.Label>
-                <InputGroup hasValidation>
-                  <Form.Control
-                    type="text"
-                    placeholder="Email"
-                    aria-describedby="inputGroupPrepend"
-                    name="email"
-                    value={values.email}
-                    onChange={handleChange}
-                    isInvalid={!!errors.email}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    {errors.email}
-                  </Form.Control.Feedback>
-                </InputGroup>
-              </Form.Group>
-
-              <Form.Group as={Col} md="" controlId="validationFormik02">
-                <Form.Label>Password</Form.Label>
-                <InputGroup hasValidation>
-                  <Form.Control
-                    type="password"
-                    placeholder="Password"
-                    aria-describedby="inputGroupPrepend"
-                    name="password"
-                    value={values.password}
-                    onChange={handleChange}
-                    isInvalid={!!errors.password}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    {errors.password}
-                  </Form.Control.Feedback>
-                </InputGroup>
-              </Form.Group>
-            </Row>
-            <Row className="mb-3 ">
-              <Form.Group as={Col} md="" controlId="validationFormik01">
-                <Form.Label>First name</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="firstName"
-                  value={values.firstName}
-                  onChange={handleChange}
-                  isValid={touched.firstName && !errors.firstName}
-                  placeholder="First name"
-                />
-                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-              </Form.Group>
-
-              <Form.Group as={Col} md="" controlId="validationFormik02">
-                <Form.Label>Last name</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="lastName"
-                  value={values.lastName}
-                  onChange={handleChange}
-                  isValid={touched.lastName && !errors.lastName}
-                  placeholder="Last name"
-                />
-
-                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-              </Form.Group>
-            </Row>
-            <Row className="mb-3">
-              <Form.Group as={Col} md="" controlId="validationFormikUsername">
-                <Form.Label>Username</Form.Label>
-                <InputGroup hasValidation>
-                  <Form.Control
-                    type="text"
-                    placeholder="Username"
-                    aria-describedby="inputGroupPrepend"
-                    name="username"
-                    value={values.username}
-                    onChange={handleChange}
-                    isInvalid={!!errors.username}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    {errors.username}
-                  </Form.Control.Feedback>
-                </InputGroup>
-              </Form.Group>
-            </Row>
-            <Row className="mb-3">
-              <Form.Group as={Col} md="" controlId="validationFormik03">
-                <Form.Label>City</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="City"
-                  name="city"
-                  value={values.city}
-                  onChange={handleChange}
-                  isInvalid={!!errors.city}
-                />
-
-                <Form.Control.Feedback type="invalid">
-                  {errors.city}
-                </Form.Control.Feedback>
-              </Form.Group>
-
-              <Form.Group as={Col} md="" controlId="validationFormik04">
-                <Form.Label>State</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="State"
-                  name="state"
-                  value={values.state}
-                  onChange={handleChange}
-                  isInvalid={!!errors.state}
-                />
-                <Form.Control.Feedback type="invalid">
-                  {errors.state}
-                </Form.Control.Feedback>
-              </Form.Group>
-
-              <Form.Group as={Col} md="" controlId="validationFormik05">
-                <Form.Label>Zip</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Zip"
-                  name="zip"
-                  value={values.zip}
-                  onChange={handleChange}
-                  isInvalid={!!errors.zip}
-                />
-
-                <Form.Control.Feedback type="invalid">
-                  {errors.zip}
-                </Form.Control.Feedback>
-              </Form.Group>
-            </Row>
-            <Form.Group className="mb-3">
-              <Form.Check
-                required
-                name="terms"
-                label="Agree to terms and conditions"
-                onChange={handleChange}
-                isInvalid={!!errors.terms}
-                feedback={errors.terms}
-                feedbackType="invalid"
-                id="validationFormik0"
-              />
-            </Form.Group>
-            <Button type="submit">Submit form</Button>
-          </Form>
-        )}
-      </Formik>
+        <Row>
+          <Form.Group as={Col} xs={12} md={4} controlId="formEmail">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              required
+              type="email"
+              placeholder="Enter email"
+              value={formData.email}
+              onChange={(e) =>
+                setFormData({ ...formData, username: e.target.value })
+              }
+            />
+            <span className="text-danger">{errors.Username}</span>
+          </Form.Group>
+          <Form.Group as={Col} xs={12} md={4} controlId="formPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              required
+              minLength={6}
+              type="password"
+              placeholder="Password"
+              value={formData.password}
+              onChange={(e) =>
+                setFormData({ ...formData, password: e.target.value })
+              }
+            />
+            <span className="text-danger">{errors.Password}</span>
+          </Form.Group>
+          <Form.Group as={Col} xs={12} md={4} controlId="formConfirmPassword">
+            <Form.Label>Confirm Password</Form.Label>
+            <Form.Control
+              required
+              minLength={6}
+              type="password"
+              placeholder="Confirm Password"
+              value={formData.confirmPassword}
+              onChange={(e) =>
+                setFormData({ ...formData, confirmPassword: e.target.value })
+              }
+            />
+            {formData.password !== formData.confirmPassword && (
+              <span className="text-danger">Passwords do not match</span>
+            )}
+            <span className="text-danger">{errors.Password}</span>
+          </Form.Group>
+        </Row>
+        <Row>
+          <Form.Group as={Col} xs={12} md={6} controlId="formFirstNane">
+            <Form.Label>First Name</Form.Label>
+            <Form.Control
+              required
+              type="text"
+              placeholder="First Name"
+              value={formData.firstName}
+              onChange={(e) =>
+                setFormData({ ...formData, firstName: e.target.value })
+              }
+            />
+            <span className="text-danger">{errors.FirstName}</span>
+          </Form.Group>
+          <Form.Group as={Col} xs={12} md={6}>
+            <Form.Label>Last Name</Form.Label>
+            <Form.Control
+              required
+              minLength={2}
+              maxLength={50}
+              type="text"
+              placeholder="Last Name"
+              value={formData.lastName}
+              onChange={(e) =>
+                setFormData({ ...formData, lastName: e.target.value })
+              }
+            />
+            <span className="text-danger">{errors.LastName}</span>
+          </Form.Group>
+        </Row>
+        <Row>
+          <Form.Group as={Col} xs={12} md={5}>
+            <Form.Label>Gender:</Form.Label>
+            <Form.Control
+              value={formData.gender}
+              onChange={(e) =>
+                setFormData({ ...formData, gender: e.target.value })
+              }
+              required
+              as="select"
+            >
+              <option>Male</option>
+              <option>Female</option>
+              <option>Other</option>
+            </Form.Control>
+            <span className="text-danger">{errors.Gender}</span>
+          </Form.Group>
+          <Form.Group as={Col} xs={12} md={2}>
+            <Form.Label>Age</Form.Label>
+            <Form.Control
+              required
+              type="number"
+              min={1}
+              max={100}
+              placeholder="Age"
+              value={formData.age}
+              onChange={(e) =>
+                setFormData({ ...formData, age: e.target.valueAsNumber })
+              }
+            />
+            <span className="text-danger">{errors.Age}</span>
+          </Form.Group>
+          <Form.Group as={Col} xs={12} md={5}>
+            <Form.Label>Team</Form.Label>
+            <Form.Control
+              required
+              minLength={5}
+              maxLength={50}
+              type="text"
+              placeholder="Team"
+              value={formData.team}
+              onChange={(e) =>
+                setFormData({ ...formData, team: e.target.value })
+              }
+            />
+            <span className="text-danger">{errors.Team}</span>
+          </Form.Group>
+        </Row>
+        <Row>
+          <Form.Group as={Col} xs={6} md={6}>
+            <Form.Label>City</Form.Label>
+            <Form.Control
+              required
+              minLength={3}
+              maxLength={50}
+              type="text"
+              placeholder="City"
+              value={formData.city}
+              onChange={(e) =>
+                setFormData({ ...formData, city: e.target.value })
+              }
+            />
+            <span className="text-danger">{errors.City}</span>
+          </Form.Group>
+          <Form.Group as={Col} xs={6} md={6}>
+            <Form.Label>Country</Form.Label>
+            <Form.Control
+              required
+              minLength={3}
+              maxLength={50}
+              type="text"
+              placeholder="Country"
+              value={formData.country}
+              onChange={(e) =>
+                setFormData({ ...formData, country: e.target.value })
+              }
+            />
+            <span className="text-danger">{errors.Country}</span>
+          </Form.Group>
+        </Row>
+        <Button type="submit" className="mt-3">
+          Register
+        </Button>
+      </Form>
     </Container>
   );
 }
 
-export default FormExample;
+export default Register;
