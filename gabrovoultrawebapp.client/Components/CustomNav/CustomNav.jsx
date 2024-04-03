@@ -31,7 +31,7 @@ function CustomNav({ display, dynamicStyles }) {
           <NavLink href="Login">Login</NavLink>
         </li>
         <li>
-          <NavLink href="Register">Register</NavLink>
+          <NavLink href="/Register">Register</NavLink>
         </li>
       </ul>
     </nav>
