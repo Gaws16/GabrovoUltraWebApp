@@ -5,11 +5,13 @@ using GabrovoUltraWebApp.Infrastructure.Models.ResponseDTO;
 using GabrovoUltraWebApp.Infrastructure.Models.RequestDTO;
 using GabrovoUltraWebApp.Server.CustomActionFilters;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GabrovoUltraWebApp.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class HeroSectionController : ControllerBase
     {
         
@@ -35,7 +37,7 @@ namespace GabrovoUltraWebApp.Server.Controllers
 
             return Ok(mapper.Map<List<HeroSectionDTO>>(sections));
         }
-
+        
         // GET: api/HeroSection/id=5
         //Get hero section by id
         [HttpGet]

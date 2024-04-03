@@ -7,6 +7,7 @@ import { Routes, Route } from "react-router";
 import Register from "../Components/Register/Register";
 import AllRunners from "../Components/AllRunners";
 
+import Login from "../Components/Login/Login";
 export default function App() {
   return (
     <BrowserRouter>
@@ -15,6 +16,7 @@ export default function App() {
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/results" element={<InfinityScroll />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/runners" element={<AllRunners />} />
       </Routes>
     </BrowserRouter>

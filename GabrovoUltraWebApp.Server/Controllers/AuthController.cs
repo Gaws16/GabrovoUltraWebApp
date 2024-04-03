@@ -54,7 +54,8 @@ namespace GabrovoUltraWebApp.Server.Controllers
                 var response = new LoginResponseDTO { JwtToken = token };
                 return Ok(response);
             }
-            return BadRequest("Username or password is incorrect!");
+            var errorResponse = new { message = "Invalid username or password" };
+            return BadRequest(errorResponse);
         }
 
 
