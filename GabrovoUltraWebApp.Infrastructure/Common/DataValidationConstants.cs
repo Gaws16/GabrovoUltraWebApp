@@ -43,13 +43,12 @@
         public static class Runner
         {
             public const int NameMaxLength = 50;
-            public const int NameMinLength = 5;
+            public const int NameMinLength = 2;
 
             public const int TeamMaxLength = 50;
             public const int TeamMinLength = 5;
 
-            public const int StartingNumberMaxLength = 6;
-            public const int StartingNumberMinLength = 1;
+           
 
             public const int CategoryMaxLength = 50;
             public const int CategoryMinLength = 5;
@@ -59,6 +58,15 @@
 
             public const int EmailMaxLength = 50;
             public const int EmailMinLength = 5;
+
+            public const int PasswordMinLength = 6;
+
+            public const int UsernameMaxLength = 50;
+            public const int UsernameMinLength = 5;
+
+            public const string PasswordErrorMessage = "Password must contain at least one digit, one uppercase letter and be at least 6 characters long.";
+            public const string NameOnlyLettersRegex = @"^[a-zA-Z]+$";
+            public const string NameOnlyLettersErrorMessage = "Name must contain only letters.";
         }
 
         public static class Category
@@ -68,6 +76,12 @@
 
             public const int MinAgeMaxValue = 100;
             public const int MinAgeMinValue = 16;
+        }
+
+        public static class Registration
+        {
+            public const int StartingNumberMaxLength = 6;
+            public const int StartingNumberMinLength = 3;
         }
     }
 }

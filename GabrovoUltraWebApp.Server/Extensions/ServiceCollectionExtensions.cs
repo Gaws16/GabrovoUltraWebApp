@@ -79,7 +79,7 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = false;
-                options.Password.RequireUppercase = false;
+                options.Password.RequireUppercase = true;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequiredLength = 6;
             })

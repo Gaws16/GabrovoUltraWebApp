@@ -26,12 +26,6 @@ namespace GabrovoUltraWebApp.Infrastructure.Data.Models
         [MaxLength(TeamMaxLength)]
         [Comment("Name of the team")]
         public string? Team { get; set; }
-
-        [Required]
-        [MaxLength(StartingNumberMaxLength)]
-        [Comment("Starting number of the runner")]
-        public string StartingNumber { get; set; } = null!;
-
         public ICollection<Registration> Registrations { get; set; } = new HashSet<Registration>();
     }
 }

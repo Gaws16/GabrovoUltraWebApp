@@ -8,18 +8,24 @@ namespace GabrovoUltraWebApp.Infrastructure.Models.RequestDTO
     {
         [Required]
         [DataType(DataType.EmailAddress)]
+        [StringLength(UsernameMaxLength, MinimumLength = UsernameMinLength,
+                       ErrorMessage = LengthErrorMessage)]
         public string Username { get; set; } = null!;
         [Required]
         [DataType(DataType.Password)]
+        [MinLength(PasswordMinLength,
+                     ErrorMessage = LengthErrorMessage)]
         public string Password { get; set; } = null!;
 
         [Required]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength,
             ErrorMessage = LengthErrorMessage)]
+        [RegularExpression(NameOnlyLettersRegex, ErrorMessage = NameOnlyLettersErrorMessage)]
         public string FirstName { get; set; } = null!;
         [Required]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength,
             ErrorMessage = LengthErrorMessage)]
+        [RegularExpression(NameOnlyLettersRegex, ErrorMessage = NameOnlyLettersErrorMessage)]
         public string LastName { get; set; } = null!;
         [Required]
         [Range(AgeMinValue, AgeMaxValue)]
@@ -31,11 +37,7 @@ namespace GabrovoUltraWebApp.Infrastructure.Models.RequestDTO
         [StringLength(TeamMaxLength, MinimumLength = TeamMinLength,
             ErrorMessage = LengthErrorMessage)]
         public string? Team { get; set; }
-
         [Required]
-        [StringLength(StartingNumberMaxLength, MinimumLength = StartingNumberMinLength,
-            ErrorMessage = LengthErrorMessage)]
-        public string StartingNumber { get; set; } = null!;
         public string[] Roles { get; set; }
     }
 }

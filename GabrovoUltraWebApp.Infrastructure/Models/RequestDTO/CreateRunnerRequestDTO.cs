@@ -32,8 +32,7 @@ namespace GabrovoUltraWebApp.Infrastructure.Models.RequestDTO
         public string? Team { get; set; }
 
         [Required]
-        [StringLength(StartingNumberMaxLength, MinimumLength = StartingNumberMinLength,
-            ErrorMessage = LengthErrorMessage)]
+       
         public string StartingNumber { get; set; } = null!;
 
     }

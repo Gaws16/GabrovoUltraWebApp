@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using static GabrovoUltraWebApp.Infrastructure.Common.DataValidationConstants.Registration;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
 namespace GabrovoUltraWebApp.Infrastructure.Data.Models
 {
     public class Registration
@@ -35,5 +34,9 @@ namespace GabrovoUltraWebApp.Infrastructure.Data.Models
         public virtual Category Category { get; set; } = null!;
         [Required]
         public bool IsPaymentConfirmed { get; set; }
+
+        [Required]
+        [MaxLength(StartingNumberMaxLength)]
+        public string StartingNumber { get; set; } = null!;
     }
 }

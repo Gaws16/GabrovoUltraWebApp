@@ -36,6 +36,8 @@ namespace GabrovoUltraWebApp.Infrastructure.AutoMapperProfiles
             CreateMap<RegisterRequestDTO, ApplicationUser>()
                 .ForMember(dest=>dest.Email, opt=>opt.MapFrom(src=>src.Username))
                 .ReverseMap();
+
+            CreateMap<ApplicationUser,RegisterRequestDTO>().ReverseMap();
                 
         }
     }

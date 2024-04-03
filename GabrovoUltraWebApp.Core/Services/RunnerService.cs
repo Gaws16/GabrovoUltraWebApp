@@ -55,9 +55,9 @@ namespace GabrovoUltraWebApp.Core.Services
 
                         runners = runners.Where(r => r.Team != null && r.Team.ToLower().Contains(filterQuery));
                         break;
-                    case "startingnumber":
-                        runners = runners.Where(r => r.StartingNumber.ToString().Contains(filterQuery));
-                        break;
+                    //case "startingnumber":
+                    //    runners = runners.Where(r => r.StartingNumber.ToString().Contains(filterQuery));
+                    //    break;
                     case "age":
                         runners = runners.Where(r => r.Age.ToString().Contains(filterQuery));
                         break;
@@ -90,9 +90,9 @@ namespace GabrovoUltraWebApp.Core.Services
                     case "age":
                         runners = isAscending == true ? runners.OrderBy(r => r.Age) : runners.OrderByDescending(r => r.Age);
                         break;
-                    case "startingnumber":
-                        runners = isAscending == true ? runners.OrderBy(r => r.StartingNumber) : runners.OrderByDescending(r => r.StartingNumber);
-                        break;
+                    //case "startingnumber":
+                    //    runners = isAscending == true ? runners.OrderBy(r => r.StartingNumber) : runners.OrderByDescending(r => r.StartingNumber);
+                    //    break;
                 }
             }
             // Pagination
@@ -119,7 +119,6 @@ namespace GabrovoUltraWebApp.Core.Services
             runnerToUpdate.Age = runner.Age;
             runnerToUpdate.Gender = runner.Gender;
             runnerToUpdate.Team = runner.Team;
-            runnerToUpdate.StartingNumber = runner.StartingNumber;
 
             runnerRepository.Update<ApplicationUser>(runnerToUpdate);
 

@@ -1,4 +1,5 @@
 ﻿using GabrovoUltraWebApp.Core.Services.Contracts;
+using GabrovoUltraWebApp.Infrastructure.Data.Enums;
 using GabrovoUltraWebApp.Infrastructure.Data.Models;
 using GabrovoUltraWebApp.Infrastructure.Models;
 using GabrovoUltraWebApp.Infrastructure.Models.RequestDTO;
@@ -68,11 +69,18 @@ namespace GabrovoUltraWebApp.Core.Services
 
         public async Task<bool> RegisterUser(RegisterRequestDTO registerRequest)
         {
+            
             var user = new ApplicationUser
             {
                 UserName = registerRequest.Username,
-                Email = registerRequest.Username
+                Email = registerRequest.Username,
+                FirstName = registerRequest.FirstName,
+                LastName = registerRequest.LastName,
+                Age = registerRequest.Age,
+                Gender = Enum.Parse<Gender>(registerRequest.Gender),
             };
+               
+                
             var result = await userManager.CreateAsync(user, registerRequest.Password);
 
             if (registerRequest.Roles != null && registerRequest.Roles.Any() && result.Succeeded)
