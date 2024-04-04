@@ -20,7 +20,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddTransient<IAuthService, AuthService>();
             services.AddScoped<IHeroSectionService, HeroSectionService>();
-            services.AddScoped<IRepository,  Repository>();
+            services.AddScoped<IRepository, Repository>();
             services.AddScoped<IRunnerService, RunnerService>();
             services.AddScoped<IRaceService, RaceService>();
             services.AddScoped<IDistanceService, DistanceService>();
@@ -34,7 +34,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 });
                 options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
                 {
-                    Name = JwtBearerDefaults.AuthenticationScheme,
+                    Name = "Authorization",
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.ApiKey,
                     Scheme = JwtBearerDefaults.AuthenticationScheme,
@@ -75,16 +75,30 @@ namespace Microsoft.Extensions.DependencyInjection
 
         public static IServiceCollection AddApplicationIdentity(this IServiceCollection services, IConfiguration config)
         {
-            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            //        services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            //        {
+            //            options.Password.RequireDigit = true;
+            //            options.Password.RequireLowercase = false;
+            //            options.Password.RequireUppercase = true;
+            //            options.Password.RequireNonAlphanumeric = false;
+            //            options.Password.RequiredLength = 6;
+            //        })
+            //.AddEntityFrameworkStores<GabrovoUltraContext>()
+            //.AddDefaultTokenProviders();
+            services.AddIdentityCore<ApplicationUser>()
+                    .AddRoles<IdentityRole>()
+                    .AddTokenProvider<DataProtectorTokenProvider<ApplicationUser>>("GabrovoUltra")
+                    .AddEntityFrameworkStores<GabrovoUltraContext>()
+                    .AddDefaultTokenProviders();
+
+            services.Configure<IdentityOptions>(options =>
             {
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = false;
                 options.Password.RequireUppercase = true;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequiredLength = 6;
-            })
-    .AddEntityFrameworkStores<GabrovoUltraContext>()
-    .AddDefaultTokenProviders();
+            });
 
             services.AddAuthentication(options =>
             {
@@ -95,14 +109,14 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 options.TokenValidationParameters = new TokenValidationParameters()
                 {
-                    ValidateActor = true,
                     ValidateIssuer = true,
                     ValidateAudience = true,
-                    RequireExpirationTime = true,
+                    ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = config.GetSection("Jwt:Issuer").Value,
                     ValidAudience = config.GetSection("Jwt:Audience").Value,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.GetSection("Jwt:Key").Value))
+                    IssuerSigningKey = new SymmetricSecurityKey
+                    (Encoding.UTF8.GetBytes(config.GetSection("Jwt:Key").Value))
                 };
 
 
