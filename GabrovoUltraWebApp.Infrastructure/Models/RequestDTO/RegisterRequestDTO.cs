@@ -14,7 +14,7 @@ namespace GabrovoUltraWebApp.Infrastructure.Models.RequestDTO
         [Required]
         [DataType(DataType.Password)]
         [MinLength(PasswordMinLength,
-                     ErrorMessage = LengthErrorMessage)]
+                     ErrorMessage = PasswordErrorMessage)]
         public string Password { get; set; } = null!;
 
         [Required]

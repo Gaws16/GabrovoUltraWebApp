@@ -26,7 +26,8 @@ namespace GabrovoUltraWebApp.Server.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Produces("application/json")]
-        public async Task<IActionResult> Register(RegisterRequestDTO registerRequestDTO)
+        [ValidateModelState]
+        public async Task<IActionResult> Register([FromBody] RegisterRequestDTO registerRequestDTO)
         {
             if (await authService.RegisterUser(registerRequestDTO))
             {

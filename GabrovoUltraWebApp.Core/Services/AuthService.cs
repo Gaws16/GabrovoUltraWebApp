@@ -27,14 +27,14 @@ namespace GabrovoUltraWebApp.Core.Services
         public async Task<string> GenerateTokenString(LoginRequestDTO loginRequestDTO)
         {
             var user = await userManager.FindByEmailAsync(loginRequestDTO.Username);
-            IEnumerable<Claim> claims = new List<Claim>
+            var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Email, user.UserName),
+                new Claim(ClaimTypes.Email, user.Email),
             };
             var roles = await userManager.GetRolesAsync(user);
             foreach (var role in roles)
             {
-                claims.Append(new Claim(ClaimTypes.Role, role));
+                claims.Add(new Claim(ClaimTypes.Role, role));
             }
                 
 
@@ -44,10 +44,10 @@ namespace GabrovoUltraWebApp.Core.Services
                , SecurityAlgorithms.HmacSha512Signature
                );
             var token = new JwtSecurityToken(
-                claims:claims,
-                expires:DateTime.Now.AddMinutes(15),
                 issuer:config.GetSection("Jwt:Issuer").Value,
                 audience:config.GetSection("Jwt:Audience").Value,
+                claims:claims,
+                expires:DateTime.Now.AddMinutes(15),
                 signingCredentials:signingInCredential
                 );
             
