@@ -6,7 +6,7 @@ import Row from "react-bootstrap/Row";
 import styles from "./Register.module.css";
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router";
-
+const API_URL = "https://localhost:7263/api/Auth/Register";
 function Register() {
   const [validated, setValidated] = useState(false);
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ function Register() {
     firstName: "",
     lastName: "",
     gender: "Male",
-    age: "",
+    age: 1,
     team: "",
     city: "",
     country: "",
@@ -28,25 +28,29 @@ function Register() {
   const handleSubmit = async (event) => {
     const form = event.currentTarget;
     event.preventDefault();
+
     if (form.checkValidity === false) {
       event.stopPropagation();
     }
-
-    const response = await fetch("https://localhost:7263/api/Auth/Register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
-    const data = await response.json();
-    console.log(data.errors);
-    if (data.errors) {
-      setErrors(data.errors);
+    try {
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await response.json();
+      if (data.errors) {
+        setErrors(data.errors);
+        return;
+      }
+    } catch (error) {
+      setErrors({ message: "Something went wrong. Please try again later." });
     }
-    console.log(errors.Team);
+
     setValidated(true);
-    navigate("/gallery");
+    navigate("/login");
   };
 
   return (
@@ -163,7 +167,13 @@ function Register() {
               placeholder="Age"
               value={formData.age}
               onChange={(e) =>
-                setFormData({ ...formData, age: e.target.valueAsNumber })
+                setFormData({
+                  ...formData,
+                  age:
+                    e.target.valueAsNumber <= 100
+                      ? e.target.valueAsNumber
+                      : 100,
+                })
               }
             />
             <span className="text-danger">{errors.Age}</span>
@@ -219,6 +229,9 @@ function Register() {
         <Button type="submit" className="mt-3">
           Register
         </Button>
+        {errors.message && (
+          <span className="text-danger">{errors.message}</span>
+        )}
       </Form>
     </Container>
   );
