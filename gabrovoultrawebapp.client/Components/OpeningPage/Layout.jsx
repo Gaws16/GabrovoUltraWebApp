@@ -1,11 +1,13 @@
-import { NavLink } from "react-bootstrap";
 import "./styles.css";
 import AboutUs from "../AboutUs";
 import CustomNav from "../CustomNav/CustomNav";
 import { useEffect, useState } from "react";
 import Title from "../Title/Title";
+import DistancesHeader from "../Distances/Header/DistancesHeader";
+import DustanceMain from "../Distances/Main/DistanceMain";
+import { Container } from "react-bootstrap";
 
-export default function Parallax() {
+export default function Layout() {
   const [display, setDisplay] = useState(false);
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -17,16 +19,14 @@ export default function Parallax() {
     });
   }, []);
   return (
-    <>
-      <section className="banner container">
-        <CustomNav display={display} dynamicStyles={display ? `visible` : ""} />
+    <div id="Home">
+      <CustomNav display={display} dynamicStyles={display ? `visible` : ""} />
+      <Container fluid className="banner container">
         <Title />
-
-        <NavLink href="#AboutUs">
-          <button className="btn btn-primary">Wellcome!</button>
-        </NavLink>
-      </section>
+      </Container>
       <AboutUs />
-    </>
+      <DistancesHeader id="Distances" />
+      <DustanceMain />
+    </div>
   );
 }

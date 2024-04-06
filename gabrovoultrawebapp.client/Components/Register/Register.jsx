@@ -32,6 +32,10 @@ function Register() {
     if (form.checkValidity === false) {
       event.stopPropagation();
     }
+    if (formData.password !== formData.confirmPassword) {
+      setErrors({ Password: "Passwords do not match" });
+      return;
+    }
     try {
       const response = await fetch(API_URL, {
         method: "POST",
