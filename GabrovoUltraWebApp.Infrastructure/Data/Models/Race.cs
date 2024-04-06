@@ -31,6 +31,8 @@ namespace GabrovoUltraWebApp.Infrastructure.Data.Models
 
         public virtual ICollection<Registration> Registrations { get; set; } = new HashSet<Registration>();
 
+        public virtual ICollection<Category> Categories { get; set; } = new HashSet<Category>();
+
 
     }
 }

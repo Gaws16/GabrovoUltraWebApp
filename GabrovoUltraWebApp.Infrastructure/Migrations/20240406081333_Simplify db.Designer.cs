@@ -4,6 +4,7 @@ using GabrovoUltraWebApp.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GabrovoUltraWebApp.Infrastructure.Migrations
 {
     [DbContext(typeof(GabrovoUltraContext))]
-    partial class GabrovoUltraContextModelSnapshot : ModelSnapshot
+    [Migration("20240406081333_Simplify db")]
+    partial class Simplifydb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,72 +52,6 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                     b.HasIndex("RaceId");
 
                     b.ToTable("Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            MaxAge = 21,
-                            MinAge = 16,
-                            Name = "Юнуша",
-                            RaceId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            MaxAge = 35,
-                            MinAge = 22,
-                            Name = "Младши",
-                            RaceId = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            MaxAge = 49,
-                            MinAge = 36,
-                            Name = "Старши",
-                            RaceId = 1
-                        },
-                        new
-                        {
-                            Id = 4,
-                            MaxAge = 100,
-                            MinAge = 50,
-                            Name = "Ветеран",
-                            RaceId = 1
-                        },
-                        new
-                        {
-                            Id = 5,
-                            MaxAge = 21,
-                            MinAge = 16,
-                            Name = "Юнуша",
-                            RaceId = 2
-                        },
-                        new
-                        {
-                            Id = 6,
-                            MaxAge = 35,
-                            MinAge = 22,
-                            Name = "Младши",
-                            RaceId = 2
-                        },
-                        new
-                        {
-                            Id = 7,
-                            MaxAge = 49,
-                            MinAge = 36,
-                            Name = "Старши",
-                            RaceId = 2
-                        },
-                        new
-                        {
-                            Id = 8,
-                            MaxAge = 100,
-                            MinAge = 50,
-                            Name = "Ветеран",
-                            RaceId = 2
-                        });
                 });
 
             modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.Distance", b =>
@@ -164,63 +101,6 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                     b.HasIndex("RaceId");
 
                     b.ToTable("Distances");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "75км с 4300 D+ и пълна автономност - без никакви подрекрепителни пунктве. Истинско изпитание.",
-                            ElevationGain = 4300.0,
-                            ImagePath = "/Components/Distances/trqnva1.jpg",
-                            Length = 75.0,
-                            Name = "Черешката",
-                            RaceId = 1,
-                            StartTime = "06:09"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Маратонски 42км с над 2500 D+ и пълна автономност - без никакви подрекрепителни пунктве. По-малкото \"мъчение\".",
-                            ElevationGain = 2500.0,
-                            ImagePath = "/Components/Distances/kodja-kaq.jpg",
-                            Length = 42.0,
-                            Name = "Глазурата",
-                            RaceId = 1,
-                            StartTime = "08:00"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "30км Sky с 1950 D+ и пълна автономност - без никакви подрекрепителни пунктве. Предизвикателството.",
-                            ElevationGain = 1950.0,
-                            ImagePath = "/Components/Distances/tarnovo.jpg",
-                            Length = 30.0,
-                            Name = "Блатът",
-                            RaceId = 1,
-                            StartTime = "09:30"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Description = "14км с 1050 D+ и пълна автономност - без никакви подрекрепителни пунктве. Напреднало ниво.",
-                            ElevationGain = 1050.0,
-                            ImagePath = "/Components/Distances/trqnva1.jpg",
-                            Length = 14.0,
-                            Name = "Жилката",
-                            RaceId = 1,
-                            StartTime = "12:00"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Description = "Скоростно изкачване на Телевизионната кула (Градище) 3.6км с 500 D+. Допълнително изпитание, в което всеки може да се включи.",
-                            ElevationGain = 50.0,
-                            ImagePath = "/Components/Distances/trqnva1.jpg",
-                            Length = 5.0,
-                            Name = "Допълнителен десерт",
-                            RaceId = 1,
-                            StartTime = "14:00"
-                        });
                 });
 
             modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.HeroSection", b =>
@@ -327,24 +207,6 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Races");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Date = new DateTime(2024, 9, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Второ издание на невероятното трейл приключение",
-                            Location = "Габрово",
-                            Name = "Габрово Ултра 2024"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Date = new DateTime(2023, 9, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Първото първо по рода си трейл състезание в Габрово",
-                            Location = "Габрово",
-                            Name = "Габрово Ултра 2023"
-                        });
                 });
 
             modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.Registration", b =>

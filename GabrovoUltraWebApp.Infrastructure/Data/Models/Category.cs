@@ -22,8 +22,7 @@ namespace GabrovoUltraWebApp.Infrastructure.Data.Models
         public int RaceId { get; set; }
         [ForeignKey(nameof(RaceId))]
         public Race Race { get; set; } = null!;
-        public int RegistrationId { get; set; }
 
-        public Registration Registration { get; set; }
+        
     }
 }

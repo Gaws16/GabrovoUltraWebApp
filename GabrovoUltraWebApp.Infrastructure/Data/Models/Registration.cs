@@ -28,10 +28,7 @@ namespace GabrovoUltraWebApp.Infrastructure.Data.Models
         public int ResultId { get; set; }
        
         public virtual Result Result { get; set; } = null!;
-        [Required]
-        public int CategoryId { get; set; }
-        
-        public virtual Category Category { get; set; } = null!;
+       
         [Required]
         public bool IsPaymentConfirmed { get; set; }
 

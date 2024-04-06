@@ -17,26 +17,19 @@ namespace GabrovoUltraWebApp.Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             //TODO Extract to separate configuration classes
-           builder.Entity<Registration>()
-                .HasOne<Result>(r=>r.Result)
-                .WithOne(r=>r.Registration)
-                .HasForeignKey<Result>(r=>r.RegistrationId)
-                .IsRequired()
-                .OnDelete(DeleteBehavior.Restrict);
-
-        builder.Entity<Registration>()
-                .HasOne<Distance>(d=>d.Distance)
-                .WithMany(d=>d.Registrations)
-                .OnDelete(DeleteBehavior.Restrict);
-        builder.Entity<Registration>()
-                .HasOne<Category>(c=>c.Category)
-                .WithOne(c=>c.Registration)
-                .HasForeignKey<Category>(c=>c.RegistrationId)
-                .IsRequired()
-                .OnDelete(DeleteBehavior.Restrict);
+           
+        //builder.Entity<Registration>()
+        //        .HasOne<Category>(c=>c.Category)
+        //        .WithOne(c=>c.Registration)
+        //        .HasForeignKey<Category>(c=>c.RegistrationId)
+        //        .IsRequired()
+        //        .OnDelete(DeleteBehavior.Restrict);
                 
                 
-                
+            builder.ApplyConfiguration(new RaceConfiguration());
+            builder.ApplyConfiguration(new CategoryConfiguration());
+            builder.ApplyConfiguration(new RegistrationConfiguration());
+            builder.ApplyConfiguration(new DistanceConfiguration());
             builder.ApplyConfiguration(new HeroSectionConfiguration());
             builder.ApplyConfiguration(new RolesConfiguration());
             base.OnModelCreating(builder);
