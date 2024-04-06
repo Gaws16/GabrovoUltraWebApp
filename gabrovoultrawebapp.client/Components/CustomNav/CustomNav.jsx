@@ -1,40 +1,49 @@
-import { NavLink } from "react-bootstrap";
+import { NavLink, Navbar, Image } from "react-bootstrap";
 import styles from "./CustomNav.module.css";
+import { Link } from "react-router-dom";
+
 // eslint-disable-next-line react/prop-types
 function CustomNav({ display, dynamicStyles }) {
   if (!display) {
     return null;
   }
   return (
-    <nav
-      className={`sticky-top ${styles.nav} ${dynamicStyles} d-flex justify-content-between  p-3`}
+    <Navbar
+      className={`sticky-top ${styles.nav} ${dynamicStyles} d-flex justify-content-between p-3 bg-dark`}
     >
-      <ul className="d-flex gap-5 text-light style-none">
+      <Navbar.Brand href="#home">
+        <Image src="/src/assets/logo.png" width={70} height={50} />
+      </Navbar.Brand>
+      <ul className="d-flex gap-5 text-light list-unstyled">
         <li>
-          <NavLink href="#AboutUs">Test</NavLink>
+          <NavLink href="#Home">Начало</NavLink>
         </li>
         <li>
-          <NavLink href="#AboutUs">Test</NavLink>
+          <NavLink href="#Distances">Дистанции</NavLink>
         </li>
         <li>
-          <NavLink href="#AboutUs">Test</NavLink>
+          <NavLink href="#AboutUs">Участници</NavLink>
         </li>
         <li>
-          <NavLink href="#AboutUs">Test</NavLink>
+          <NavLink href="#AboutUs">Резултати</NavLink>
         </li>
         <li>
-          <NavLink href="#AboutUs">Test</NavLink>
-        </li>
-      </ul>
-      <ul className="d-flex flex-col gap-5 text-light">
-        <li>
-          <NavLink href="Login">Login</NavLink>
-        </li>
-        <li>
-          <NavLink href="/Register">Register</NavLink>
+          <NavLink href="#AboutUs">Контакти</NavLink>
         </li>
       </ul>
-    </nav>
+      <ul className="d-flex flex-col gap-5 text-light list-unstyled">
+        <li>
+          <Link className="text-decoration-none text-light" to="/Login">
+            Login
+          </Link>
+        </li>
+        <li>
+          <Link className="text-decoration-none text-light" to="/Register">
+            Register
+          </Link>
+        </li>
+      </ul>
+    </Navbar>
   );
 }
 
