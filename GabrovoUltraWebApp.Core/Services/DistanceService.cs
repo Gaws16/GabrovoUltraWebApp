@@ -53,6 +53,8 @@ namespace GabrovoUltraWebApp.Core.Services
             distanceToUpdate.Description = distance.Description;
             distanceToUpdate.Length = distance.Length;
             distanceToUpdate.StartTime = distance.StartTime;
+            distanceToUpdate.ImagePath = distance.ImagePath;
+            distanceToUpdate.ElevationGain = distance.ElevationGain;
             await repository.SaveChangesAsync();
             return distanceToUpdate;
         }

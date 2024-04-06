@@ -19,7 +19,7 @@ namespace GabrovoUltraWebApp.Infrastructure.Models.RequestDTO
             ErrorMessage = LengthErrorMessage)]
         public string Location { get; set; } = null!;
 
-        //TODO validate date
+       
         [Required]
         public string Date { get; set; } = null!;
     }

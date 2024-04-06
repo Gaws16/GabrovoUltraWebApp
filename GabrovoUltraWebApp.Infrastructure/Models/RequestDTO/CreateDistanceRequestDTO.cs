@@ -18,6 +18,10 @@ namespace GabrovoUltraWebApp.Infrastructure.Models.RequestDTO
         [Required]
         public string Description { get; set; } = null!;
 
+        [Required]
+        //TODO Validate image path EVERYWHERE!!
+        public string ImagePath { get; set; } = null!;
+
         [StringLength(5,
             MinimumLength = 5,
             ErrorMessage = LengthErrorMessage)]
@@ -28,6 +32,12 @@ namespace GabrovoUltraWebApp.Infrastructure.Models.RequestDTO
         [Required
         ,Range(LengthMinValue,LengthMaxValue)]
         public int Length { get; set; }
+
+        [Required]
+        public double ElevationGain { get; set; }
+
+        [Required]
+        public int RaceId { get; set; }
 
       
 

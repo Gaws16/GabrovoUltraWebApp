@@ -4,6 +4,7 @@ using GabrovoUltraWebApp.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GabrovoUltraWebApp.Infrastructure.Migrations
 {
     [DbContext(typeof(GabrovoUltraContext))]
-    partial class GabrovoUltraContextModelSnapshot : ModelSnapshot
+    [Migration("20240405073728_Adjust properties")]
+    partial class Adjustproperties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,6 +96,9 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                     b.Property<int>("RaceId")
                         .HasColumnType("int");
 
+                    b.Property<int>("RegistrationId")
+                        .HasColumnType("int");
+
                     b.Property<string>("StartTime")
                         .IsRequired()
                         .HasMaxLength(5)
@@ -102,6 +108,9 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("RaceId");
+
+                    b.HasIndex("RegistrationId")
+                        .IsUnique();
 
                     b.ToTable("Distances");
                 });
@@ -250,8 +259,6 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                         .HasComment("Foreign key to ASPUsers");
 
                     b.HasKey("RegistrationId");
-
-                    b.HasIndex("DistanceId");
 
                     b.HasIndex("RaceId");
 
@@ -570,17 +577,19 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("GabrovoUltraWebApp.Infrastructure.Data.Models.Registration", "Registration")
+                        .WithOne("Distance")
+                        .HasForeignKey("GabrovoUltraWebApp.Infrastructure.Data.Models.Distance", "RegistrationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("Race");
+
+                    b.Navigation("Registration");
                 });
 
             modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.Registration", b =>
                 {
-                    b.HasOne("GabrovoUltraWebApp.Infrastructure.Data.Models.Distance", "Distance")
-                        .WithMany("Registrations")
-                        .HasForeignKey("DistanceId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("GabrovoUltraWebApp.Infrastructure.Data.Models.Race", "Race")
                         .WithMany("Registrations")
                         .HasForeignKey("RaceId")
@@ -592,8 +601,6 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Distance");
 
                     b.Navigation("Race");
 
@@ -662,11 +669,6 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.Distance", b =>
-                {
-                    b.Navigation("Registrations");
-                });
-
             modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.Race", b =>
                 {
                     b.Navigation("Distances");
@@ -677,6 +679,9 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
             modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.Registration", b =>
                 {
                     b.Navigation("Category")
+                        .IsRequired();
+
+                    b.Navigation("Distance")
                         .IsRequired();
 
                     b.Navigation("Result")

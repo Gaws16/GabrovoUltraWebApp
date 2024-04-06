@@ -11,6 +11,12 @@
 
         public int Length { get; set; }
 
+        public string ImagePath { get; set; } = null!;
+
+        public double ElevationGain { get; set; }
+
+        public int RaceId { get; set;}
+
     }
         
 }

@@ -17,7 +17,8 @@ namespace GabrovoUltraWebApp.Infrastructure.Models.RequestDTO
            ErrorMessage = LengthErrorMessage)]
         [Required]
         public string Description { get; set; } = null!;
-
+        [Required]
+        public string ImagePath { get; set; } = null!;
         [StringLength(5,
             MinimumLength = 5,
             ErrorMessage = LengthErrorMessage)]
@@ -28,5 +29,9 @@ namespace GabrovoUltraWebApp.Infrastructure.Models.RequestDTO
         [Required
         , Range(LengthMinValue, LengthMaxValue)]
         public int Length { get; set; }
+        [Required]
+       // [Range(ElevationGainMinValue, ElevationGainMaxValue)]
+        public double ElevationGain { get; set; }
+
     }
 }

@@ -16,6 +16,7 @@ namespace GabrovoUltraWebApp.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            //TODO Extract to separate configuration classes
            builder.Entity<Registration>()
                 .HasOne<Result>(r=>r.Result)
                 .WithOne(r=>r.Registration)
@@ -25,9 +26,7 @@ namespace GabrovoUltraWebApp.Infrastructure.Data
 
         builder.Entity<Registration>()
                 .HasOne<Distance>(d=>d.Distance)
-                .WithOne(d=>d.Registration)
-                .HasForeignKey<Distance>(d=>d.RegistrationId)
-                .IsRequired()
+                .WithMany(d=>d.Registrations)
                 .OnDelete(DeleteBehavior.Restrict);
         builder.Entity<Registration>()
                 .HasOne<Category>(c=>c.Category)

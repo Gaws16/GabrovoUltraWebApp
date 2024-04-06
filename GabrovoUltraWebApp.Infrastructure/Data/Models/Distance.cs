@@ -21,6 +21,9 @@ namespace GabrovoUltraWebApp.Infrastructure.Data.Models
         public string Description { get; set; } = null!;
 
         [Required]
+        public string ImagePath { get; set; } = null!;
+
+        [Required]
         [Comment("Start time of the distance")]
         [StringLength(5)]
         public string StartTime { get; set; } = null!;
@@ -38,8 +41,6 @@ namespace GabrovoUltraWebApp.Infrastructure.Data.Models
         [Required]
         public virtual Race Race { get; set; } = null!;
 
-        public int RegistrationId { get; set; }
-
-        public Registration Registration { get; set; }
+       public virtual ICollection<Registration> Registrations { get; set; } = new HashSet<Registration>();
     }
 }
