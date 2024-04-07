@@ -20,6 +20,9 @@ namespace GabrovoUltraWebApp.Core.Services.Contracts
 
         Task<Distance?> DeleteAsync(int id);
 
-
+       
+       
     }
+
+
 }

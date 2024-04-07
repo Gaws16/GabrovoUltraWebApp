@@ -4,6 +4,7 @@ using GabrovoUltraWebApp.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GabrovoUltraWebApp.Infrastructure.Migrations
 {
     [DbContext(typeof(GabrovoUltraContext))]
-    partial class GabrovoUltraContextModelSnapshot : ModelSnapshot
+    [Migration("20240407071735_Rsult nullable")]
+    partial class Rsultnullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,7 +51,7 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
 
                     b.HasIndex("RaceId");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
 
                     b.HasData(
                         new
@@ -163,7 +166,7 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
 
                     b.HasIndex("RaceId");
 
-                    b.ToTable("Distances", (string)null);
+                    b.ToTable("Distances");
 
                     b.HasData(
                         new
@@ -247,7 +250,7 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("HeroSections", (string)null);
+                    b.ToTable("HeroSections");
 
                     b.HasData(
                         new
@@ -326,7 +329,7 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Races", (string)null);
+                    b.ToTable("Races");
 
                     b.HasData(
                         new
@@ -389,7 +392,7 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Registrations", (string)null);
+                    b.ToTable("Registrations");
                 });
 
             modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.Result", b =>
@@ -417,7 +420,7 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                     b.HasIndex("RegistrationId")
                         .IsUnique();
 
-                    b.ToTable("Results", (string)null);
+                    b.ToTable("Results");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

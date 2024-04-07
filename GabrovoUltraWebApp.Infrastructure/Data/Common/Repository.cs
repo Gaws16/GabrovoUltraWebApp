@@ -77,6 +77,7 @@ namespace GabrovoUltraWebApp.Infrastructure.Data.Common
 
         public async Task<T?> GetByIdAsync<T>(object id) where T : class
         => await DbSet<T>().FindAsync(id);
+       
 
         public async Task<T?> GetByIdsAsync<T>(object[] id) where T : class
         => await DbSet<T>().FindAsync(id);
@@ -89,7 +90,7 @@ namespace GabrovoUltraWebApp.Infrastructure.Data.Common
 
         public void UpdateRange<T>(IEnumerable<T> entities) where T : class
         => DbSet<T>().UpdateRange(entities);
-
+        //TODO : Implement EntityExists method
         //public async Task<bool> EntityExists<T>(T entity) where T : class
         //{
         //    var entityType = typeof(T);

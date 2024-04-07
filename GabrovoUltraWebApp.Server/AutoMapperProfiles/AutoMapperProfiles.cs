@@ -16,6 +16,7 @@ namespace GabrovoUltraWebApp.Infrastructure.AutoMapperProfiles
             CreateMap<Distance, DistanceDTO>().ReverseMap();
             CreateMap<Distance, CreateDistanceRequestDTO>().ReverseMap();
             CreateMap<Distance, UpdateDistanceRequestDTO>().ReverseMap();
+            CreateMap<Distance, JoinDistanceRequestDTO>().ReverseMap();
 
             CreateMap<HeroSection, HeroSectionDTO>().ReverseMap();
             CreateMap<HeroSection, CreateHeroSectionRequestDTO>().ReverseMap();
@@ -38,6 +39,10 @@ namespace GabrovoUltraWebApp.Infrastructure.AutoMapperProfiles
                 .ReverseMap();
 
             CreateMap<ApplicationUser,RegisterRequestDTO>().ReverseMap();
+
+            CreateMap<Registration, RegistrationDTO>()
+                .ForMember(dest => dest.RegistrationDate, opt => opt.MapFrom(src => src.RegistrationDate.ToString(DateTimeFormat)))
+                .ReverseMap();
                 
         }
     }

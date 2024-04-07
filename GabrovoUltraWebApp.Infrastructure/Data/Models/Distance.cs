@@ -40,7 +40,6 @@ namespace GabrovoUltraWebApp.Infrastructure.Data.Models
         [ForeignKey(nameof(RaceId))]
         [Required]
         public virtual Race Race { get; set; } = null!;
-
-       public virtual ICollection<Registration> Registrations { get; set; } = new HashSet<Registration>();
+        public virtual ICollection<Registration> Registrations { get; set; } = new HashSet<Registration>();
     }
 }

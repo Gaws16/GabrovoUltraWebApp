@@ -7,6 +7,7 @@ using GabrovoUltraWebApp.Infrastructure.Data.Models;
 using GabrovoUltraWebApp.Infrastructure.Models.RequestDTO;
 using GabrovoUltraWebApp.Infrastructure.Data.Common;
 using GabrovoUltraWebApp.Server.CustomActionFilters;
+using GabrovoUltraWebApp.Infrastructure.Models.ResposneDTO;
 namespace GabrovoUltraWebApp.Server.Controllers
 {
     [Route("api/[controller]")]
@@ -14,11 +15,15 @@ namespace GabrovoUltraWebApp.Server.Controllers
     public class DistancesController : ControllerBase
     {
         private readonly IDistanceService distanceService;
+
         private readonly IMapper mapper;
-        public DistancesController(IDistanceService _distanceService, IMapper _mapper)
+        private readonly IRegistrationService registrationService;
+
+        public DistancesController(IDistanceService _distanceService, IMapper _mapper, IRegistrationService _registrationService)
         {
             distanceService = _distanceService;
             mapper = _mapper;
+            registrationService = _registrationService;
         }
 
         // GET: api/Distances
@@ -121,5 +126,24 @@ namespace GabrovoUltraWebApp.Server.Controllers
            var distanceDTOToReturn = mapper.Map<DistanceDTO>(distance);
             return Ok(distanceDTOToReturn);
         }
+
+        //[HttpPost]
+        //[Route("{id:int}")]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        //[Produces("application/json")]
+        //public async Task<IActionResult> AddToDistance([FromRoute] int id, Registration registration)
+        //{
+        //    var distance = await distanceService.GetByIdAsync(id);
+        //    if (distance == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    await distanceService.AddRegistrationAsync(distance, registration);
+        //    var registrations = mapper.Map<List<RegistrationDTO>>(distance.Registrations);
+        //   return Ok(registrations);
+        //}
     }
 }

@@ -13,5 +13,7 @@ namespace GabrovoUltraWebApp.Core.Services.Contracts
         Task<Race?> UpdateAsync(int id, Race Race);
 
         Task<Race?> DeleteAsync(int id);
+
+        Task<Race?> GetCurrentRaceAsync();
     }
 }

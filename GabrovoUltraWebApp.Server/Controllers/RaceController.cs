@@ -101,6 +101,19 @@ namespace GabrovoUltraWebApp.Server.Controllers
             }
             return Ok(mapper.Map<RaceDTO>(deletedRace));
         }
+        [HttpGet]
+        [Route("current")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
 
+        public async Task<IActionResult> GetCurrentRace()
+        {
+            var currentRace = await raceService.GetCurrentRaceAsync();
+            if (currentRace == null)
+            {
+                return NotFound();
+            }
+            return Ok(mapper.Map<RaceDTO>(currentRace));
+        }
     }
 }

@@ -37,6 +37,13 @@ namespace GabrovoUltraWebApp.Core.Services
         public async Task<Race?> GetByIdAsync(int id)
         => await repository.GetByIdAsync<Race>(id);
 
+        public async Task<Race?> GetCurrentRaceAsync()
+        {
+            var date = DateTime.Now;
+            var currentRace = await repository.All<Race>().FirstOrDefaultAsync(r=>r.Date>=date);
+            return currentRace;
+        }
+
         public async Task<Race?> UpdateAsync(int id, Race race)
         {
             var raceToUpdate = await repository.GetByIdAsync<Race>(id);

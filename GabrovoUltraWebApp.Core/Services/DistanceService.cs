@@ -17,6 +17,8 @@ namespace GabrovoUltraWebApp.Core.Services
             repository = _repository;
         }
 
+    
+
         public async Task<Distance?> CreateAsync(Distance distance)
         {
             await repository.AddAsync<Distance>(distance);
