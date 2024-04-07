@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-
+const API_URL = "https://localhost:7263/api/Registration";
 function JoinDistance({ data }) {
   const [show, setShow] = useState(false);
   const handleShow = () => setShow((prev) => !prev);
@@ -31,7 +31,12 @@ function JoinDistance({ data }) {
             <Button variant="secondary" onClick={handleShow}>
               Затвори
             </Button>
-            <Button variant="primary">Запиши се за дистанцията</Button>
+            <Button
+              variant="primary"
+              onClick={() => handleSignUpForDistance(data.id)}
+            >
+              Запиши се за дистанцията
+            </Button>
           </Modal.Footer>
         </Modal>
       )}
@@ -41,4 +46,20 @@ function JoinDistance({ data }) {
 
 export default JoinDistance;
 
-async function handleSignUpForDistance() {}
+async function handleSignUpForDistance(id) {
+  const response = await fetch(API_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+    body: JSON.stringify({ Id: id }),
+  });
+
+  const data = await response.json();
+  console.log(data);
+  if (!response.ok) {
+    alert("You must be logged in to sign up for a distance!");
+    return;
+  }
+}
