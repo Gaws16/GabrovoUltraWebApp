@@ -20,13 +20,7 @@ function JoinDistance({ data }) {
           <Modal.Header closeButton>
             <Modal.Title>{data.name}</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-            {data.description}
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Atque
-            doloremque provident soluta earum quibusdam odit. Quas vel natus
-            ipsum error beatae pariatur, harum earum doloremque laboriosam
-            quisquam, deserunt et rerum!
-          </Modal.Body>
+          <Modal.Body>{data.description}</Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleShow}>
               Затвори
@@ -58,7 +52,7 @@ async function handleSignUpForDistance(id) {
 
   const data = await response.json();
   console.log(data);
-  if (!response.ok) {
+  if (response.status === 401 || response.status === 403) {
     alert("You must be logged in to sign up for a distance!");
     return;
   }

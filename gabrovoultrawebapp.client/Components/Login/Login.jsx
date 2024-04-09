@@ -2,6 +2,8 @@ import { Form, Button, Container, Col, Row } from "react-bootstrap";
 import styles from "./Login.module.css";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { axios } from "../../src/api/axios";
+const LOGIN_URL = "/Auth/Login";
 function Login() {
   const [loginRequest, setLoginRequest] = useState({
     username: "",
@@ -11,24 +13,26 @@ function Login() {
   const navigate = useNavigate();
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = await fetch("https://localhost:7263/api/Auth/Login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(loginRequest),
-    });
+    try {
+      const response = await axios.post(LOGIN_URL, loginRequest);
 
-    const data = await response.json();
-    console.log(data);
-    ValidateResponse(data, setErrors);
-
-    if (data.jwtToken) {
-      console.log("in");
-      localStorage.setItem("token", data.jwtToken);
+      if (response?.data?.jwtToken !== undefined) {
+        localStorage.setItem("token", response.data.jwtToken);
+        localStorage.setItem("username", response.data.firstName);
+        localStorage.setItem("role", response.data.role);
+        localStorage.setItem("expirationTime", response.data.expirationTime);
+      }
       navigate("/");
+    } catch (e) {
+      if (e.response?.status === 400) {
+        setErrors(e.response.data.errors);
+        return;
+      }
+      console.log("error");
+      setErrors({ message: "Invalid username or password" });
     }
   };
+
   return (
     <Container
       fluid
@@ -79,11 +83,3 @@ function Login() {
 }
 
 export default Login;
-function ValidateResponse(data, setErrors) {
-  if (data.errors) {
-    setErrors(data.errors);
-  }
-  if (data.message) {
-    setErrors({ message: data.message });
-  }
-}

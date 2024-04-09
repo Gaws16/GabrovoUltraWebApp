@@ -6,7 +6,8 @@ import Row from "react-bootstrap/Row";
 import styles from "./Register.module.css";
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router";
-const API_URL = "https://localhost:7263/api/Auth/Register";
+import { axios } from "../../src/api/axios";
+const REGISTER_URL = "/Auth/Register";
 function Register() {
   const [validated, setValidated] = useState(false);
   const navigate = useNavigate();
@@ -37,22 +38,14 @@ function Register() {
       return;
     }
     try {
-      const response = await fetch(API_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      const data = await response.json();
-      if (data.errors) {
-        setErrors(data.errors);
-        return;
-      }
+      const response = await axios.post(REGISTER_URL, formData);
+      console.log(JSON.stringify(response));
     } catch (error) {
-      setErrors({ message: "Something went wrong. Please try again later." });
+      console.log(error);
+      console.log(error.response.data.errors);
+      setErrors(error.response.data.errors);
+      return;
     }
-
     setValidated(true);
     navigate("/login");
   };
@@ -80,7 +73,7 @@ function Register() {
                 setFormData({ ...formData, username: e.target.value })
               }
             />
-            <span className="text-danger">{errors.Username}</span>
+            <span className="text-danger">{errors?.Username}</span>
           </Form.Group>
           <Form.Group as={Col} xs={12} md={4} controlId="formPassword">
             <Form.Label>Password</Form.Label>
@@ -94,7 +87,7 @@ function Register() {
                 setFormData({ ...formData, password: e.target.value })
               }
             />
-            <span className="text-danger">{errors.Password}</span>
+            <span className="text-danger">{errors?.Password}</span>
           </Form.Group>
           <Form.Group as={Col} xs={12} md={4} controlId="formConfirmPassword">
             <Form.Label>Confirm Password</Form.Label>
@@ -111,7 +104,7 @@ function Register() {
             {formData.password !== formData.confirmPassword && (
               <span className="text-danger">Passwords do not match</span>
             )}
-            <span className="text-danger">{errors.Password}</span>
+            <span className="text-danger">{errors?.Password}</span>
           </Form.Group>
         </Row>
         <Row>
@@ -126,7 +119,7 @@ function Register() {
                 setFormData({ ...formData, firstName: e.target.value })
               }
             />
-            <span className="text-danger">{errors.FirstName}</span>
+            <span className="text-danger">{errors?.FirstName}</span>
           </Form.Group>
           <Form.Group as={Col} xs={12} md={6}>
             <Form.Label>Last Name</Form.Label>
@@ -141,7 +134,7 @@ function Register() {
                 setFormData({ ...formData, lastName: e.target.value })
               }
             />
-            <span className="text-danger">{errors.LastName}</span>
+            <span className="text-danger">{errors?.LastName}</span>
           </Form.Group>
         </Row>
         <Row>
@@ -159,7 +152,7 @@ function Register() {
               <option>Female</option>
               <option>Other</option>
             </Form.Control>
-            <span className="text-danger">{errors.Gender}</span>
+            <span className="text-danger">{errors?.Gender}</span>
           </Form.Group>
           <Form.Group as={Col} xs={12} md={2}>
             <Form.Label>Age</Form.Label>
@@ -180,7 +173,7 @@ function Register() {
                 })
               }
             />
-            <span className="text-danger">{errors.Age}</span>
+            <span className="text-danger">{errors?.Age}</span>
           </Form.Group>
           <Form.Group as={Col} xs={12} md={5}>
             <Form.Label>Team</Form.Label>
@@ -195,7 +188,7 @@ function Register() {
                 setFormData({ ...formData, team: e.target.value })
               }
             />
-            <span className="text-danger">{errors.Team}</span>
+            <span className="text-danger">{errors?.Team}</span>
           </Form.Group>
         </Row>
         <Row>
@@ -212,7 +205,7 @@ function Register() {
                 setFormData({ ...formData, city: e.target.value })
               }
             />
-            <span className="text-danger">{errors.City}</span>
+            <span className="text-danger">{errors?.City}</span>
           </Form.Group>
           <Form.Group as={Col} xs={6} md={6}>
             <Form.Label>Country</Form.Label>
@@ -227,14 +220,14 @@ function Register() {
                 setFormData({ ...formData, country: e.target.value })
               }
             />
-            <span className="text-danger">{errors.Country}</span>
+            <span className="text-danger">{errors?.Country}</span>
           </Form.Group>
         </Row>
         <Button type="submit" className="mt-3">
           Register
         </Button>
-        {errors.message && (
-          <span className="text-danger">{errors.message}</span>
+        {errors?.message && (
+          <span className="text-danger">{errors?.message}</span>
         )}
       </Form>
     </Container>
