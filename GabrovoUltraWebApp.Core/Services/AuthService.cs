@@ -85,6 +85,7 @@ namespace GabrovoUltraWebApp.Core.Services
                 Email = registerRequest.Username,
                 FirstName = registerRequest.FirstName,
                 LastName = registerRequest.LastName,
+                Team = registerRequest.Team,
                 Age = registerRequest.Age,
                 Gender = Enum.Parse<Gender>(registerRequest.Gender),
             };

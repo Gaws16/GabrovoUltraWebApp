@@ -43,12 +43,15 @@ namespace GabrovoUltraWebApp.Core.Services
             var runners = runnerRepository.All<ApplicationUser>().Where(r => r.Registration != null)
                 .Select(r => new RunnerDTO
                 {
-                    StartingNumber = r.Registration.StartingNumber,
-                    FirstName = r.FirstName,
-                   Distance = r.Registration.Distance.Name,
-                    LastName = r.LastName,
-                    RegisteredOn = r.Registration.RegistrationDate.ToString("dd/MM/yyyy"),
                     Id = r.Registration.RegistrationId,
+                    FirstName = r.FirstName,
+                    LastName = r.LastName,
+                    Distance = r.Registration.Distance.Name,
+                    RegisteredOn = r.Registration.RegistrationDate.ToString("dd/MM/yyyy"),
+                    StartingNumber = r.Registration.StartingNumber,
+                    Team = r.Team,
+                    Age = r.Age,
+                    Gender = r.Gender.ToString(),
                 });
 
 
@@ -72,25 +75,25 @@ namespace GabrovoUltraWebApp.Core.Services
 
                         runners = runners.Where(r => r.Team != null && r.Team.ToLower().Contains(filterQuery));
                         break;
-                    //case "startingnumber":
-                    //    runners = runners.Where(r => r.StartingNumber.ToString().Contains(filterQuery));
-                    //    break;
+                   case "startingnumber":
+                        runners = runners.Where(r => r.StartingNumber.ToString().Contains(filterQuery));
+                        break;
                     case "age":
                         runners = runners.Where(r => r.Age.ToString().Contains(filterQuery));
                         break;
                     case "gender":
-
-                        if (Enum.TryParse<Gender>(filterQuery, true, out Gender gender))
-                        {
-                            runners = runners.Where(r => r.Gender == gender);
-                        }
-                        else
-                        {
-                            //return empty collection if gencer is invalid
-                           runners = runners.Where(g=>false);
-                        }
-                       
+                        runners = runners.Where(r => r.Gender.ToLower().Contains(filterQuery));
                         break;
+                        //if (Enum.TryParse<Gender>(filterQuery, true, out Gender gender))
+                        //{
+                        //    runners = runners.Where(r => r.Gender == gender);
+                        //}
+                        //else
+                        //{
+                        //    //return empty collection if gencer is invalid
+                        //   runners = runners.Where(g=>false);
+                        //}
+
                 }
             }
             // Sorting
