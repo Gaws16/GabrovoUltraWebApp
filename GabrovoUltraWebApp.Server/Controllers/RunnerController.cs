@@ -31,7 +31,7 @@ namespace GabrovoUltraWebApp.Server.Controllers
         {
             var runners = await runnerService.GetAllAsync(filterOn,filterQuery,sortBy,
                 isAscending,pageNumber,pageSize);
-            return Ok(mapper.Map<List<RunnerDTO>>(runners));
+            return Ok(runners);
         }
 
         //GET: api/Race/id=5

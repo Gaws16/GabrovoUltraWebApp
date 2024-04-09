@@ -4,6 +4,7 @@ using GabrovoUltraWebApp.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GabrovoUltraWebApp.Infrastructure.Migrations
 {
     [DbContext(typeof(GabrovoUltraContext))]
-    partial class GabrovoUltraContextModelSnapshot : ModelSnapshot
+    [Migration("20240408164453_fix user registration logic")]
+    partial class fixuserregistrationlogic
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -665,7 +668,7 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasComment("LastName of the runner");
 
-                    b.Property<int?>("RegistrationId")
+                    b.Property<int>("RegistrationId")
                         .HasColumnType("int");
 
                     b.Property<string>("Team")
@@ -787,7 +790,9 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                 {
                     b.HasOne("GabrovoUltraWebApp.Infrastructure.Data.Models.Registration", "Registration")
                         .WithOne("User")
-                        .HasForeignKey("GabrovoUltraWebApp.Infrastructure.Data.Models.ApplicationUser", "RegistrationId");
+                        .HasForeignKey("GabrovoUltraWebApp.Infrastructure.Data.Models.ApplicationUser", "RegistrationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Registration");
                 });

@@ -51,9 +51,14 @@ namespace GabrovoUltraWebApp.Server.Controllers
 
             if (result)
             {
-                var token = await authService.GenerateTokenString(user);
-                var response = new LoginResponseDTO { JwtToken = token };
-                return Ok(response);
+                var token = await authService.GenerateToken(user);
+                //return token in http Only cookie
+                Response.Cookies.Append("jwt", token.JwtToken, new CookieOptions
+                {
+                    HttpOnly = false,
+                });
+
+                return Ok(token);
             }
             var errorResponse = new { message = "Invalid username or password" };
             return BadRequest(errorResponse);

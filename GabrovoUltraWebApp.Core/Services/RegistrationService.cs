@@ -17,17 +17,19 @@ namespace GabrovoUltraWebApp.Core.Services
         {
             repository = _repository;
         }
-        public async Task<Registration?> CreateAsync(Registration registration)
+        public async Task<Registration?> CreateAsync(Registration registration, ApplicationUser user)
         {
-            //Check if the user has already registered for the current race
-            var existingDistance = await repository
-                .All<Registration>()
-                .FirstOrDefaultAsync(r => r.RaceId == registration.RaceId && r.UserId==registration.UserId );
-            if (existingDistance != null)
+            //Check if the user already has a registration
+            if (user.RegistrationId != null)
             {
                 return null;
             }
-             await repository.AddAsync<Registration>(registration);
+
+            await repository.AddAsync<Registration>(registration);
+            //Update the user with the registration
+
+            user.Registration = registration;
+            repository.Update(user);
             await repository.SaveChangesAsync();
             return registration;
         }
@@ -45,12 +47,12 @@ namespace GabrovoUltraWebApp.Core.Services
 
         public async Task<string> GenerateStartingNumber(Distance distance)
         {
-            
+
             distance.Registrations = await repository.All<Registration>().Where(r => r.DistanceId == distance.Id).ToListAsync();
             StringBuilder startingNumber = new StringBuilder();
             startingNumber.Append(distance.Length);
-            int count =  distance.Registrations.Count;
-            string lastNumber = count>9 ? (count+1).ToString() : "0" + (count+1).ToString();
+            int count = distance.Registrations.Count;
+            string lastNumber = count > 9 ? (count + 1).ToString() : "0" + (count + 1).ToString();
             startingNumber.Append(lastNumber);
             return startingNumber.ToString();
         }
@@ -62,12 +64,25 @@ namespace GabrovoUltraWebApp.Core.Services
 
         public async Task<Registration?> GetByIdAsync(int id)
         {
-             return  await repository.GetByIdAsync<Registration>(id);
+            return await repository.GetByIdAsync<Registration>(id);
         }
 
-        public Task<Registration?> UpdateAsync(int id, Registration Registration)
+        public async Task<Registration?> UpdateAsync(int id, Registration registration)
         {
-            throw new NotImplementedException();
+
+            var registrationToUpdate = await repository.GetByIdAsync<Registration>(id);
+            if (registrationToUpdate == null)
+            {
+                return null;
+            }
+            registrationToUpdate.DistanceId = registration.DistanceId;
+            registrationToUpdate.UserId = registration.UserId;
+            registrationToUpdate.IsPaymentConfirmed = registration.IsPaymentConfirmed;
+            registrationToUpdate.RaceId = registration.RaceId;
+            registrationToUpdate.StartingNumber = registration.StartingNumber;
+            repository.Update(registrationToUpdate);
+            await repository.SaveChangesAsync();
+            return registrationToUpdate;
         }
     }
 }

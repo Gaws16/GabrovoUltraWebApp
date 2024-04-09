@@ -3,6 +3,7 @@ using GabrovoUltraWebApp.Infrastructure.Data.Enums;
 using GabrovoUltraWebApp.Infrastructure.Data.Models;
 using GabrovoUltraWebApp.Infrastructure.Models;
 using GabrovoUltraWebApp.Infrastructure.Models.RequestDTO;
+using GabrovoUltraWebApp.Infrastructure.Models.ResposneDTO;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -24,7 +25,7 @@ namespace GabrovoUltraWebApp.Core.Services
             this.config = config;
         }
 
-        public async Task<string> GenerateTokenString(LoginRequestDTO loginRequestDTO)
+        public async Task<TokenResponseDTO> GenerateToken(LoginRequestDTO loginRequestDTO)
         {
             var user = await userManager.FindByEmailAsync(loginRequestDTO.Username);
             var claims = new List<Claim>
@@ -51,9 +52,17 @@ namespace GabrovoUltraWebApp.Core.Services
                 signingCredentials:signingInCredential
                 );
             
-                
             string tokenString = new JwtSecurityTokenHandler().WriteToken(token);
-            return tokenString;
+
+            var response = new TokenResponseDTO
+            {
+                JwtToken = tokenString,
+                ExpirationTime = token.ValidTo,
+                FirstName = user.FirstName,
+                //Get the first role of the user (at this point we will have only one role per user)
+                Role = roles.FirstOrDefault()
+            };
+            return response;
         }
 
         public async Task<bool> LoginUser(LoginRequestDTO loginRequest)

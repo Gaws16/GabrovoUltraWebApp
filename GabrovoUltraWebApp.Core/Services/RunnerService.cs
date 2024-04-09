@@ -2,14 +2,16 @@
 using GabrovoUltraWebApp.Infrastructure.Data.Common;
 using GabrovoUltraWebApp.Infrastructure.Data.Enums;
 using GabrovoUltraWebApp.Infrastructure.Data.Models;
+using GabrovoUltraWebApp.Infrastructure.Models.ResposneDTO;
 using Microsoft.EntityFrameworkCore;
-
+using static GabrovoUltraWebApp.Infrastructure.Common.DataValidationConstants.Race;
 namespace GabrovoUltraWebApp.Core.Services
 {
     public class RunnerService : IRunnerService
     {
         private readonly IRepository runnerRepository;
         private readonly IAuthService authService;
+       
         public RunnerService(IRepository _runnerRepository, IAuthService _authService)
         {
             runnerRepository = _runnerRepository;
@@ -34,11 +36,26 @@ namespace GabrovoUltraWebApp.Core.Services
             return deletedRunner;
         }
 
-        public async Task<List<ApplicationUser>> GetAllAsync(string? filterOn = null, string? filterQuery = null,
+        public async Task<List<RunnerDTO>> GetAllAsync(string? filterOn = null, string? filterQuery = null,
                                         string? sortBy = null, bool? isAscending = true,
                                         int pageNumber = 1, int pageSize = 1000)
         {
-            var runners = runnerRepository.All<ApplicationUser>();
+            var runners = runnerRepository.All<ApplicationUser>().Where(r => r.Registration != null)
+                .Select(r => new RunnerDTO
+                {
+                    StartingNumber = r.Registration.StartingNumber,
+                    FirstName = r.FirstName,
+                   Distance = r.Registration.Distance.Name,
+                    LastName = r.LastName,
+                    RegisteredOn = r.Registration.RegistrationDate.ToString("dd/MM/yyyy"),
+                    Id = r.Registration.RegistrationId,
+                });
+
+
+            
+           
+                
+
             // Filtering
             if (filterOn != null && filterQuery != null)
             {

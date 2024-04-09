@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using static GabrovoUltraWebApp.Infrastructure.Common.DataValidationConstants.Runner;
 namespace GabrovoUltraWebApp.Infrastructure.Data.Models
 {
@@ -26,6 +27,9 @@ namespace GabrovoUltraWebApp.Infrastructure.Data.Models
         [MaxLength(TeamMaxLength)]
         [Comment("Name of the team")]
         public string? Team { get; set; }
-        public ICollection<Registration> Registrations { get; set; } = new HashSet<Registration>();
+
+        public int? RegistrationId { get; set; }
+        [ForeignKey(nameof(RegistrationId))]
+        public Registration Registration { get; set; } = null!;
     }
 }

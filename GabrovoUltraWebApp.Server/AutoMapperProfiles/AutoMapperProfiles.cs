@@ -43,6 +43,8 @@ namespace GabrovoUltraWebApp.Infrastructure.AutoMapperProfiles
             CreateMap<Registration, RegistrationDTO>()
                 .ForMember(dest => dest.RegistrationDate, opt => opt.MapFrom(src => src.RegistrationDate.ToString(DateTimeFormat)))
                 .ReverseMap();
+            CreateMap<Registration, UpdateRegistrationRequestDTO>()
+                .ReverseMap();
                 
         }
     }

@@ -56,7 +56,7 @@ namespace GabrovoUltraWebApp.Server.Controllers
             return Ok(mapper.Map<RegistrationDTO>(registration));
         }
 
-       
+       // POST: api/Registration
         [HttpPost]
         [ValidateModelState]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -93,7 +93,8 @@ namespace GabrovoUltraWebApp.Server.Controllers
                 RaceId = race.Id,
                 StartingNumber = await registrationService.GenerateStartingNumber(mapper.Map<Distance>(distance)),
             };
-            var createdRegistration = await registrationService.CreateAsync(registration);
+            var createdRegistration = await registrationService.CreateAsync(registration,user);
+            // var result = new Result { }  create Result 
             if (createdRegistration == null)
             {
                 return BadRequest("Already registered for distance");
@@ -111,7 +112,7 @@ namespace GabrovoUltraWebApp.Server.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Produces("application/json")]
-        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] RegistrationDTO registrationDTO)
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateRegistrationRequestDTO registrationDTO)
         {
             var registration = mapper.Map<Registration>(registrationDTO);
             var updatedRegistration = await registrationService.UpdateAsync(id, registration);

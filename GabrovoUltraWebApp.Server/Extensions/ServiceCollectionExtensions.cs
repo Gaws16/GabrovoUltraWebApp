@@ -76,16 +76,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
         public static IServiceCollection AddApplicationIdentity(this IServiceCollection services, IConfiguration config)
         {
-            //        services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-            //        {
-            //            options.Password.RequireDigit = true;
-            //            options.Password.RequireLowercase = false;
-            //            options.Password.RequireUppercase = true;
-            //            options.Password.RequireNonAlphanumeric = false;
-            //            options.Password.RequiredLength = 6;
-            //        })
-            //.AddEntityFrameworkStores<GabrovoUltraContext>()
-            //.AddDefaultTokenProviders();
+           
             services.AddIdentityCore<ApplicationUser>()
                     .AddRoles<IdentityRole>()
                     .AddTokenProvider<DataProtectorTokenProvider<ApplicationUser>>("GabrovoUltra")
@@ -132,9 +123,12 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 options.AddPolicy("CorsPolicy",
                     builder =>
-                    builder.AllowAnyMethod()
+                    builder
+                    //.WithOrigins("https://localhost:5173")
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
                     .AllowAnyHeader()
-                    .AllowAnyOrigin());
+                    );
             });
         }
     }
