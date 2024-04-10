@@ -1,57 +1,77 @@
 import { NavLink, Navbar, Image, Container, Nav } from "react-bootstrap";
-import styles from "./CustomNav.module.css";
+
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
-function CustomNav({ loggedIn, display, dynamicStyles }) {
+function CustomNav({ loggedIn, display, handleDisplay }) {
   const navigate = useNavigate();
-  if (!display) {
+  const { pathname } = useLocation();
+  if (!display && pathname === "/") {
     return null;
   }
   const handleLogout = () => {
     localStorage.clear();
     navigate("/");
   };
+  console.log(pathname);
   return (
     <Navbar
       collapseOnSelect
       expand="lg"
-      className={`sticky-top ${styles.nav} ${dynamicStyles} d-flex justify-content-between p-3 bg-dark text-light`}
+      className={`sticky-top  d-flex justify-content-between  p-3 bg-dark text-light`}
+      onClick={() => handleDisplay(true)}
     >
       <Container fluid>
-        <Navbar.Brand href="#home">
+        <Link to={"/layout"}>
           <Image src="/src/assets/logo.svg" width={60} height={60} />
-        </Navbar.Brand>
+        </Link>
         <Navbar.Toggle
           style={{ backgroundColor: "white" }}
           aria-controls="navbarScroll"
         />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav
-            className="me-auto my-2 my-lg-0 text-light"
-            style={{ maxHeight: "100px" }}
+            className="me-auto my-2 my-lg-0 text-light display-flex gap-3"
             navbarScroll
           >
-            <NavLink style={{ color: "white" }} href="#Home">
+            <Link
+              to={"/home"}
+              style={{ color: "white", textDecoration: "none" }}
+              href="#AboutUs"
+            >
               Начало
-            </NavLink>
+            </Link>
 
-            <NavLink style={{ color: "white" }} href="#Distances">
+            <Link
+              to={"/distances"}
+              style={{ color: "white", textDecoration: "none" }}
+              href="#Distances"
+            >
               Дистанции
-            </NavLink>
+            </Link>
 
-            <NavLink style={{ color: "white" }} href="#AboutUs">
+            <Link
+              to={"/runners"}
+              style={{ color: "white", textDecoration: "none" }}
+              href="#AboutUs"
+            >
               Участници
-            </NavLink>
+            </Link>
 
-            <NavLink style={{ color: "white" }} href="#AboutUs">
+            <Link
+              to={"/results"}
+              style={{ color: "white", textDecoration: "none" }}
+            >
               Резултати
-            </NavLink>
+            </Link>
 
-            <NavLink style={{ color: "white" }} href="#AboutUs">
+            <Link
+              style={{ color: "white", textDecoration: "none" }}
+              href="#AboutUs"
+            >
               Контакти
-            </NavLink>
+            </Link>
           </Nav>
 
           <ul className="d-flex flex-col gap-5 text-light list-unstyled">
