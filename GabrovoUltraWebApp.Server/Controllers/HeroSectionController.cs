@@ -29,7 +29,6 @@ namespace GabrovoUltraWebApp.Server.Controllers
         // GET: api/HeroSection/All
         //Get all hero sections
         [HttpGet("All")]
-        [Authorize(Roles ="Reader, Writer")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces("application/json")]
         public async Task<IActionResult> All()

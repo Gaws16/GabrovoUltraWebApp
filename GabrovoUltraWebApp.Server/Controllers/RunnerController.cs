@@ -34,9 +34,24 @@ namespace GabrovoUltraWebApp.Server.Controllers
                 isAscending,pageNumber,pageSize);
             return Ok(runners);
         }
+        // GET: api/Runner/count
+        //Get count of all runners
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Route("count")]
+        public async Task<IActionResult> GetCount()
+        {
+            var count = await runnerService.GetCountAsync();
+            if (count == 0)
+            {
+                return NotFound();
+            }
+            return Ok(count);
+        }
 
-        //GET: api/Race/id=5
-        //Get race by id
+        //GET: api/Runners/id=5
+        //Get runner by id
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

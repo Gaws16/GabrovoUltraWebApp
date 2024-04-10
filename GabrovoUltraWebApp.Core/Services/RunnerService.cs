@@ -1,10 +1,8 @@
 ﻿using GabrovoUltraWebApp.Core.Services.Contracts;
 using GabrovoUltraWebApp.Infrastructure.Data.Common;
-using GabrovoUltraWebApp.Infrastructure.Data.Enums;
 using GabrovoUltraWebApp.Infrastructure.Data.Models;
 using GabrovoUltraWebApp.Infrastructure.Models.ResposneDTO;
 using Microsoft.EntityFrameworkCore;
-using static GabrovoUltraWebApp.Infrastructure.Common.DataValidationConstants.Race;
 namespace GabrovoUltraWebApp.Core.Services
 {
     public class RunnerService : IRunnerService
@@ -126,6 +124,13 @@ namespace GabrovoUltraWebApp.Core.Services
         {
             return await runnerRepository.GetByIdAsync<ApplicationUser>(id);
         }
+
+        public async Task<int> GetCountAsync()
+        => await runnerRepository.All<ApplicationUser>()
+            .Where(r=>r.RegistrationId!=null)
+            .CountAsync();
+            
+        
 
         public async Task<ApplicationUser?> UpdateAsync(int id, ApplicationUser runner)
         {
