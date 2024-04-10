@@ -22,6 +22,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IHeroSectionService, HeroSectionService>();
             services.AddScoped<IRepository, Repository>();
             services.AddScoped<IRegistrationService, RegistrationService>();
+            services.AddScoped<IResultService, ResultService>();
             services.AddScoped<IRunnerService, RunnerService>();
             services.AddScoped<IRaceService, RaceService>();
             services.AddScoped<IDistanceService, DistanceService>();

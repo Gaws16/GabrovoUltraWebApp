@@ -19,11 +19,13 @@ namespace GabrovoUltraWebApp.Server.Controllers
         private readonly IDistanceService distanceService;
         private readonly IMapper mapper;
         private readonly IRaceService raceService;
+        private readonly IResultService resultService;
         private readonly UserManager<ApplicationUser> userManager;
         public RegistrationController(IRegistrationService _registrationService, IMapper _mapper, IDistanceService _distanceService
-            , UserManager<ApplicationUser> _userManager, IRaceService _raceService)
+            , UserManager<ApplicationUser> _userManager, IRaceService _raceService, IResultService _resultService)
         {
             raceService = _raceService;
+            resultService = _resultService;
             registrationService = _registrationService;
             distanceService = _distanceService;
             mapper = _mapper;
@@ -92,13 +94,23 @@ namespace GabrovoUltraWebApp.Server.Controllers
                 IsPaymentConfirmed = false,
                 RaceId = race.Id,
                 StartingNumber = await registrationService.GenerateStartingNumber(mapper.Map<Distance>(distance)),
-            };
-            var createdRegistration = await registrationService.CreateAsync(registration,user);
-            // var result = new Result { }  create Result 
-            if (createdRegistration == null)
+                Result = new Result
+                {
+                    FinishTme = TimeSpan.Zero,
+                    CategoryRank = 0,
+                    OverallRank = 0,
+                },
+        };
+            
+            var createdRegistration = await registrationService.CreateAsync(registration, user);
+                    
+            if (createdRegistration == null )
             {
+                //TODO Make error message file
                 return BadRequest("Already registered for distance");
             }
+         
+
             var registerResponse = mapper.Map<RegistrationDTO>(createdRegistration);
             return CreatedAtAction(nameof(GetById), new { id = registerResponse.RegistrationId }, registerResponse);
            

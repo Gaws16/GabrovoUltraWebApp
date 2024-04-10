@@ -1,14 +1,10 @@
 ﻿using AutoMapper;
-using GabrovoUltraWebApp.Core.Services;
 using GabrovoUltraWebApp.Core.Services.Contracts;
 using GabrovoUltraWebApp.Infrastructure.Data.Models;
 using GabrovoUltraWebApp.Infrastructure.Models.RequestDTO;
-using GabrovoUltraWebApp.Infrastructure.Models.ResponseDTO;
 using GabrovoUltraWebApp.Infrastructure.Models.ResposneDTO;
 using GabrovoUltraWebApp.Server.CustomActionFilters;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace GabrovoUltraWebApp.Server.Controllers
 {

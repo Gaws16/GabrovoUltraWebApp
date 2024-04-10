@@ -26,9 +26,9 @@ namespace GabrovoUltraWebApp.Infrastructure.Data.Models
         [Required]
         public DateTime RegistrationDate { get; set; }
         
-        public int? ResultId { get; set; }
-       
-        public virtual Result? Result { get; set; } = null!;
+        public int ResultId { get; set; }
+        [ForeignKey(nameof(ResultId))]
+        public virtual Result Result { get; set; } = null!;
        
         [Required]
         public bool IsPaymentConfirmed { get; set; }

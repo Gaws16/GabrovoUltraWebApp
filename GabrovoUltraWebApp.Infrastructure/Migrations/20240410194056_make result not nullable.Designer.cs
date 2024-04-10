@@ -4,6 +4,7 @@ using GabrovoUltraWebApp.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GabrovoUltraWebApp.Infrastructure.Migrations
 {
     [DbContext(typeof(GabrovoUltraContext))]
-    partial class GabrovoUltraContextModelSnapshot : ModelSnapshot
+    [Migration("20240410194056_make result not nullable")]
+    partial class makeresultnotnullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -387,9 +390,6 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
 
                     b.HasIndex("RaceId");
 
-                    b.HasIndex("ResultId")
-                        .IsUnique();
-
                     b.ToTable("Registrations");
                 });
 
@@ -414,6 +414,9 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ResultId");
+
+                    b.HasIndex("RegistrationId")
+                        .IsUnique();
 
                     b.ToTable("Results");
                 });
@@ -716,17 +719,20 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GabrovoUltraWebApp.Infrastructure.Data.Models.Result", "Result")
-                        .WithOne("Registration")
-                        .HasForeignKey("GabrovoUltraWebApp.Infrastructure.Data.Models.Registration", "ResultId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Distance");
 
                     b.Navigation("Race");
+                });
 
-                    b.Navigation("Result");
+            modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.Result", b =>
+                {
+                    b.HasOne("GabrovoUltraWebApp.Infrastructure.Data.Models.Registration", "Registration")
+                        .WithOne("Result")
+                        .HasForeignKey("GabrovoUltraWebApp.Infrastructure.Data.Models.Result", "RegistrationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Registration");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -805,13 +811,10 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
 
             modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.Registration", b =>
                 {
-                    b.Navigation("User")
+                    b.Navigation("Result")
                         .IsRequired();
-                });
 
-            modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.Result", b =>
-                {
-                    b.Navigation("Registration")
+                    b.Navigation("User")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

@@ -24,13 +24,16 @@ namespace GabrovoUltraWebApp.Core.Services
             {
                 return null;
             }
-
+            
+           
             await repository.AddAsync<Registration>(registration);
-            //Update the user with the registration
 
+            //Update the user with the registration
             user.Registration = registration;
             repository.Update(user);
+
             await repository.SaveChangesAsync();
+
             return registration;
         }
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GabrovoUltraWebApp.Core.Services.Contracts
 {
-    interface IResultService
+    public interface IResultService
     {
         Task<List<Result>> GetAllAsync(string? filterOn = null, string? filterQuery = null,
                                         string? sortBy = null, bool? isAscending = true,

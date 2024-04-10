@@ -13,12 +13,12 @@ namespace GabrovoUltraWebApp.Infrastructure.Data.SeedDB
     {
         public void Configure(EntityTypeBuilder<Registration> builder)
         {
-            builder
-                .HasOne<Result>(r => r.Result)
-                .WithOne(r => r.Registration)
-                .HasForeignKey<Result>(r => r.RegistrationId)
-                .IsRequired()
-                .OnDelete(DeleteBehavior.Restrict);
+            //builder
+            //    .HasOne<Result>(r => r.Result)
+            //    .WithOne(r => r.Registration)
+            //    .HasForeignKey<Result>(r => r.RegistrationId)
+            //    .IsRequired()
+            //    .OnDelete(DeleteBehavior.Restrict);
 
             builder
                     .HasOne<Distance>(d => d.Distance)

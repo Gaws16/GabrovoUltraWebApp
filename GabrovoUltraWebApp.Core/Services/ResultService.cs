@@ -15,6 +15,11 @@ namespace GabrovoUltraWebApp.Core.Services
         public async Task<Result?> CreateAsync(Result result)
         {
             //TODO : check if the result is already in the database
+            var existingResult = repository.All<Result>().FirstOrDefault(r=>r.RegistrationId==result.RegistrationId);
+            if (existingResult != null)
+            {
+                return null;
+            }
             await repository.AddAsync(result);
             await repository.SaveChangesAsync();
             return result;
