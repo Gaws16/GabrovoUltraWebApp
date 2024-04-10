@@ -22,14 +22,13 @@ function Login() {
         localStorage.setItem("role", response.data.role);
         localStorage.setItem("expirationTime", response.data.expirationTime);
       }
-      navigate("/");
+      navigate("/layout");
     } catch (e) {
       if (e.response?.status === 400) {
-        setErrors(e.response.data.errors);
+        setErrors({ message: "Invalid username or password" });
         return;
       }
       console.log("error");
-      setErrors({ message: "Invalid username or password" });
     }
   };
 
@@ -54,7 +53,7 @@ function Login() {
               type="email"
               placeholder="Enter email"
             />
-            <span className="text-danger">{errors.Username}</span>
+            <span className="text-danger">{errors?.Username}</span>
           </Form.Group>
         </Row>
         <Row>
@@ -68,14 +67,14 @@ function Login() {
                 setLoginRequest({ ...loginRequest, password: e.target.value })
               }
             />
-            <span className="text-danger">{errors.Password}</span>
+            <span className="text-danger">{errors?.Password}</span>
           </Form.Group>
         </Row>
         <Row>
           <Button variant="primary" type="submit">
             Login
           </Button>
-          <span className="text-danger">{errors.message}</span>
+          <span className="text-danger">{errors?.message}</span>
         </Row>
       </Form>
     </Container>
