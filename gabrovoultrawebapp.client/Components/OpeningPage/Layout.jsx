@@ -11,7 +11,6 @@ export default function Layout() {
       <Header />
       <AboutUs />
       <Distances />
-      <Gallery />
     </div>
   );
 }
