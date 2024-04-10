@@ -21,7 +21,7 @@ function AboutUs() {
         </Col>
 
         <Col xs={12} md={6}>
-          <Image src="public/Reka.jpg" fluid thumbnail="true" />
+          <Image src="public/Racho.jpg" fluid thumbnail="true" />
         </Col>
       </Row>
     </Container>

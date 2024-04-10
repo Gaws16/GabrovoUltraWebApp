@@ -34,11 +34,8 @@ export const Gallery = () => {
   const handleToggle = (index) => setActive(index);
   if (loading) {
     return (
-      <Container className="possition-relative">
-        <Spinner
-          animation="border"
-          className="position-absolute top-50 start-50"
-        />
+      <Container className="d-flex items-center">
+        <Spinner animation="border" />
       </Container>
     );
   }
