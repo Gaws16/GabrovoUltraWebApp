@@ -24,11 +24,18 @@ function Login() {
       }
       navigate("/layout");
     } catch (e) {
-      if (e.response?.status === 400) {
+      if (e.response?.data?.errors === undefined) {
         setErrors({ message: "Invalid username or password" });
         return;
       }
-      console.log("error");
+
+      if (e.response?.status === 400) {
+        setErrors({
+          Password: e.response?.data?.errors?.Password,
+          Username: e.response?.data?.errors?.Username,
+        });
+        return;
+      }
     }
   };
 
