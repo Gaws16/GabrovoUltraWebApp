@@ -5,37 +5,38 @@
 namespace GabrovoUltraWebApp.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class fixtheshitshowfromlastmigration : Migration
+    public partial class fixondelete : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_AspNetUsers_Registrations_RegistrationId",
-                table: "AspNetUsers");
+                name: "FK_Results_Registrations_RegistrationId",
+                table: "Results");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_AspNetUsers_Registrations_RegistrationId",
-                table: "AspNetUsers",
+                name: "FK_Results_Registrations_RegistrationId",
+                table: "Results",
                 column: "RegistrationId",
                 principalTable: "Registrations",
-                principalColumn: "RegistrationId");
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_AspNetUsers_Registrations_RegistrationId",
-                table: "AspNetUsers");
+                name: "FK_Results_Registrations_RegistrationId",
+                table: "Results");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_AspNetUsers_Registrations_RegistrationId",
-                table: "AspNetUsers",
+                name: "FK_Results_Registrations_RegistrationId",
+                table: "Results",
                 column: "RegistrationId",
                 principalTable: "Registrations",
-                principalColumn: "RegistrationId",
-                onDelete: ReferentialAction.Cascade);
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
         }
     }
 }

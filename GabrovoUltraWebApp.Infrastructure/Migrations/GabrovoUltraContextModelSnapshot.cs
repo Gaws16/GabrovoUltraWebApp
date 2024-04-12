@@ -349,12 +349,12 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
 
             modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.Registration", b =>
                 {
-                    b.Property<int>("RegistrationId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasComment("Registration Id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RegistrationId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("DistanceId")
                         .HasColumnType("int");
@@ -368,9 +368,6 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                     b.Property<DateTime>("RegistrationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ResultId")
-                        .HasColumnType("int");
-
                     b.Property<string>("StartingNumber")
                         .IsRequired()
                         .HasMaxLength(6)
@@ -381,25 +378,22 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasComment("Foreign key to ASPUsers");
 
-                    b.HasKey("RegistrationId");
+                    b.HasKey("Id");
 
                     b.HasIndex("DistanceId");
 
                     b.HasIndex("RaceId");
-
-                    b.HasIndex("ResultId")
-                        .IsUnique();
 
                     b.ToTable("Registrations");
                 });
 
             modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.Result", b =>
                 {
-                    b.Property<int>("ResultId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ResultId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CategoryRank")
                         .HasColumnType("int");
@@ -413,7 +407,10 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                     b.Property<int>("RegistrationId")
                         .HasColumnType("int");
 
-                    b.HasKey("ResultId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("RegistrationId")
+                        .IsUnique();
 
                     b.ToTable("Results");
                 });
@@ -716,17 +713,20 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GabrovoUltraWebApp.Infrastructure.Data.Models.Result", "Result")
-                        .WithOne("Registration")
-                        .HasForeignKey("GabrovoUltraWebApp.Infrastructure.Data.Models.Registration", "ResultId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Distance");
 
                     b.Navigation("Race");
+                });
 
-                    b.Navigation("Result");
+            modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.Result", b =>
+                {
+                    b.HasOne("GabrovoUltraWebApp.Infrastructure.Data.Models.Registration", "Registration")
+                        .WithOne("Result")
+                        .HasForeignKey("GabrovoUltraWebApp.Infrastructure.Data.Models.Result", "RegistrationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Registration");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -805,13 +805,10 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
 
             modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.Registration", b =>
                 {
-                    b.Navigation("User")
+                    b.Navigation("Result")
                         .IsRequired();
-                });
 
-            modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.Result", b =>
-                {
-                    b.Navigation("Registration")
+                    b.Navigation("User")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

@@ -17,15 +17,22 @@ namespace GabrovoUltraWebApp.Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             //TODO Extract to separate configuration classes
-           
-        //builder.Entity<Registration>()
-        //        .HasOne<Category>(c=>c.Category)
-        //        .WithOne(c=>c.Registration)
-        //        .HasForeignKey<Category>(c=>c.RegistrationId)
-        //        .IsRequired()
-        //        .OnDelete(DeleteBehavior.Restrict);
-                
-                
+
+            //builder.Entity<Registration>()
+            //        .HasOne<Category>(c=>c.Category)
+            //        .WithOne(c=>c.Registration)
+            //        .HasForeignKey<Category>(c=>c.RegistrationId)
+            //        .IsRequired()
+            //        .OnDelete(DeleteBehavior.Restrict);
+
+            //builder.Entity<Result>()
+            //     .HasOne<Registration>(r => r.Registration)
+            //    .WithOne(r => r.Result)
+            //    .HasForeignKey<Result>(r => r.RegistrationId)
+            //    .IsRequired()
+            //    .OnDelete(DeleteBehavior.Restrict);
+
+
             builder.ApplyConfiguration(new RaceConfiguration());
             builder.ApplyConfiguration(new CategoryConfiguration());
             builder.ApplyConfiguration(new RegistrationConfiguration());
@@ -38,7 +45,7 @@ namespace GabrovoUltraWebApp.Infrastructure.Data
 
         public DbSet<Race> Races { get; set; }
 
-       public DbSet<Distance> Distances { get; set; }
+        public DbSet<Distance> Distances { get; set; }
 
         public DbSet<Result> Results { get; set; }
 

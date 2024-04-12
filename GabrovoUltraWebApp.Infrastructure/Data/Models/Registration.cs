@@ -8,7 +8,7 @@ namespace GabrovoUltraWebApp.Infrastructure.Data.Models
     {
         [Key]
         [Comment("Registration Id")]
-        public int RegistrationId { get; set; }
+        public int Id { get; set; }
         [Required]
         [Comment("Foreign key to ASPUsers")]
         public string UserId { get; set; } = null!;
@@ -26,8 +26,6 @@ namespace GabrovoUltraWebApp.Infrastructure.Data.Models
         [Required]
         public DateTime RegistrationDate { get; set; }
         
-        public int ResultId { get; set; }
-        [ForeignKey(nameof(ResultId))]
         public virtual Result Result { get; set; } = null!;
        
         [Required]

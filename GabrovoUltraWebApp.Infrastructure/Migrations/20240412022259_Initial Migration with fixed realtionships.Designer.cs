@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GabrovoUltraWebApp.Infrastructure.Migrations
 {
     [DbContext(typeof(GabrovoUltraContext))]
-    [Migration("20240410194056_make result not nullable")]
-    partial class makeresultnotnullable
+    [Migration("20240412022259_Initial Migration with fixed realtionships")]
+    partial class InitialMigrationwithfixedrealtionships
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -352,12 +352,12 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
 
             modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.Registration", b =>
                 {
-                    b.Property<int>("RegistrationId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasComment("Registration Id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RegistrationId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("DistanceId")
                         .HasColumnType("int");
@@ -371,9 +371,6 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                     b.Property<DateTime>("RegistrationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ResultId")
-                        .HasColumnType("int");
-
                     b.Property<string>("StartingNumber")
                         .IsRequired()
                         .HasMaxLength(6)
@@ -384,7 +381,7 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasComment("Foreign key to ASPUsers");
 
-                    b.HasKey("RegistrationId");
+                    b.HasKey("Id");
 
                     b.HasIndex("DistanceId");
 
@@ -395,11 +392,11 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
 
             modelBuilder.Entity("GabrovoUltraWebApp.Infrastructure.Data.Models.Result", b =>
                 {
-                    b.Property<int>("ResultId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ResultId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CategoryRank")
                         .HasColumnType("int");
@@ -413,7 +410,7 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                     b.Property<int>("RegistrationId")
                         .HasColumnType("int");
 
-                    b.HasKey("ResultId");
+                    b.HasKey("Id");
 
                     b.HasIndex("RegistrationId")
                         .IsUnique();
