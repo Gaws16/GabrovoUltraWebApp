@@ -115,5 +115,18 @@ namespace GabrovoUltraWebApp.Server.Controllers
             }
             return Ok(mapper.Map<RaceDTO>(currentRace));
         }
+        [HttpGet]
+        [Route("{raceId:int}/distances")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetAllRaceDistances([FromRoute] int raceId)
+        {
+            var distances = await raceService.GetAllRaceDistanceAsync(raceId);
+            if (distances == null)
+            {
+                return NotFound();
+            }
+            return Ok(mapper.Map<List<DistanceDTO>>(distances));
+        }
     }
 }

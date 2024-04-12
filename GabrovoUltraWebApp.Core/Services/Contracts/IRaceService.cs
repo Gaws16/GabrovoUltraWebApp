@@ -15,5 +15,7 @@ namespace GabrovoUltraWebApp.Core.Services.Contracts
         Task<Race?> DeleteAsync(int id);
 
         Task<Race?> GetCurrentRaceAsync();
+
+        Task<List<Distance>?> GetAllRaceDistanceAsync(int raceId);
     }
 }

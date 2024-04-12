@@ -14,7 +14,6 @@ function CustomNav({ loggedIn, display, handleDisplay }) {
     localStorage.clear();
     navigate("/");
   };
-  console.log(pathname);
   return (
     <Navbar
       collapseOnSelect

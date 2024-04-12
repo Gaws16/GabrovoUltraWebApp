@@ -34,6 +34,16 @@ namespace GabrovoUltraWebApp.Core.Services
         public async Task<List<Race>> GetAllAsync()
        => await repository.All<Race>().ToListAsync();
 
+        public async Task<List<Distance>?> GetAllRaceDistanceAsync(int raceId)
+        {
+           var race = await repository.GetByIdAsync<Race>(raceId);
+            if (race == null)
+            {
+                return null;
+            }
+            return race.Distances.ToList();
+        }
+
         public async Task<Race?> GetByIdAsync(int id)
         => await repository.GetByIdAsync<Race>(id);
 

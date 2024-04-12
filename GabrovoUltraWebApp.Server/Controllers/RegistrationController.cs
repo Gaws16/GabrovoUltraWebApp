@@ -86,23 +86,9 @@ namespace GabrovoUltraWebApp.Server.Controllers
             {
                 return BadRequest();
             }
-            var registration = new Registration
-            {
-                DistanceId = distance.Id,
-                UserId = user.Id,
-                RegistrationDate = DateTime.Now,
-                IsPaymentConfirmed = false,
-                RaceId = race.Id,
-                StartingNumber = await registrationService.GenerateStartingNumber(mapper.Map<Distance>(distance)),
-                Result = new Result
-                {
-                    FinishTme = TimeSpan.Zero,
-                    CategoryRank = 0,
-                    OverallRank = 0,
-                },
-        };
             
-            var createdRegistration = await registrationService.CreateAsync(registration, user);
+            
+            var createdRegistration = await registrationService.CreateAsync(distance,user, race);
                     
             if (createdRegistration == null )
             {
@@ -112,7 +98,7 @@ namespace GabrovoUltraWebApp.Server.Controllers
          
 
             var registerResponse = mapper.Map<RegistrationDTO>(createdRegistration);
-            return CreatedAtAction(nameof(GetById), new { id = registerResponse.RegistrationId }, registerResponse);
+            return CreatedAtAction(nameof(GetById), new { id = registerResponse.Id }, registerResponse);
            
         }
 

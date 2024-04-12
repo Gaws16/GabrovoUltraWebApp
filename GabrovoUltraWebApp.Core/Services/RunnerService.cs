@@ -41,7 +41,7 @@ namespace GabrovoUltraWebApp.Core.Services
             var runners = runnerRepository.All<ApplicationUser>().Where(r => r.Registration != null)
                 .Select(r => new RunnerDTO
                 {
-                    Id = r.Registration.RegistrationId,
+                    Id = r.Registration.Id,
                     FirstName = r.FirstName,
                     LastName = r.LastName,
                     Distance = r.Registration.Distance.Name,

@@ -2,11 +2,7 @@
 using GabrovoUltraWebApp.Infrastructure.Data.Common;
 using GabrovoUltraWebApp.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace GabrovoUltraWebApp.Core.Services
 {
@@ -17,21 +13,35 @@ namespace GabrovoUltraWebApp.Core.Services
         {
             repository = _repository;
         }
-        public async Task<Registration?> CreateAsync(Registration registration, ApplicationUser user)
+        public async Task<Registration?> CreateAsync(Distance distance, ApplicationUser user, Race race)
         {
             //Check if the user already has a registration
             if (user.RegistrationId != null)
             {
                 return null;
             }
-            
-           
-            await repository.AddAsync<Registration>(registration);
+            var registration = new Registration
+            {
+                DistanceId = distance.Id,
+                UserId = user.Id,
+                RegistrationDate = DateTime.Now,
+                IsPaymentConfirmed = false,
+                RaceId = race.Id,
+                StartingNumber = await GenerateStartingNumber(distance),
+                Result = new Result
+                {
+                    FinishTme = TimeSpan.Zero,
+                    CategoryRank = 0,
+                    OverallRank = 0,
+                },
+            };
 
+            //await repository.AddAsync<Registration>(registration);
+            race.Registrations.Add(registration);
             //Update the user with the registration
             user.Registration = registration;
             repository.Update(user);
-
+            repository.Update(registration);
             await repository.SaveChangesAsync();
 
             return registration;

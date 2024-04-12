@@ -13,7 +13,7 @@ namespace GabrovoUltraWebApp.Core.Services.Contracts
 
         Task<Registration?> GetByIdAsync(int id);
 
-        Task<Registration?> CreateAsync(Registration Registration, ApplicationUser user);
+        Task<Registration?> CreateAsync(Distance distance, ApplicationUser user, Race race);
 
         Task<Registration?> UpdateAsync(int id, Registration Registration);
 

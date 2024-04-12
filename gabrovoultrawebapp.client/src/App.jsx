@@ -1,4 +1,3 @@
-import "./App.css";
 import { Gallery } from "../Components/Gallery/Gallery";
 import { BrowserRouter } from "react-router-dom";
 import { Routes, Route } from "react-router";
@@ -9,8 +8,8 @@ import CustomNav from "../Components/CustomNav/CustomNav";
 import Login from "../Components/Login/Login";
 import Layout from "../Components/OpeningPage/Layout";
 import AboutUs from "../Components/AboutUs";
-import Distances from "../Components/Distances/Distances/Distances";
 import DistancesMain from "../Components/Distances/Main/DistanceMain";
+import Results from "../Components/Results";
 export default function App() {
   const [display, setDisplay] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
@@ -39,6 +38,7 @@ export default function App() {
         <Route path="/layout" element={<Layout />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/home" element={<AboutUs />} />
+        <Route path="/results" element={<Results />} />
         <Route path="/distances" element={<DistancesMain />} />
         <Route path="/runners" element={<AllRunners />} />
         <Route path="/register" element={<Register />} />
