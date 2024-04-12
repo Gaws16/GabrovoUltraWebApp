@@ -38,12 +38,14 @@ function Register() {
       return;
     }
     try {
-      const response = await axios.post(REGISTER_URL, formData);
-      console.log(JSON.stringify(response));
+      await axios.post(REGISTER_URL, formData);
     } catch (error) {
-      console.log(error);
-      console.log(error.response.data.errors);
-      setErrors(error.response.data.errors);
+      console.log(error.response.data);
+      if (error?.response?.data?.errors) {
+        setErrors(error.response.data.errors);
+        return;
+      }
+      setErrors({ message: error.response.data });
       return;
     }
     setValidated(true);
@@ -102,9 +104,9 @@ function Register() {
               }
             />
             {formData.password !== formData.confirmPassword && (
-              <span className="text-danger">Passwords do not match</span>
+              <span className="text-danger">Passwords do not match! </span>
             )}
-            <span className="text-danger">{errors?.Password}</span>
+            <span className="text-danger">{errors?.Password} </span>
           </Form.Group>
         </Row>
         <Row>
@@ -223,12 +225,14 @@ function Register() {
             <span className="text-danger">{errors?.Country}</span>
           </Form.Group>
         </Row>
-        <Button type="submit" className="mt-3">
+        <Button className="mt-3" type="submit">
           Register
         </Button>
-        {errors?.message && (
-          <span className="text-danger">{errors?.message}</span>
-        )}
+        <div>
+          {errors?.message && (
+            <span className="text-danger">{errors?.message}</span>
+          )}
+        </div>
       </Form>
     </Container>
   );
