@@ -17,9 +17,16 @@ namespace GabrovoUltraWebApp.Server.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Result>>> GetResults(string? filterOn = null, string? filterQuery = null, string? sortBy = null, bool? isAscending = true, int pageNumber = 1, int pageSize = 1000)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Produces("application/json")]
+        [Route("{raceId:int}, {distanceId:int}")]
+
+        public async Task<ActionResult<List<Result>>> GetResults([FromRoute] int raceId, [FromRoute] int distanceId,string? filterOn = null,
+            string? filterQuery = null, string? sortBy = null, bool? isAscending = true,
+            int pageNumber = 1, int pageSize = 1000)
         {
-            var results = await resultService.GetAllAsync(filterOn, filterQuery, sortBy, isAscending, pageNumber, pageSize);
+            var results = await resultService.GetAllAsync(raceId,distanceId,filterOn, filterQuery, sortBy, isAscending, pageNumber, pageSize);
             return Ok(results);
         }
 

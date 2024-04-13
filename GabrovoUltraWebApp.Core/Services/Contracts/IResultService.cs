@@ -1,4 +1,5 @@
 ﻿using GabrovoUltraWebApp.Infrastructure.Data.Models;
+using GabrovoUltraWebApp.Infrastructure.Models.ResposneDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace GabrovoUltraWebApp.Core.Services.Contracts
 {
     public interface IResultService
     {
-        Task<List<Result>> GetAllAsync(string? filterOn = null, string? filterQuery = null,
+        Task<List<ResultDTO?>> GetAllAsync(int raceId, int distanceId,string? filterOn = null, string? filterQuery = null,
                                         string? sortBy = null, bool? isAscending = true,
                                         int pageNumber = 1, int pageSize = 1000);
 

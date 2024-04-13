@@ -45,6 +45,9 @@ namespace GabrovoUltraWebApp.Infrastructure.AutoMapperProfiles
                 .ReverseMap();
             CreateMap<Registration, UpdateRegistrationRequestDTO>()
                 .ReverseMap();
+
+            CreateMap<Result, ResultDTO>()
+                .ReverseMap();    
                 
         }
     }
