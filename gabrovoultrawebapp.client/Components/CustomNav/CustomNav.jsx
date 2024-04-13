@@ -18,13 +18,13 @@ function CustomNav({ loggedIn, display, handleDisplay }) {
     <Navbar
       collapseOnSelect
       expand="lg"
-      className={`sticky-top  d-flex justify-content-between  p-3 bg-dark text-light`}
+      className={`sticky-top  d-flex justify-content-between    bg-dark text-light`}
       onClick={() => handleDisplay(true)}
     >
-      <Container fluid>
-        <Link to={"/layout"}>
-          <Image src="/src/assets/logo.svg" width={60} height={60} />
-        </Link>
+      <Container fluid className="gap-3">
+        <Nav.Link to={"/layout"}>
+          <Image src="/logo.svg" width={60} height={60} />
+        </Nav.Link>
         <Navbar.Toggle
           style={{ backgroundColor: "white" }}
           aria-controls="navbarScroll"
@@ -34,43 +34,47 @@ function CustomNav({ loggedIn, display, handleDisplay }) {
             className="me-auto my-2 my-lg-0 text-light display-flex gap-3"
             navbarScroll
           >
-            <Link
-              to={"/home"}
-              style={{ color: "white", textDecoration: "none" }}
-              href="#AboutUs"
-            >
-              Начало
-            </Link>
+            <Nav.Link>
+              <Link
+                to={"/layout"}
+                style={{ color: "white", textDecoration: "none" }}
+                href="#AboutUs"
+              >
+                Начало
+              </Link>
+            </Nav.Link>
 
-            <Link
+            <Nav.Link
               to={"/distances"}
               style={{ color: "white", textDecoration: "none" }}
               href="#Distances"
             >
               Дистанции
-            </Link>
+            </Nav.Link>
+            <NavLink>
+              <Link
+                to={"/runners"}
+                style={{ color: "white", textDecoration: "none" }}
+                href="#AboutUs"
+              >
+                Участници
+              </Link>
+            </NavLink>
+            <NavLink>
+              <Link
+                to={"/results"}
+                style={{ color: "white", textDecoration: "none" }}
+              >
+                Резултати
+              </Link>
+            </NavLink>
 
-            <Link
-              to={"/runners"}
-              style={{ color: "white", textDecoration: "none" }}
-              href="#AboutUs"
-            >
-              Участници
-            </Link>
-
-            <Link
-              to={"/results"}
-              style={{ color: "white", textDecoration: "none" }}
-            >
-              Резултати
-            </Link>
-
-            <Link
+            <Nav.Link
               style={{ color: "white", textDecoration: "none" }}
               href="#AboutUs"
             >
               Контакти
-            </Link>
+            </Nav.Link>
           </Nav>
 
           <ul className="d-flex flex-col gap-5 text-light list-unstyled">

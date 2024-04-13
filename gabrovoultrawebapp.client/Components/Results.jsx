@@ -6,13 +6,15 @@ const RESULTS_URL = "/Results";
 const RACES_URL = "/Race";
 const DISTANCES_URL = "/Distances";
 function Results() {
-  const [data, setData] = useState(new Array(5).fill({}));
+  const [results, setResults] = useState(new Array(5).fill({}));
   const [selectData, setSelectData] = useState({
     races: new Array(5).fill({}),
     distances: new Array(5).fill({}),
   });
-  const [filterOn, setFilterOn] = useState("firstName");
-  const [filterQuery, setFilterQuery] = useState("");
+  const [queryParameters, setQueryParameters] = useState({
+    distanceId: 1,
+    raceId: 1,
+  });
   const [pageNumber, setPageNumber] = useState(1);
   const [pageSize] = useState(10);
   const numberOfPages = useRef(0);
@@ -22,8 +24,13 @@ function Results() {
       try {
         const raceResponse = await axios.get(`${RACES_URL}`);
         const distanceResponse = await axios.get(`${DISTANCES_URL}`);
-        const resultResponse = await axios.get(`${RESULTS_URL}`);
-        setData(resultResponse.data);
+        const resultsResponse = await axios.get(
+          `${RESULTS_URL}/${queryParameters.raceId}, ${queryParameters.distanceId}?isAscending=true&pageNumber=1&pageSize=1000`
+        );
+        setResults(resultsResponse.data);
+        numberOfPages.current = Math.ceil(
+          resultsResponse.data.length / pageSize
+        );
         setSelectData((prev) => ({
           ...prev,
           races: raceResponse.data,
@@ -34,7 +41,7 @@ function Results() {
       }
     }
     getRaces();
-  }, []);
+  }, [queryParameters, pageSize, pageNumber]);
   return (
     <Container>
       <Form>
@@ -42,12 +49,18 @@ function Results() {
           <Form.Group as={Col} md={4} className="mb-3">
             <Form.Label>Резултати за </Form.Label>
             <Form.Control
-              onChange={(e) => setFilterQuery(e.target.value)}
+              onChange={(e) =>
+                setQueryParameters((prev) => ({
+                  ...prev,
+                  raceId: e.target.value,
+                }))
+              }
               as="select"
+              className="form-select"
             >
               {selectData.races.map((race, index) => {
                 return (
-                  <option key={index} value={race.name}>
+                  <option key={index} value={race.id}>
                     {race.name}
                   </option>
                 );
@@ -59,13 +72,19 @@ function Results() {
           <Form.Group as={Col} md={4} className="mb-3">
             <Form.Label>Дистанция </Form.Label>
             <Form.Control
-              onChange={(e) => setFilterQuery(e.target.value)}
+              onChange={(e) =>
+                setQueryParameters((prev) => ({
+                  ...prev,
+                  distanceId: e.target.value,
+                }))
+              }
               as="select"
+              className="form-select"
             >
-              {selectData.distances.map((distance, index) => {
+              {selectData.distances.map((distnace, index) => {
                 return (
-                  <option key={index} value={distance.name}>
-                    {distance.name}
+                  <option key={index} value={distnace.id}>
+                    {distnace.name}
                   </option>
                 );
               })}
@@ -77,8 +96,8 @@ function Results() {
         <thead>
           <tr>
             <th>#</th>
-            {data[0] &&
-              Object.keys(data[0])
+            {results[0] &&
+              Object.keys(results[0])
                 .filter((k) => k !== "id")
                 .map((key, index) => {
                   return <th key={index}>{key}</th>;
@@ -86,7 +105,7 @@ function Results() {
           </tr>
         </thead>
         <tbody>
-          {data.map((row, index) => (
+          {results.map((row, index) => (
             <tr key={index}>
               <td>{index + 1}</td>
               {Object.keys(row)
