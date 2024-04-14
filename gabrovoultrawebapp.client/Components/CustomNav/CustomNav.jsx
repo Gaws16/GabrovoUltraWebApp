@@ -19,12 +19,11 @@ function CustomNav({ loggedIn, display, handleDisplay }) {
       collapseOnSelect
       expand="lg"
       className={`sticky-top  d-flex justify-content-between    bg-dark text-light`}
-      onClick={() => handleDisplay(true)}
     >
       <Container fluid className="gap-3">
-        <Nav.Link to={"/layout"}>
+        <Link to={"/layout"}>
           <Image src="/logo.svg" width={60} height={60} />
-        </Nav.Link>
+        </Link>
         <Navbar.Toggle
           style={{ backgroundColor: "white" }}
           aria-controls="navbarScroll"
