@@ -93,7 +93,7 @@ namespace GabrovoUltraWebApp.Server.Controllers
             if (createdRegistration == null )
             {
                 //TODO Make error message file
-                return BadRequest("Already registered for distance");
+                return BadRequest("Вече сте записан за дистанция, не може да се запишете за друга!");
             }
          
 
