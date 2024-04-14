@@ -168,10 +168,7 @@ function Register() {
               onChange={(e) =>
                 setFormData({
                   ...formData,
-                  age:
-                    e.target.valueAsNumber <= 100
-                      ? e.target.valueAsNumber
-                      : 100,
+                  age: e.target.valueAsNumber,
                 })
               }
             />
