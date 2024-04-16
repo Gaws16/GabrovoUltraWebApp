@@ -1,4 +1,5 @@
-﻿using GabrovoUltraWebApp.Infrastructure.Models;
+﻿using GabrovoUltraWebApp.Infrastructure.Data.Models;
+using GabrovoUltraWebApp.Infrastructure.Models;
 using GabrovoUltraWebApp.Infrastructure.Models.RequestDTO;
 using GabrovoUltraWebApp.Infrastructure.Models.ResposneDTO;
 namespace GabrovoUltraWebApp.Core.Services.Contracts
@@ -9,5 +10,7 @@ namespace GabrovoUltraWebApp.Core.Services.Contracts
         Task<bool> LoginUser(LoginRequestDTO loginRequest);
         Task<TokenResponseDTO> GenerateToken(LoginRequestDTO user);
         Task<string?> GetUserIdAsync(string username);
+
+        Task<ApplicationUser?> GetUserByIdAsync(string id);
     }
 }

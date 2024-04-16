@@ -125,9 +125,10 @@ namespace Microsoft.Extensions.DependencyInjection
                 options.AddPolicy("CorsPolicy",
                     builder =>
                     builder
-                    //.WithOrigins("https://localhost:5173")
-                    .AllowAnyOrigin()
+                    .WithOrigins("https://localhost:5173")
+                    //.AllowAnyOrigin()
                     .AllowAnyMethod()
+                    .AllowCredentials()
                     .AllowAnyHeader()
                     );
             });

@@ -41,7 +41,7 @@ namespace GabrovoUltraWebApp.Core.Services
             var runners = runnerRepository.All<ApplicationUser>().Where(r => r.Registration != null)
                 .Select(r => new RunnerDTO
                 {
-                    Id = r.Registration.Id,
+                    Id = r.Id,
                     FirstName = r.FirstName,
                     LastName = r.LastName,
                     Distance = r.Registration.Distance.Name,
@@ -132,9 +132,9 @@ namespace GabrovoUltraWebApp.Core.Services
             
         
 
-        public async Task<ApplicationUser?> UpdateAsync(int id, ApplicationUser runner)
+        public async Task<ApplicationUser?> UpdateAsync(string userId, ApplicationUser runner)
         {
-            var runnerToUpdate = await runnerRepository.GetByIdAsync<ApplicationUser>(id);
+            var runnerToUpdate = await authService.GetUserByIdAsync(userId);
             if (runnerToUpdate == null)
             {
                 return null;
@@ -142,8 +142,9 @@ namespace GabrovoUltraWebApp.Core.Services
             runnerToUpdate.FirstName = runner.FirstName;
             runnerToUpdate.LastName = runner.LastName;
             runnerToUpdate.Age = runner.Age;
-            runnerToUpdate.Gender = runner.Gender;
             runnerToUpdate.Team = runner.Team;
+            runnerToUpdate.City = runner.City;
+            runnerToUpdate.Country = runner.Country;
 
             runnerRepository.Update<ApplicationUser>(runnerToUpdate);
 

@@ -44,6 +44,16 @@ namespace GabrovoUltraWebApp.Infrastructure.Models.RequestDTO
             ErrorMessage = LengthErrorMessage)]
         [Display(Name = "Team")]
         public string? Team { get; set; }
+
+        [StringLength(CountryMaxLength, MinimumLength = CountryMinLength,
+                       ErrorMessage = LengthErrorMessage)]
+        [Display(Name = "Country")]
+        public string Country { get; set; } = null!;
+
+        [StringLength(CityMaxLength, MinimumLength = CityMinLength,
+                                  ErrorMessage = LengthErrorMessage)]
+        [Display(Name = "City")]
+        public string City { get; set; } = null!;
         [Required]
         public string[] Roles { get; set; }
     }

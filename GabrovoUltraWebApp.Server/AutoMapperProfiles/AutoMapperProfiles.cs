@@ -30,15 +30,16 @@ namespace GabrovoUltraWebApp.Infrastructure.AutoMapperProfiles
                 .ReverseMap();
 
             CreateMap<ApplicationUser,RunnerDTO>()
-                .ForMember(dest=>dest.Gender, opt=>opt.MapFrom(src=> src.Gender.ToString()))
                 .ReverseMap();
             CreateMap<CreateRunnerRequestDTO,ApplicationUser>().ReverseMap();
             CreateMap<UpdateRunnerRequestDTO,ApplicationUser>().ReverseMap();
             CreateMap<RegisterRequestDTO, ApplicationUser>()
                 .ForMember(dest=>dest.Email, opt=>opt.MapFrom(src=>src.Username))
                 .ReverseMap();
+            CreateMap<EditRunnerResponseDTO,ApplicationUser>().ReverseMap();
 
             CreateMap<ApplicationUser,RegisterRequestDTO>().ReverseMap();
+            CreateMap<ApplicationUser,UpdateUserRequestDTO>().ReverseMap();
 
             CreateMap<Registration, RegistrationDTO>()
                 .ForMember(dest => dest.RegistrationDate, opt => opt.MapFrom(src => src.RegistrationDate.ToString(DateTimeFormat)))

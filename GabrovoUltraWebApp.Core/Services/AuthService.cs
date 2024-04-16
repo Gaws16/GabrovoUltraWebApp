@@ -1,7 +1,6 @@
 ﻿using GabrovoUltraWebApp.Core.Services.Contracts;
 using GabrovoUltraWebApp.Infrastructure.Data.Enums;
 using GabrovoUltraWebApp.Infrastructure.Data.Models;
-using GabrovoUltraWebApp.Infrastructure.Models;
 using GabrovoUltraWebApp.Infrastructure.Models.RequestDTO;
 using GabrovoUltraWebApp.Infrastructure.Models.ResposneDTO;
 using Microsoft.AspNetCore.Identity;
@@ -59,6 +58,7 @@ namespace GabrovoUltraWebApp.Core.Services
                 JwtToken = tokenString,
                 ExpirationTime = token.ValidTo,
                 FirstName = user.FirstName,
+                LastName = user.LastName,
                 //Get the first role of the user (at this point we will have only one role per user)
                 Role = roles.FirstOrDefault()
             };
@@ -88,6 +88,8 @@ namespace GabrovoUltraWebApp.Core.Services
                 Team = registerRequest.Team,
                 Age = registerRequest.Age,
                 Gender = Enum.Parse<Gender>(registerRequest.Gender),
+                Country = registerRequest.Country,
+                City = registerRequest.City
             };
                
                 
@@ -106,6 +108,11 @@ namespace GabrovoUltraWebApp.Core.Services
         {
             var currentUser = await userManager.FindByEmailAsync(username);
             return currentUser?.Id;
+        }
+
+        public async Task<ApplicationUser?> GetUserByIdAsync(string id)
+        {
+            return await userManager.FindByIdAsync(id);
         }
     }
 }

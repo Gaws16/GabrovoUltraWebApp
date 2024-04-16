@@ -15,7 +15,7 @@ namespace GabrovoUltraWebApp.Core.Services.Contracts
 
         Task<ApplicationUser?> CreateAsync(ApplicationUser runner);
 
-        Task<ApplicationUser?> UpdateAsync(int id, ApplicationUser runner);
+        Task<ApplicationUser?> UpdateAsync(string id, ApplicationUser runner);
 
         Task<ApplicationUser?> DeleteAsync(int id);
     }

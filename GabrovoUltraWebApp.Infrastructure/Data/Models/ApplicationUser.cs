@@ -28,6 +28,13 @@ namespace GabrovoUltraWebApp.Infrastructure.Data.Models
         [Comment("Name of the team")]
         public string? Team { get; set; }
 
+        [MaxLength(CountryMaxLength)]
+        [Comment("Country of origin")]
+        public string Country { get; set; } = null!;
+        [MaxLength(CityMaxLength)]
+        [Comment("City of origin")]
+        public string City { get; set; } = null!;
+
         public int? RegistrationId { get; set; }
         [ForeignKey(nameof(RegistrationId))]
         public Registration Registration { get; set; } = null!;

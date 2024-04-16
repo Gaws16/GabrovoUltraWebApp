@@ -13,7 +13,7 @@ namespace GabrovoUltraWebApp.Infrastructure.Models.ResposneDTO
 {
     public class RunnerDTO
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         [JsonPropertyName("Име")]
         public string FirstName { get; set; } = null!;
         [JsonPropertyName("Фамилия")]
