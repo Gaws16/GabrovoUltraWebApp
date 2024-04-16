@@ -4,7 +4,10 @@ using GabrovoUltraWebApp.Infrastructure.Data.Models;
 using GabrovoUltraWebApp.Infrastructure.Models.RequestDTO;
 using GabrovoUltraWebApp.Infrastructure.Models.ResposneDTO;
 using GabrovoUltraWebApp.Server.CustomActionFilters;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace GabrovoUltraWebApp.Server.Controllers
 {
@@ -14,10 +17,13 @@ namespace GabrovoUltraWebApp.Server.Controllers
     {
         private readonly IRunnerService runnerService;
         private readonly IMapper mapper;
-        public RunnerController(IRunnerService _runnerService, IMapper _mapper)
+        private readonly UserManager<ApplicationUser> userManager;
+
+        public RunnerController(IRunnerService _runnerService, IMapper _mapper, UserManager<ApplicationUser> _userManager)
         {
             runnerService = _runnerService;
             mapper = _mapper;
+            userManager = _userManager;
         }
         // GET: api/Runner
         [HttpGet]
@@ -62,8 +68,8 @@ namespace GabrovoUltraWebApp.Server.Controllers
             return Ok(mapper.Map<RunnerDTO>(race));
         }
 
-        //POST: api/Race/
-        //Create a new race
+        //POST: api/Runner/
+        //Create a new Runner
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -85,14 +91,14 @@ namespace GabrovoUltraWebApp.Server.Controllers
             return CreatedAtAction(nameof(GetById), new { id = runnerDTO.Id }, runnerDTO);
         }
 
-        //PUT: api/race/id=5
-        //Update Race by id
+        //PUT: api/runner/id=5
+        //Update Runner by id
         [HttpPut]
-        [Route("{id:int}")]
+        [Route("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ValidateModelState]
-        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateRunnerRequestDTO raceRequestDTO)
+        public async Task<IActionResult> Update([FromRoute] string id, [FromBody] UpdateRunnerRequestDTO raceRequestDTO)
         {
             var runnerToUpdate = mapper.Map<ApplicationUser>(raceRequestDTO);
 
@@ -106,7 +112,7 @@ namespace GabrovoUltraWebApp.Server.Controllers
             return Ok(mapper.Map<RunnerDTO>(updatedRunner));
 
         }
-        //DELETE: api/Race/id=5
+        //DELETE: api/Runner/id=5
         //Delete race by id
         [HttpDelete]
         [Route("{id:int}")]
@@ -120,6 +126,48 @@ namespace GabrovoUltraWebApp.Server.Controllers
                 return NotFound();
             }
             return Ok(mapper.Map<RunnerDTO>(deletedRunner));
+        }
+        //GET: api/Runner/Edit
+        [HttpGet]
+        [Route("Edit")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [Authorize(Roles = "Reader,Writer")]
+        
+        public async Task<IActionResult> Edit()
+        {
+            var userName = User?.FindFirstValue(ClaimTypes.Email);
+            if (userName == null)
+            {
+                return Unauthorized();
+            }
+            var user = await userManager.FindByEmailAsync(userName);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            var runnerResponse = mapper.Map<EditRunnerResponseDTO>(user);
+            return Ok(runnerResponse);
+        }
+
+        [HttpPut]
+        [Route("user/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ValidateModelState]
+        public async Task<IActionResult> EditUser([FromRoute] string id, [FromBody] UpdateUserRequestDTO updateUserRequestDTO)
+        {
+            var userToUpdate = mapper.Map<ApplicationUser>(updateUserRequestDTO);
+
+            var updatedRunner = await runnerService.UpdateAsync(id, userToUpdate);
+
+            if (updatedRunner == null)
+            {
+                return NotFound();
+            }
+            return Ok(mapper.Map<RunnerDTO>(updatedRunner));
         }
     }
 }
