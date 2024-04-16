@@ -18,7 +18,8 @@ function Login() {
 
       if (response?.data?.jwtToken !== undefined) {
         localStorage.setItem("token", response.data.jwtToken);
-        localStorage.setItem("username", response.data.firstName);
+        localStorage.setItem("firstName", response.data.firstName);
+        localStorage.setItem("lastName", response.data.lastName);
         localStorage.setItem("role", response.data.role);
         localStorage.setItem("expirationTime", response.data.expirationTime);
       }

@@ -1,13 +1,13 @@
 import styles from "./Title.module.css";
-import { Card, Container, Button, Row } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 function Title() {
   return (
     <>
       <main className={`${styles.shadow}`}>
         <div className={`${styles.wrapper} ${styles.invert} `}>
-          <span data-text="Gabrovo"></span>
+          <span className="pb-5" data-text="Габрово"></span>
 
-          <span data-text="Ultra"></span>
+          <span className="pt-5" data-text="Ултра"></span>
         </div>
       </main>
 

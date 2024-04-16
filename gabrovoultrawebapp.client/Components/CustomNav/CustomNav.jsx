@@ -84,7 +84,7 @@ function CustomNav({ loggedIn, display, handleDisplay }) {
                     className="text-decoration-none text-light"
                     to="/Profile"
                   >
-                    {`Hello ${localStorage.getItem("username")}`}
+                    {`Hello, ${localStorage.getItem("firstName")}`}
                   </Link>
                 </li>
                 <li>

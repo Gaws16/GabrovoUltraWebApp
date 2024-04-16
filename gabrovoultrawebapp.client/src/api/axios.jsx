@@ -1,5 +1,12 @@
 import Axios from "axios";
-
+const BASE_URL = "https://localhost:7263/api";
 export const axios = Axios.create({
-  baseURL: "https://localhost:7263/api",
+  baseURL: BASE_URL,
+});
+export const axiosPrivate = Axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: "Bearer " + localStorage.getItem("token"),
+  },
 });

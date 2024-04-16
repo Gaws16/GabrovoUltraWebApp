@@ -40,7 +40,6 @@ function Register() {
     try {
       await axios.post(REGISTER_URL, formData);
     } catch (error) {
-      console.log(error.response.data);
       if (error?.response?.data?.errors) {
         setErrors(error.response.data.errors);
         return;
