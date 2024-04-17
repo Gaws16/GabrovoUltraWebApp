@@ -1,5 +1,6 @@
 ﻿using GabrovoUltraWebApp.Infrastructure.Data.Models;
 using GabrovoUltraWebApp.Infrastructure.Data.SeedDB;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,28 +17,14 @@ namespace GabrovoUltraWebApp.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            //TODO Extract to separate configuration classes
-
-            //builder.Entity<Registration>()
-            //        .HasOne<Category>(c=>c.Category)
-            //        .WithOne(c=>c.Registration)
-            //        .HasForeignKey<Category>(c=>c.RegistrationId)
-            //        .IsRequired()
-            //        .OnDelete(DeleteBehavior.Restrict);
-
-            //builder.Entity<Result>()
-            //     .HasOne<Registration>(r => r.Registration)
-            //    .WithOne(r => r.Result)
-            //    .HasForeignKey<Result>(r => r.RegistrationId)
-            //    .IsRequired()
-            //    .OnDelete(DeleteBehavior.Restrict);
-
-
+            builder.ApplyConfiguration(new UsersRolesConfiguration());
+            builder.ApplyConfiguration(new UsersConfiguration());
             builder.ApplyConfiguration(new RaceConfiguration());
             builder.ApplyConfiguration(new CategoryConfiguration());
             builder.ApplyConfiguration(new RegistrationConfiguration());
             builder.ApplyConfiguration(new DistanceConfiguration());
             builder.ApplyConfiguration(new HeroSectionConfiguration());
+            builder.ApplyConfiguration(new ResultsConfiguration());
             builder.ApplyConfiguration(new RolesConfiguration());
             base.OnModelCreating(builder);
         }

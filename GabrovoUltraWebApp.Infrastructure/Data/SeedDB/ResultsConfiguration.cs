@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace GabrovoUltraWebApp.Infrastructure.Data.SeedDB
 {
-    internal class HeroSectionConfiguration : IEntityTypeConfiguration<HeroSection>
+    internal class ResultsConfiguration : IEntityTypeConfiguration<Result>
     {
-        public void Configure(EntityTypeBuilder<HeroSection> builder)
+        public void Configure(EntityTypeBuilder<Result> builder)
         {
             var data = new SeedData();
-            builder.HasData(data.HeroSection);
+            builder.HasData(data.Results);
         }
     }
 }

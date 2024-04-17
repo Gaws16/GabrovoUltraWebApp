@@ -1,27 +1,17 @@
 import { useState, useEffect } from "react";
-import { Container } from "react-bootstrap";
-import Spinner from "react-bootstrap/Spinner";
 import LazyImage from "./LazyImage";
-
 export const Gallery = () => {
   const [active, setActive] = useState(0);
   const [heroSections, setHeroSections] = useState([]);
   const [loading, setLoading] = useState(true);
-  console.log(localStorage.getItem("token"));
   useEffect(() => {
     async function fetchHeroSections() {
       try {
         setLoading(true);
         const response = await fetch(
-          "https://localhost:7263/api/HeroSection/All",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer " + localStorage.getItem("token"),
-            },
-          }
+          "https://localhost:7263/api/HeroSection/All"
         );
+
         setHeroSections(await response.json());
       } catch {
         alert("Error loading images!");
@@ -33,16 +23,12 @@ export const Gallery = () => {
   }, []);
   const handleToggle = (index) => setActive(index);
   if (loading) {
-    return (
-      <Container className="d-flex items-center">
-        <Spinner animation="border" />
-      </Container>
-    );
+    return <h1>Loading...</h1>;
   }
   return heroSections.length === 0 ? (
     <h1>No images</h1>
   ) : (
-    <section className="image-accordion mt-5">
+    <section className="image-accordion mt-5 mb-5">
       {heroSections.map((item, index) => {
         const isActive = active === index ? "active" : "";
         return (

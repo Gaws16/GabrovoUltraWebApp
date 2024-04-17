@@ -12,7 +12,7 @@ function CustomNav({ loggedIn, display, handleDisplay }) {
   }
   const handleLogout = () => {
     localStorage.clear();
-    navigate("/");
+    navigate("/layout");
   };
   return (
     <Navbar
@@ -37,19 +37,20 @@ function CustomNav({ loggedIn, display, handleDisplay }) {
               <Link
                 to={"/layout"}
                 style={{ color: "white", textDecoration: "none" }}
-                href="#AboutUs"
               >
                 Начало
               </Link>
             </Nav.Link>
 
-            <Nav.Link
-              to={"/distances"}
-              style={{ color: "white", textDecoration: "none" }}
-              href="#Distances"
-            >
-              Дистанции
-            </Nav.Link>
+            {pathname === "/layout" && (
+              <Nav.Link
+                to={"/distances"}
+                style={{ color: "white", textDecoration: "none" }}
+                href="#Distances"
+              >
+                Дистанции
+              </Nav.Link>
+            )}
             <NavLink>
               <Link
                 to={"/runners"}
@@ -67,13 +68,6 @@ function CustomNav({ loggedIn, display, handleDisplay }) {
                 Резултати
               </Link>
             </NavLink>
-
-            <Nav.Link
-              style={{ color: "white", textDecoration: "none" }}
-              href="#AboutUs"
-            >
-              Контакти
-            </Nav.Link>
           </Nav>
 
           <ul className="d-flex flex-col gap-5 text-light list-unstyled">

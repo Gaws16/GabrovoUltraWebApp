@@ -4,6 +4,7 @@ using GabrovoUltraWebApp.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GabrovoUltraWebApp.Infrastructure.Migrations
 {
     [DbContext(typeof(GabrovoUltraContext))]
-    partial class GabrovoUltraContextModelSnapshot : ModelSnapshot
+    [Migration("20240417154659_Seed Registration")]
+    partial class SeedRegistration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -389,113 +392,13 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 12,
+                            Id = 11,
                             DistanceId = 2,
                             IsPaymentConfirmed = true,
                             RaceId = 1,
-                            RegistrationDate = new DateTime(2024, 4, 17, 20, 19, 25, 957, DateTimeKind.Local).AddTicks(3230),
-                            StartingNumber = "7505",
+                            RegistrationDate = new DateTime(2024, 4, 17, 18, 46, 59, 241, DateTimeKind.Local).AddTicks(4869),
+                            StartingNumber = "7504",
                             UserId = "c6bc76d0-9af8-44ee-a228-55fb9bfa1f36"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            DistanceId = 2,
-                            IsPaymentConfirmed = true,
-                            RaceId = 1,
-                            RegistrationDate = new DateTime(2024, 4, 17, 20, 19, 25, 957, DateTimeKind.Local).AddTicks(3245),
-                            StartingNumber = "7505",
-                            UserId = "c6bc76d0-9af8-44ee-a228-55fb9bfa1f37"
-                        },
-                        new
-                        {
-                            Id = 14,
-                            DistanceId = 2,
-                            IsPaymentConfirmed = true,
-                            RaceId = 1,
-                            RegistrationDate = new DateTime(2024, 4, 17, 20, 19, 25, 957, DateTimeKind.Local).AddTicks(3247),
-                            StartingNumber = "7605",
-                            UserId = "c6bc76d0-9af8-44ee-a228-55fb932fa1f37"
-                        },
-                        new
-                        {
-                            Id = 15,
-                            DistanceId = 2,
-                            IsPaymentConfirmed = true,
-                            RaceId = 1,
-                            RegistrationDate = new DateTime(2024, 4, 17, 20, 19, 25, 957, DateTimeKind.Local).AddTicks(3250),
-                            StartingNumber = "7506",
-                            UserId = "c6bc76d0-9af8-44ee-a228-55fb9bfa1f38"
-                        },
-                        new
-                        {
-                            Id = 16,
-                            DistanceId = 2,
-                            IsPaymentConfirmed = true,
-                            RaceId = 1,
-                            RegistrationDate = new DateTime(2024, 4, 17, 20, 19, 25, 957, DateTimeKind.Local).AddTicks(3252),
-                            StartingNumber = "7507",
-                            UserId = "c6bc76d0-9af8-44ee-a228-55fb9bfa1f39"
-                        },
-                        new
-                        {
-                            Id = 17,
-                            DistanceId = 2,
-                            IsPaymentConfirmed = true,
-                            RaceId = 1,
-                            RegistrationDate = new DateTime(2024, 4, 17, 20, 19, 25, 957, DateTimeKind.Local).AddTicks(3254),
-                            StartingNumber = "7508",
-                            UserId = "c6bc76d0-9af8-44ee-a228-55fb9bfa1f41"
-                        },
-                        new
-                        {
-                            Id = 18,
-                            DistanceId = 4,
-                            IsPaymentConfirmed = true,
-                            RaceId = 1,
-                            RegistrationDate = new DateTime(2024, 4, 17, 20, 19, 25, 957, DateTimeKind.Local).AddTicks(3257),
-                            StartingNumber = "7509",
-                            UserId = "c6bc76d0-9af8-44ee-a228-55fb9bfa1f42"
-                        },
-                        new
-                        {
-                            Id = 19,
-                            DistanceId = 2,
-                            IsPaymentConfirmed = true,
-                            RaceId = 1,
-                            RegistrationDate = new DateTime(2024, 4, 17, 20, 19, 25, 957, DateTimeKind.Local).AddTicks(3259),
-                            StartingNumber = "7510",
-                            UserId = "c6bc76d0-9af8-44ee-a228-55fb9bfa1f43"
-                        },
-                        new
-                        {
-                            Id = 20,
-                            DistanceId = 3,
-                            IsPaymentConfirmed = true,
-                            RaceId = 1,
-                            RegistrationDate = new DateTime(2024, 4, 17, 20, 19, 25, 957, DateTimeKind.Local).AddTicks(3262),
-                            StartingNumber = "7511",
-                            UserId = "c6bc76d0-9af8-44ee-a228-55fb9bfa1f44"
-                        },
-                        new
-                        {
-                            Id = 21,
-                            DistanceId = 4,
-                            IsPaymentConfirmed = true,
-                            RaceId = 1,
-                            RegistrationDate = new DateTime(2024, 4, 17, 20, 19, 25, 957, DateTimeKind.Local).AddTicks(3264),
-                            StartingNumber = "7512",
-                            UserId = "c6bc76d0-9af8-44ee-a228-55fb9bfa1f45"
-                        },
-                        new
-                        {
-                            Id = 22,
-                            DistanceId = 4,
-                            IsPaymentConfirmed = true,
-                            RaceId = 1,
-                            RegistrationDate = new DateTime(2024, 4, 17, 20, 19, 25, 957, DateTimeKind.Local).AddTicks(3267),
-                            StartingNumber = "7513",
-                            UserId = "c6bc76d0-9af8-44ee-a228-55fb9bfa1f46"
                         });
                 });
 
@@ -525,96 +428,6 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("Results");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 11,
-                            CategoryRank = 0,
-                            FinishTme = new TimeSpan(0, 3, 30, 0, 0),
-                            OverallRank = 0,
-                            RegistrationId = 12
-                        },
-                        new
-                        {
-                            Id = 12,
-                            CategoryRank = 0,
-                            FinishTme = new TimeSpan(0, 3, 45, 0, 0),
-                            OverallRank = 0,
-                            RegistrationId = 13
-                        },
-                        new
-                        {
-                            Id = 13,
-                            CategoryRank = 0,
-                            FinishTme = new TimeSpan(0, 3, 50, 0, 0),
-                            OverallRank = 0,
-                            RegistrationId = 14
-                        },
-                        new
-                        {
-                            Id = 14,
-                            CategoryRank = 0,
-                            FinishTme = new TimeSpan(0, 3, 55, 0, 0),
-                            OverallRank = 0,
-                            RegistrationId = 15
-                        },
-                        new
-                        {
-                            Id = 15,
-                            CategoryRank = 0,
-                            FinishTme = new TimeSpan(0, 4, 0, 0, 0),
-                            OverallRank = 0,
-                            RegistrationId = 16
-                        },
-                        new
-                        {
-                            Id = 16,
-                            CategoryRank = 0,
-                            FinishTme = new TimeSpan(0, 4, 5, 0, 0),
-                            OverallRank = 0,
-                            RegistrationId = 17
-                        },
-                        new
-                        {
-                            Id = 17,
-                            CategoryRank = 0,
-                            FinishTme = new TimeSpan(0, 4, 10, 0, 0),
-                            OverallRank = 0,
-                            RegistrationId = 18
-                        },
-                        new
-                        {
-                            Id = 18,
-                            CategoryRank = 0,
-                            FinishTme = new TimeSpan(0, 4, 15, 0, 0),
-                            OverallRank = 0,
-                            RegistrationId = 19
-                        },
-                        new
-                        {
-                            Id = 19,
-                            CategoryRank = 0,
-                            FinishTme = new TimeSpan(0, 4, 20, 0, 0),
-                            OverallRank = 0,
-                            RegistrationId = 20
-                        },
-                        new
-                        {
-                            Id = 20,
-                            CategoryRank = 0,
-                            FinishTme = new TimeSpan(0, 4, 25, 0, 0),
-                            OverallRank = 0,
-                            RegistrationId = 21
-                        },
-                        new
-                        {
-                            Id = 21,
-                            CategoryRank = 0,
-                            FinishTme = new TimeSpan(0, 4, 30, 0, 0),
-                            OverallRank = 0,
-                            RegistrationId = 22
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -825,16 +638,6 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                         {
                             UserId = "c6bc76d0-9af8-44ee-a228-55fb9bfa1f36",
                             RoleId = "80908387-bbd3-404f-a019-90f77d87adf8"
-                        },
-                        new
-                        {
-                            UserId = "c6bc76d0-9af8-44ee-a228-55fb9bfa1f37",
-                            RoleId = "80908387-bbd3-404f-a019-90f77d87adf8"
-                        },
-                        new
-                        {
-                            UserId = "c6bc76d0-9af8-44ee-a228-55fb9bfa1f40",
-                            RoleId = "4be6dd46-69ab-4c08-a820-bcb4bb3d2922"
                         });
                 });
 
@@ -912,15 +715,15 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                         {
                             Id = "c6bc76d0-9af8-44ee-a228-55fb9bfa1f36",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "318cf0dc-6647-4c7a-a03d-bb7256521b0b",
+                            ConcurrencyStamp = "5d9df7f4-fb7f-40ed-9869-7f7dd0ca1906",
                             Email = "pesho@gabrovoultra.bg",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "PESHO@GABROVOULTRA.BG",
                             NormalizedUserName = "PESHO@GABROVOULTRA.BG",
-                            PasswordHash = "AQAAAAIAAYagAAAAEE0PpCp5+DYqluxxCF/69U5FjC69gaab/UC+4iNetZDRm265dYcKSW12hSTY0CdRig==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPIPNLArlPH+6J0z728s8Q+0TDMw4oO9Cq5kZBq8C0HRa1NiTdHQhQYZCXEQwjEsnw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "03847e0f-d2e1-4302-b1eb-ab0a909e48d6",
+                            SecurityStamp = "12e55441-24ca-41df-bed2-c6d8c7e79e16",
                             TwoFactorEnabled = false,
                             UserName = "pesho@gabrovoultra.bg",
                             Age = 0,
@@ -928,237 +731,7 @@ namespace GabrovoUltraWebApp.Infrastructure.Migrations
                             Country = "Bulgaria",
                             FirstName = "Pesho",
                             Gender = 0,
-                            LastName = "Peshov",
-                            RegistrationId = 12
-                        },
-                        new
-                        {
-                            Id = "c6bc76d0-9af8-44ee-a228-55fb9bfa1f37",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "4c689085-d420-40da-8d31-c7f13a2a9a6c",
-                            Email = "sasho@gabrovoultra.bg",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "SASHO@GABROVOULTRA>BG",
-                            NormalizedUserName = "SASHO@GABROVOULTRA>BG",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHSJmnWeyaYm92vp5/ZLGsmbp6vWYtC0uAgVk/oFykczWvARsTuUBtwbXgHq/7x1tw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "df755e15-a989-4fab-aa06-e4a137a91488",
-                            TwoFactorEnabled = false,
-                            UserName = "sasho@gabrovoultra.bg",
-                            Age = 0,
-                            City = "Gabrovo",
-                            Country = "Bulgaria",
-                            FirstName = "Sasho",
-                            Gender = 0,
-                            LastName = "Sashov",
-                            RegistrationId = 13
-                        },
-                        new
-                        {
-                            Id = "c6bc76d0-9af8-44ee-a228-55fb9bfa1f38",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "89fd66c5-4a34-4eef-b58c-1e6cc94e196c",
-                            Email = "dimitrichko@gabrovoultra.bg",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "DIMITRICHKO@GABROVOULTRA.BG",
-                            NormalizedUserName = "DIMITRICHKO@GABROVOULTRA.BG",
-                            PasswordHash = "AQAAAAIAAYagAAAAENaejHFNfwPSE6ZxKanRNe74Km1DzZhdMbyykGuC3oJUvIAweeYfbprb5fm+fuBQ2g==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "cff8d8b8-aaf3-4ce1-ac98-7142762b44e6",
-                            TwoFactorEnabled = false,
-                            UserName = "dimitrichko@gabrovoultra.bg",
-                            Age = 0,
-                            City = "Dimitrovgrad",
-                            Country = "Bulgaria",
-                            FirstName = "Dimitrichko",
-                            Gender = 0,
-                            LastName = "Dimitrichkov",
-                            RegistrationId = 15
-                        },
-                        new
-                        {
-                            Id = "c6bc76d0-9af8-44ee-a228-55fb9bfa1f39",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "57e051f3-601b-4ff1-8f61-199451f81f2e",
-                            Email = "filip@gabrovoultra.bg",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "FILIP@GABROVOULTRA.BG",
-                            NormalizedUserName = "FILIP@GABROVOULTRA.BG",
-                            PasswordHash = "AQAAAAIAAYagAAAAEK+6mSX7/JP3IG7PVyUJpA9M7SbwmOq2m2Muynfq6CLA0NmiwTtJkc//95GaJNu4Ww==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "b49067a2-40b0-48d6-8034-db81cdf8abd5",
-                            TwoFactorEnabled = false,
-                            UserName = "filip@gabrovoultra.bg",
-                            Age = 0,
-                            City = "Veliko Tarnovo",
-                            Country = "Bulgaria",
-                            FirstName = "Filip",
-                            Gender = 0,
-                            LastName = "Filipov",
-                            RegistrationId = 16
-                        },
-                        new
-                        {
-                            Id = "c6bc76d0-9af8-44ee-a228-55fb9bfa1f40",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "3844d1b3-02ff-41d0-a054-f9861b216484",
-                            Email = "admin@gabrovoultra.bg",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@GABROVOULTRA.BG",
-                            NormalizedUserName = "ADMIN@GABROVOULTRA.BG",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAmf0rKNufN+9WRa7/pkQb4mhPq9sfpmCPHd6QhTTL9ZS1SHaayx2ihQM2Er3oCeFA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "8e10ea2a-4472-4dd4-a094-eb0cfe42dd08",
-                            TwoFactorEnabled = false,
-                            UserName = "admin@gabrovoultra.bg",
-                            Age = 0,
-                            City = "Adminovgrad",
-                            Country = "Bulgaria",
-                            FirstName = "Admin",
-                            Gender = 0,
-                            LastName = "Adminov"
-                        },
-                        new
-                        {
-                            Id = "c6bc76d0-9af8-44ee-a228-55fb9bfa1f41",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "33e0f7aa-3157-45be-9f2e-53c4dc86e013",
-                            Email = "ivan@gabrovoultra.bg",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "IVAN@GABROVOULTRA.BG",
-                            NormalizedUserName = "IVAN@GABROVOULTRA.BG",
-                            PasswordHash = "AQAAAAIAAYagAAAAEP8wojNg3cLBzIDsjFix8qCQw9Vew9qu8oc5MuNV9OEE9dwOo1XGXvxl1C/xw/AKPg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "2b603e69-1ba1-45fe-bad3-9e30ac70d4fa",
-                            TwoFactorEnabled = false,
-                            UserName = "ivan@gabrovoultra.bg",
-                            Age = 0,
-                            City = "Ivanovgrad",
-                            Country = "Bulgaria",
-                            FirstName = "Ivan",
-                            Gender = 0,
-                            LastName = "Ivanov",
-                            RegistrationId = 17
-                        },
-                        new
-                        {
-                            Id = "c6bc76d0-9af8-44ee-a228-55fb9bfa1f42",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "1428cb70-9bf5-4fe4-a872-7c89447582ce",
-                            Email = "stefan@gabrovoultra.bg",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "STEFAN@GABROVOULTRA.BG",
-                            NormalizedUserName = "STEFAN@GABROVOULTRA.BG",
-                            PasswordHash = "AQAAAAIAAYagAAAAENej2TPCrfkEz8b9gylNfock49p89mtcwT2H70xbNqy89AleBE076XTnlrPWgpbhyQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "1a7d4546-1c32-47ae-ba40-60935fecf4b1",
-                            TwoFactorEnabled = false,
-                            UserName = "stefan@gabrovoultra.bg",
-                            Age = 0,
-                            City = "Stefanovgrad",
-                            Country = "Bulgaria",
-                            FirstName = "Stefan",
-                            Gender = 0,
-                            LastName = "Stefanov",
-                            RegistrationId = 18
-                        },
-                        new
-                        {
-                            Id = "c6bc76d0-9af8-44ee-a228-55fb9bfa1f43",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "dd0c361a-74c5-4681-9824-9d4acc07f583",
-                            Email = "miroslav@gabrovoultra.bg",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "MIROSLAV@GABROVOULTRA.BG",
-                            NormalizedUserName = "MIROSLAV@GABROVOULTRA.BG",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOInUiAcTusfADatAmTxtVd3/HHsyRKUIao4tr95at0HUQ8Q/waOEpa3w8s7OHPspA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "59996d96-0e21-4b1c-858d-f33c110939d7",
-                            TwoFactorEnabled = false,
-                            UserName = "miroslav@gabrovoultra.bg",
-                            Age = 0,
-                            City = "Miroslavovgrad",
-                            Country = "Bulgaria",
-                            FirstName = "Miroslav",
-                            Gender = 0,
-                            LastName = "Miroslavov",
-                            RegistrationId = 19
-                        },
-                        new
-                        {
-                            Id = "c6bc76d0-9af8-44ee-a228-55fb9bfa1f44",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "aa35f414-badc-4a49-8f83-e3e0525cd91d",
-                            Email = "svetoslav@gabrovoultra.bg",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "SVETOSLAV@GABROVOULTRA.BG",
-                            NormalizedUserName = "SVETOSLAV@GABROVOULTRA.BG",
-                            PasswordHash = "AQAAAAIAAYagAAAAED5BmFAGSZS0SYzhPQoYYhrVHuke0me9WPhvBZ3gmlQLdYcNh2GGZ+vRgD6LUhKJBQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "96d11234-580e-4f0f-837a-4c34f57ed3f4",
-                            TwoFactorEnabled = false,
-                            UserName = "svetoslav@gabrovoultra.bg",
-                            Age = 0,
-                            City = "Svetoslavovgrad",
-                            Country = "Bulgaria",
-                            FirstName = "Svetoslav",
-                            Gender = 0,
-                            LastName = "Svetoslavov",
-                            RegistrationId = 20
-                        },
-                        new
-                        {
-                            Id = "c6bc76d0-9af8-44ee-a228-55fb9bfa1f45",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "583d4642-a1cd-4bee-9f48-946d72680963",
-                            Email = "mihael@gabrovoultra.bg",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "MIHAEL@GABROVOULTRA.BG",
-                            NormalizedUserName = "MIHAEL@GABROVOULTRA.BG",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJYEg1bVuJibtQiwB4RlZIOhaf8tYvj1g8HN+mVOwL167iRrS9BnAVP62BUCc5fFwA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "fae43a01-2ca1-4e37-9826-a03110ef7606",
-                            TwoFactorEnabled = false,
-                            UserName = "mihael@gabrovoultra.bg",
-                            Age = 0,
-                            City = "Gabrovo",
-                            Country = "Bulgaria",
-                            FirstName = "Mihael",
-                            Gender = 0,
-                            LastName = "Yordanov",
-                            RegistrationId = 21
-                        },
-                        new
-                        {
-                            Id = "c6bc76d0-9af8-44ee-a228-55fb9bfa1f46",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "b18a313f-bc4e-4670-8f0d-190e2782795a",
-                            Email = "svetoslava@gabrovoultra.bg",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "SVETOSLAVA@GABROVOULTRA.BG",
-                            NormalizedUserName = "SVETOSLAVA@GABROVOULTRA.BG",
-                            PasswordHash = "AQAAAAIAAYagAAAAED1K5LkoXomjfn2pf8tX0M5dbDVegyvZwW2CcvrJa8xir03F0A2RIQ0bNoXWpeBong==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "7262f669-2029-47b9-a454-92f12ed98a94",
-                            TwoFactorEnabled = false,
-                            UserName = "svetoslava@gabrovoultra.bg",
-                            Age = 0,
-                            City = "Gabrovo",
-                            Country = "Bulgaria",
-                            FirstName = "Svetoslava",
-                            Gender = 0,
-                            LastName = "Tsankova",
-                            RegistrationId = 22
+                            LastName = "Peshov"
                         });
                 });
 

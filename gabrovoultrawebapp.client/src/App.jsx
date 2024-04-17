@@ -12,6 +12,9 @@ import DistancesMain from "../Components/Distances/Main/DistanceMain";
 import Results from "../Components/Results";
 import Profile from "../Components/Profile/Profile";
 import AdminPanel from "../Components/Admin/AdminPanel";
+import Footer from "../Components/Footer/Footer";
+import PageNotFound from "../Components/NotFoundPage/PageNotFound";
+import UnauthorizedPage from "../Components/UnauthorizedPage/UnauthorizedPage";
 export default function App() {
   const [display, setDisplay] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
@@ -37,8 +40,13 @@ export default function App() {
       />
       <Routes>
         <Route index element={<Layout />} />
+        <Route path="*" element={<PageNotFound />} />
         <Route path="/layout" element={<Layout />} />
-        <Route path="/Admin" element={<AdminPanel />} />
+        {localStorage.getItem("role") === "Writer" ? (
+          <Route path="/Admin" element={<AdminPanel />} />
+        ) : (
+          <Route path="/Admin" element={<UnauthorizedPage />} />
+        )}
         <Route path="/Profile" element={<Profile />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/home" element={<AboutUs />} />
@@ -46,8 +54,13 @@ export default function App() {
         <Route path="/distances" element={<DistancesMain />} />
         <Route path="/runners" element={<AllRunners />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
+        {localStorage.getItem("token") === undefined ? (
+          <Route path="/login" element={<Login />} />
+        ) : (
+          <Route path="/login" element={<Layout />} />
+        )}
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }

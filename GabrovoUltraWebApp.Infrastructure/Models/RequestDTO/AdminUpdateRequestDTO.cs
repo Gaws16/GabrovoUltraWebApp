@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using static GabrovoUltraWebApp.Infrastructure.Common.ErrorMessages;
 using static global::GabrovoUltraWebApp.Infrastructure.Common.DataValidationConstants.Runner;
+using static global::GabrovoUltraWebApp.Infrastructure.Common.DataValidationConstants.Result;
 namespace GabrovoUltraWebApp.Infrastructure.Models.RequestDTO
 {
     public class AdminUpdateRequestDTO
@@ -37,10 +38,12 @@ namespace GabrovoUltraWebApp.Infrastructure.Models.RequestDTO
         [StringLength(StartingNumberMaxLength, MinimumLength = StartingNumberMinLength,
                                                         ErrorMessage = LengthErrorMessage)]
         public string StartingNumber { get; set; } = null!;
-        public string Race { get; set; } = null!;
+        public int RaceId { get; set; } 
 
+        [Required]
+        [RegularExpression(ResultRegex,ErrorMessage =ResultErrorMessage)]
         public string Result { get; set; } = null!;
-        public string Distance { get; set; } = null!;
+        public int DistanceId { get; set; } 
 
 
 

@@ -93,5 +93,12 @@
             public const int StartingNumberMaxLength = 6;
             public const int StartingNumberMinLength = 3;
         }
+
+        public static class Result
+        {
+            public const string ResultFormat = "HH:mm:ss";
+            public const string ResultRegex = @"^(?:[0-9]{1,2}:[0-5][0-9]:[0-5][0-9])$";
+            public const string ResultErrorMessage = "Result must be in format HH:MM:SS";
+        }
     }
 }

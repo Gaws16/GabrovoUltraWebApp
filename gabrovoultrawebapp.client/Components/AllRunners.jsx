@@ -61,12 +61,8 @@ function AllRunners() {
             >
               <option value={"firstName"}>Име</option>
               <option value={"lastName"}>Фамилия</option>
-              <option value={"City"}>Град</option>
-              <option value={"Country"}>Държава</option>
               <option value={"team"}>Отбор</option>
-              <option value={"gender"}>Пол</option>
               <option value={"age"}>Възраст</option>
-              <option value={"distanceid"}>Дистанция</option>
               <option value={"startingNumber"}>Стартов Номер</option>
             </Form.Control>
           </Form.Group>

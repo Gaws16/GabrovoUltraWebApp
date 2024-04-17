@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GabrovoUltraWebApp.Server",
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "gabrovoultrawebapp.client", "gabrovoultrawebapp.client\gabrovoultrawebapp.client.esproj", "{D7D443C7-CAD4-41E4-BB4C-17B9609E3B21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GabrovoUltraWebApp.Core", "GabrovoUltraWebApp.Core\GabrovoUltraWebApp.Core.csproj", "{8DE2992A-C61C-4323-92B7-FCCE9A122032}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GabrovoUltraWebApp.Core", "GabrovoUltraWebApp.Core\GabrovoUltraWebApp.Core.csproj", "{8DE2992A-C61C-4323-92B7-FCCE9A122032}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GabrovoUltraWebApp.Infrastructure", "GabrovoUltraWebApp.Infrastructure\GabrovoUltraWebApp.Infrastructure.csproj", "{C73CC48C-2787-43FE-A2D6-4E243F6D6DA1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GabrovoUltraWebApp.Infrastructure", "GabrovoUltraWebApp.Infrastructure\GabrovoUltraWebApp.Infrastructure.csproj", "{C73CC48C-2787-43FE-A2D6-4E243F6D6DA1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
