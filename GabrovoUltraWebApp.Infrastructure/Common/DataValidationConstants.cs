@@ -70,6 +70,9 @@
             public const int CountryMaxLength = 50;
             public const int CountryMinLength = 5;
 
+            public const int StartingNumberMaxLength = 6;
+            public const int StartingNumberMinLength = 2;
+
             public const string PasswordErrorMessage = "Password must contain one digit, one uppercase letter and be at least 6 characters long.";
             public const string PasswordRegex = @"^(?=.*\d)(?=.*[A-Z]).{6,}$";
             public const string NameOnlyLettersRegex = @"^[a-zA-Z]+$";

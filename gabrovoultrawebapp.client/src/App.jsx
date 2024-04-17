@@ -11,6 +11,7 @@ import AboutUs from "../Components/AboutUs";
 import DistancesMain from "../Components/Distances/Main/DistanceMain";
 import Results from "../Components/Results";
 import Profile from "../Components/Profile/Profile";
+import AdminPanel from "../Components/Admin/AdminPanel";
 export default function App() {
   const [display, setDisplay] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
@@ -37,6 +38,7 @@ export default function App() {
       <Routes>
         <Route index element={<Layout />} />
         <Route path="/layout" element={<Layout />} />
+        <Route path="/Admin" element={<AdminPanel />} />
         <Route path="/Profile" element={<Profile />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/home" element={<AboutUs />} />

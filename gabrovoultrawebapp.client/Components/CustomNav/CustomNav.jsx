@@ -80,12 +80,24 @@ function CustomNav({ loggedIn, display, handleDisplay }) {
             {localStorage.getItem("token") && loggedIn ? (
               <>
                 <li>
-                  <Link
-                    className="text-decoration-none text-light"
-                    to="/Profile"
-                  >
-                    {`Hello, ${localStorage.getItem("firstName")}`}
-                  </Link>
+                  {localStorage.getItem("role") === "Writer" && (
+                    <li>
+                      <Link
+                        className="text-decoration-none text-light"
+                        to="/Admin"
+                      >
+                        Admin Panel
+                      </Link>
+                    </li>
+                  )}
+                  <li>
+                    <Link
+                      className="text-decoration-none text-light"
+                      to="/Profile"
+                    >
+                      {`Hello, ${localStorage.getItem("firstName")}`}
+                    </Link>
+                  </li>
                 </li>
                 <li>
                   <NavLink onClick={handleLogout}>Logout</NavLink>

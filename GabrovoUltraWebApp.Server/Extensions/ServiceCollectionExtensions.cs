@@ -19,6 +19,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddTransient<IAuthService, AuthService>();
+            services.AddScoped<IAdminService, AdminService>();
             services.AddScoped<IHeroSectionService, HeroSectionService>();
             services.AddScoped<IRepository, Repository>();
             services.AddScoped<IRegistrationService, RegistrationService>();
