@@ -1,33 +1,20 @@
 import { Form, Button, Row, Col } from "react-bootstrap";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import useAuth from "../../src/hooks/useAuth";
 import { axiosPrivate } from "../../src/api/axios";
-
-function EditProfile() {
+function EditProfile({ formInputs, setFormInputs }) {
   const [errors, setErrors] = useState({});
-  const [formInputs, setFormInputs] = useState({
-    id: "",
-    firstName: "",
-    lastName: "",
-    country: "",
-    city: "",
-    age: "",
-    team: "",
-  });
-  useEffect(() => {
-    async function getProfile() {
-      try {
-        const response = await axiosPrivate.get("/Runner/Edit");
-        setFormInputs(response.data);
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    getProfile();
-  }, []);
+  const { auth, setAuth } = useAuth();
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      await axiosPrivate.put(`/Runner/user/${formInputs.id}`, formInputs);
+      await axiosPrivate.put(`/Runner/user/${formInputs.id}`, formInputs, {
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: true,
+          Authorization: `Bearer ${auth?.accessToken}`,
+        },
+      });
     } catch (e) {
       if (e?.response?.data?.errors) {
         setErrors(e.response.data.errors);
@@ -36,6 +23,16 @@ function EditProfile() {
       setErrors({ message: e.response.data });
       return;
     }
+  }
+  if (
+    formInputs.firstName !== auth.firstName ||
+    formInputs.lastName !== auth.lastName
+  ) {
+    setAuth((prev) => ({
+      ...prev,
+      firstName: formInputs.firstName,
+      lastName: formInputs.lastName,
+    }));
   }
   return (
     <Form onSubmit={handleSubmit} className="text-center">

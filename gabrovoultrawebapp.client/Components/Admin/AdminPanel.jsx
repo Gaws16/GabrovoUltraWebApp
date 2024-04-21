@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import useAuth from "../../src/hooks/useAuth.jsx";
 import {
   Container,
   Table,
@@ -17,11 +18,17 @@ export default function AdminPanel() {
   const [data, setData] = useState(new Array(5).fill({}));
   const [filterQuery, setFilterQuery] = useState("");
   const [isAscending, setIsAscending] = useState(false);
-
+  const { auth } = useAuth();
   useEffect(() => {
     async function fetchRunners() {
       try {
-        const response = await axiosPrivate.get(`${USERS_URL}`);
+        const response = await axiosPrivate.get(`${USERS_URL}`, {
+          headers: {
+            "Content-Type": "application/json",
+            withCredentials: true,
+            Authorization: `Bearer ${auth?.accessToken}`,
+          },
+        });
 
         setData(response.data);
       } catch (e) {
@@ -32,7 +39,13 @@ export default function AdminPanel() {
   }, [isAscending]);
   async function DeleteUser(id) {
     try {
-      await axiosPrivate.delete(`${USERS_URL}Delete?id=${id}`);
+      await axiosPrivate.delete(`${USERS_URL}Delete?id=${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: true,
+          Authorization: `Bearer ${auth?.accessToken}`,
+        },
+      });
     } catch (e) {
       setErrors(e.response?.data?.errors);
     }

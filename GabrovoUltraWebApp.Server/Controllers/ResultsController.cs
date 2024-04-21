@@ -52,16 +52,7 @@ namespace GabrovoUltraWebApp.Server.Controllers
             return CreatedAtAction(nameof(GetResult), new { id = createdResult.Id }, createdResult);
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult<Result>> UpdateResult(int id, Result result)
-        {
-            var updatedResult = await resultService.UpdateAsync(id, result);
-            if (updatedResult == null)
-            {
-                return NotFound();
-            }
-            return Ok(updatedResult);
-        }
+       
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<Result>> DeleteResult(int id)

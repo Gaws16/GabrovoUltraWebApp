@@ -19,7 +19,6 @@ namespace GabrovoUltraWebApp.Infrastructure.Models.RequestDTO
         public string Description { get; set; } = null!;
 
         [Required]
-        //TODO Validate image path EVERYWHERE!!
         public string ImagePath { get; set; } = null!;
 
         [StringLength(5,

@@ -36,7 +36,6 @@ namespace GabrovoUltraWebApp.Core.Services
                 },
             };
 
-            //await repository.AddAsync<Registration>(registration);
             race.Registrations.Add(registration);
             //Update the user with the registration
             user.Registration = registration;

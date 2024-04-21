@@ -49,11 +49,7 @@ namespace GabrovoUltraWebApp.Server.Controllers
             if (result)
             {
                 var token = await authService.GenerateToken(user);
-                //return token in http Only cookie
-                Response.Cookies.Append("jwt", token.JwtToken, new CookieOptions
-                {
-                    HttpOnly = false,
-                });
+               
 
                 return Ok(token);
             }

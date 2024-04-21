@@ -30,7 +30,7 @@ namespace GabrovoUltraWebApp.Infrastructure.Models.RequestDTO
         , Range(LengthMinValue, LengthMaxValue)]
         public int Length { get; set; }
         [Required]
-       // [Range(ElevationGainMinValue, ElevationGainMaxValue)]
+        [Range(ElevationGainMinValue, ElevationGainMaxValue)]
         public double ElevationGain { get; set; }
 
     }

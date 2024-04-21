@@ -4,7 +4,10 @@ export default function Footer() {
   return (
     <footer
       className={`page-footer font-small blue pt-4 ${styles.shadow} text-light `}
-      style={{ backgroundColor: "rgb(33,37,41)" }}
+      style={{
+        backgroundColor: "rgb(33,37,41)",
+        width: "-webkit-fill-available",
+      }}
     >
       <div className="footer-copyright text-center py-3 d-flex p-5 justify-content-between align-items-center">
         <div>

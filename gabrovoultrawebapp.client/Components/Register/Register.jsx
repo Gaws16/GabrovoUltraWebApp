@@ -48,7 +48,7 @@ function Register() {
       return;
     }
     setValidated(true);
-    navigate("/login");
+    navigate("/LoginCotext");
   };
 
   return (

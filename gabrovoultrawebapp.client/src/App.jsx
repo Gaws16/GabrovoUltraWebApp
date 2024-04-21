@@ -1,66 +1,42 @@
-import { Gallery } from "../Components/Gallery/Gallery";
-import { BrowserRouter } from "react-router-dom";
 import { Routes, Route } from "react-router";
 import Register from "../Components/Register/Register";
 import AllRunners from "../Components/AllRunners";
-import { useEffect, useState } from "react";
-import CustomNav from "../Components/CustomNav/CustomNav";
 import Login from "../Components/Login/Login";
-import Layout from "../Components/OpeningPage/Layout";
-import AboutUs from "../Components/AboutUs";
-import DistancesMain from "../Components/Distances/Main/DistanceMain";
+import Layout from "../Components/Layout/Layout";
 import Results from "../Components/Results";
 import Profile from "../Components/Profile/Profile";
 import AdminPanel from "../Components/Admin/AdminPanel";
-import Footer from "../Components/Footer/Footer";
 import PageNotFound from "../Components/NotFoundPage/PageNotFound";
+import RequireAuth from "../Components/RequireAuth";
 import UnauthorizedPage from "../Components/UnauthorizedPage/UnauthorizedPage";
+import LoginContext from "../Components/LoginWIthContext/LoginContext";
+import Home from "../Components/OpeningPage/Layout";
 export default function App() {
-  const [display, setDisplay] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
-
-  useEffect(() => {
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 400) {
-        setDisplay(true);
-      } else {
-        setDisplay(false);
-      }
-      if (localStorage.getItem("token")) {
-        setLoggedIn(true);
-      }
-    });
-  }, []);
   return (
-    <BrowserRouter>
-      <CustomNav
-        handleDisplay={setDisplay}
-        loggedIn={loggedIn}
-        display={display}
-      />
-      <Routes>
-        <Route index element={<Layout />} />
-        <Route path="*" element={<PageNotFound />} />
-        <Route path="/layout" element={<Layout />} />
-        {localStorage.getItem("role") === "Writer" ? (
-          <Route path="/Admin" element={<AdminPanel />} />
-        ) : (
-          <Route path="/Admin" element={<UnauthorizedPage />} />
-        )}
-        <Route path="/Profile" element={<Profile />} />
-        <Route path="/gallery" element={<Gallery />} />
-        <Route path="/home" element={<AboutUs />} />
-        <Route path="/results" element={<Results />} />
-        <Route path="/distances" element={<DistancesMain />} />
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        {/* public routes */}
+        <Route path="/LoginCotext" element={<LoginContext />} />
         <Route path="/runners" element={<AllRunners />} />
         <Route path="/register" element={<Register />} />
-        {localStorage.getItem("token") === undefined ? (
-          <Route path="/login" element={<Login />} />
-        ) : (
-          <Route path="/login" element={<Layout />} />
-        )}
-      </Routes>
-      <Footer />
-    </BrowserRouter>
+        <Route path="/unauthorized" element={<UnauthorizedPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Home />} />
+
+        {/* private routes for normal users */}
+        <Route element={<RequireAuth allowedRoles={["Reader"]} />}>
+          <Route path="/Profile" element={<Profile />} />
+          <Route path="/results" element={<Results />} />
+        </Route>
+
+        {/* private routes for admin users */}
+        <Route element={<RequireAuth allowedRoles={["Writer"]} />}>
+          <Route path="/Admin" element={<AdminPanel />} />
+        </Route>
+
+        {/* catch all*/}
+        <Route path="*" element={<PageNotFound />} />
+      </Route>
+    </Routes>
   );
 }

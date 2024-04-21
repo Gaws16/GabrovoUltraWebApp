@@ -37,6 +37,9 @@
             public const int LengthMaxValue = 160;
             public const int LengthMinValue = 5;
 
+            public const int ElevationGainMaxValue = 5000;
+            public const int ElevationGainMinValue = 0;
+
             public const string StartTimeRegex = @"^(?:[01][0-9]|2[0-3]):[0-5][0-9]$";
         }
 

@@ -1,32 +1,45 @@
 import { useState } from "react";
+import useAuth from "../../../src/hooks/useAuth";
+import { axiosPrivate } from "../../../src/api/axios";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { OverlayTrigger, Popover } from "react-bootstrap/";
 const API_URL = "https://localhost:7263/api/Registration";
+const ADD_TO_DISTANCE_URL = "/Registration";
 function JoinDistance({ data }) {
   const [show, setShow] = useState(false);
+  const { auth } = useAuth();
   const handleShow = () => setShow((prev) => !prev);
   const [popoverText, setPopOverText] = useState("");
   async function handleSignUpForDistance(id) {
-    const response = await fetch(API_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-      body: JSON.stringify({ Id: id }),
-    });
-
-    const data = await response.json();
-    setPopOverText(data);
-    if (response.status === 201) {
-      setPopOverText("Успешно записан за дистанцията!");
-    }
-    if (response.status === 401 || response.status === 403) {
-      setPopOverText(
-        "Трябва да сте влезли в профила си, за да се запишете за дистанция!"
+    console.log(id);
+    try {
+      const response = await axiosPrivate.post(
+        ADD_TO_DISTANCE_URL,
+        { Id: id },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${auth?.accessToken}`,
+          },
+          withCredentials: true,
+        }
       );
-      return;
+
+      if (response.status === 201) {
+        setPopOverText("Успешно записан за дистанцията!");
+      }
+    } catch (err) {
+      if (err.response.status === 400) {
+        setPopOverText(err.response.data);
+      }
+      // setPopOverText(response.data);
+      if (err.response.status === 401 || err.response.status === 403) {
+        setPopOverText(
+          "Трябва да сте влезли в профила си, за да се запишете за дистанция!"
+        );
+        return;
+      }
     }
   }
   const popover = (

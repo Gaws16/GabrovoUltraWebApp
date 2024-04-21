@@ -1,11 +1,13 @@
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { axiosPrivate } from "../../src/api/axios";
+import useAuth from "../../src/hooks/useAuth";
 const DISTANCES_URL = "/Distances";
 const RACES_URL = "/Race";
 const UPDATE_URL = "/Admin/Update";
 function EditUser({ data }) {
   const [errors, setErrors] = useState({});
+  const { auth } = useAuth();
   const [formInputs, setFormInputs] = useState({
     ...data,
     raceId: 1,
@@ -35,7 +37,13 @@ function EditUser({ data }) {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      await axiosPrivate.put(`${UPDATE_URL}/${formInputs.id}`, formInputs);
+      await axiosPrivate.put(`${UPDATE_URL}/${formInputs.id}`, formInputs, {
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: true,
+          Authorization: `Bearer ${auth?.accessToken}`,
+        },
+      });
     } catch (e) {
       if (e?.response?.data?.errors) {
         setErrors(e.response.data.errors);

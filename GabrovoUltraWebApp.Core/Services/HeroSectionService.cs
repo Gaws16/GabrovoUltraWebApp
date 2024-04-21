@@ -16,7 +16,6 @@ namespace GabrovoUltraWebApp.Core.Services
 
         public async Task<HeroSection> CreateHeroSectionAsync(HeroSection heroSection)
         {
-           //var da = await repository.EntityExists<HeroSection>(heroSection);
             await repository.AddAsync<HeroSection>(heroSection);
             await repository.SaveChangesAsync();
             return heroSection;

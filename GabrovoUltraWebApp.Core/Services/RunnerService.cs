@@ -52,12 +52,7 @@ namespace GabrovoUltraWebApp.Core.Services
                     Gender = r.Gender.ToString(),
                 });
 
-
-            
-           
-                
-
-            // Filtering
+            //FILTERING 
             if (filterOn != null && filterQuery != null)
             {
                 filterQuery = filterQuery.ToLower().Trim();
@@ -82,15 +77,7 @@ namespace GabrovoUltraWebApp.Core.Services
                     case "gender":
                         runners = runners.Where(r => r.Gender.ToLower().Contains(filterQuery));
                         break;
-                        //if (Enum.TryParse<Gender>(filterQuery, true, out Gender gender))
-                        //{
-                        //    runners = runners.Where(r => r.Gender == gender);
-                        //}
-                        //else
-                        //{
-                        //    //return empty collection if gencer is invalid
-                        //   runners = runners.Where(g=>false);
-                        //}
+                      
 
                 }
             }
@@ -108,9 +95,9 @@ namespace GabrovoUltraWebApp.Core.Services
                     case "age":
                         runners = isAscending == true ? runners.OrderBy(r => r.Age) : runners.OrderByDescending(r => r.Age);
                         break;
-                    //case "startingnumber":
-                    //    runners = isAscending == true ? runners.OrderBy(r => r.StartingNumber) : runners.OrderByDescending(r => r.StartingNumber);
-                    //    break;
+                    case "startingnumber":
+                        runners = isAscending == true ? runners.OrderBy(r => r.StartingNumber) : runners.OrderByDescending(r => r.StartingNumber);
+                        break;
                 }
             }
             // Pagination

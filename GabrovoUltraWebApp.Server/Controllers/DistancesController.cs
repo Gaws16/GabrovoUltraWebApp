@@ -127,23 +127,6 @@ namespace GabrovoUltraWebApp.Server.Controllers
             return Ok(distanceDTOToReturn);
         }
 
-        //[HttpPost]
-        //[Route("{id:int}")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Produces("application/json")]
-        //public async Task<IActionResult> AddToDistance([FromRoute] int id, Registration registration)
-        //{
-        //    var distance = await distanceService.GetByIdAsync(id);
-        //    if (distance == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    await distanceService.AddRegistrationAsync(distance, registration);
-        //    var registrations = mapper.Map<List<RegistrationDTO>>(distance.Registrations);
-        //   return Ok(registrations);
-        //}
+       
     }
 }

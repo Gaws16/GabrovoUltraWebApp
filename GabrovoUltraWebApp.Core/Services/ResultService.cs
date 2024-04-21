@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using GabrovoUltraWebApp.Core.Services.Contracts;
+﻿using GabrovoUltraWebApp.Core.Services.Contracts;
 using GabrovoUltraWebApp.Infrastructure.Data.Common;
 using GabrovoUltraWebApp.Infrastructure.Data.Models;
 using GabrovoUltraWebApp.Infrastructure.Models.ResposneDTO;
@@ -10,17 +9,14 @@ namespace GabrovoUltraWebApp.Core.Services
     public class ResultService : IResultService
     {
         private readonly IRepository repository;
-        private readonly IMapper mapper;
 
-        public ResultService(IRepository _repository, IMapper _mapper)
+        public ResultService(IRepository _repository)
         {
             repository = _repository;
-            mapper = _mapper;
         }
         
         public async Task<Result?> CreateAsync(Result result)
         {
-            //TODO : check if the result is already in the database
             var existingResult = repository.All<Result>().FirstOrDefault(r=>r.RegistrationId==result.RegistrationId);
             if (existingResult != null)
             {
@@ -31,9 +27,16 @@ namespace GabrovoUltraWebApp.Core.Services
             return result;
         }
 
-        public Task<Result?> DeleteAsync(int id)
+        public async Task<Result?> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var resultToDelete = await repository.GetByIdAsync<Result>(id);
+            if (resultToDelete == null)
+            {
+                return null;
+            }
+            await repository.DeleteAsync<Result>(id);
+            await repository.SaveChangesAsync();
+            return resultToDelete;
         }
 
         public async Task<List<ResultDTO>?> GetAllAsync(int raceId, int distanceId, string? filterOn = null, string? filterQuery = null, string? sortBy = null, bool? isAscending = true, int pageNumber = 1, int pageSize = 1000)
@@ -57,14 +60,9 @@ namespace GabrovoUltraWebApp.Core.Services
         }
     
 
-        public Task<Result?> GetByIdAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<Result?> GetByIdAsync(int id)
+        => await repository.GetByIdAsync<Result>(id);
 
-        public Task<Result?> UpdateAsync(int id, Result runner)
-        {
-            throw new NotImplementedException();
-        }
+     
     }
 }

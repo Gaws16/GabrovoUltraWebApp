@@ -18,7 +18,7 @@ namespace GabrovoUltraWebApp.Core.Services.Contracts
 
         Task<Result?> CreateAsync(Result runner);
 
-        Task<Result?> UpdateAsync(int id, Result runner);
+       
 
         Task<Result?> DeleteAsync(int id);
     }

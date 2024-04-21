@@ -14,6 +14,7 @@ namespace GabrovoUltraWebApp.Infrastructure.Common
 
         public const string InvalidImageUrlErrorMessage = "Invalid image URL format!";
 
+        public const string AlreadyRegisteredForDistanceErrorMessage = "Вече сте записан за дистанция, не може да се запишете за друга!";
 
     }
 }

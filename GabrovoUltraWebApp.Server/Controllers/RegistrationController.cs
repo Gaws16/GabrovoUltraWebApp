@@ -7,7 +7,7 @@ using GabrovoUltraWebApp.Server.CustomActionFilters;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-
+using static GabrovoUltraWebApp.Infrastructure.Common.ErrorMessages;
 
 namespace GabrovoUltraWebApp.Server.Controllers
 {
@@ -92,8 +92,7 @@ namespace GabrovoUltraWebApp.Server.Controllers
                     
             if (createdRegistration == null )
             {
-                //TODO Make error message file
-                return BadRequest("Вече сте записан за дистанция, не може да се запишете за друга!");
+                return BadRequest(AlreadyRegisteredForDistanceErrorMessage);
             }
          
 
