@@ -4,7 +4,6 @@ using GabrovoUltraWebApp.Infrastructure.Data.Models;
 using GabrovoUltraWebApp.Infrastructure.Models.RequestDTO;
 using GabrovoUltraWebApp.Infrastructure.Models.ResposneDTO;
 using Microsoft.EntityFrameworkCore;
-using static GabrovoUltraWebApp.Infrastructure.Common.DataValidationConstants.Result;
 namespace GabrovoUltraWebApp.Core.Services
 {
     public class AdminService : IAdminService
@@ -38,10 +37,10 @@ namespace GabrovoUltraWebApp.Core.Services
         }
         public async Task<List<DisplayUsersDTO>> GetAllUsers()
         {
-          
+
             var users = await repository.All<ApplicationUser>()
-                                        .Include(r=>r.Registration)
-                                        .ThenInclude(d=>d.Distance)
+                                        .Include(r => r.Registration)
+                                        .ThenInclude(d => d.Distance)
                                         .Select(u => new DisplayUsersDTO
                                         {
                                             Id = u.Id,
@@ -54,26 +53,26 @@ namespace GabrovoUltraWebApp.Core.Services
                                             City = u.City,
                                             Country = u.Country,
                                             Distance = u.Registration.Distance.Name,
-                                            Result =u.Registration.Result==null?
-                                            "Not Finished":u.Registration.Result.FinishTme.Value.ToString(),
+                                            Result = u.Registration.Result == null ?
+                                            "Not Finished" : u.Registration.Result.FinishTme.Value.ToString(),
                                             Race = u.Registration.Race.Name,
                                             Gender = u.Gender.ToString()
 
                                         }).ToListAsync();
-                return users;
+            return users;
         }
 
-        public async Task<AdminUpdateRequestDTO> UpdateUser(string userId,AdminUpdateRequestDTO user)
+        public async Task<AdminUpdateRequestDTO> UpdateUser(string userId, AdminUpdateRequestDTO user)
         {
             var userToUpdate = await repository.GetByIdAsync<ApplicationUser>(userId);
             var registration = await repository.All<Registration>()
                 .Include(r => r.Result)
                 .FirstOrDefaultAsync(r => r.UserId == userId);
-            if(TimeSpan.TryParse(user.Result,out TimeSpan result) == false)
+            if (TimeSpan.TryParse(user.Result, out TimeSpan result) == false)
             {
                 return null;
             }
-            if (userToUpdate is null  || registration is null)
+            if (userToUpdate is null || registration is null)
             {
                 return null;
             }
@@ -91,9 +90,9 @@ namespace GabrovoUltraWebApp.Core.Services
             repository.Update(userToUpdate);
             repository.Update(registration);
             await repository.SaveChangesAsync();
-            
+
             return user;
-           
+
         }
     }
 }

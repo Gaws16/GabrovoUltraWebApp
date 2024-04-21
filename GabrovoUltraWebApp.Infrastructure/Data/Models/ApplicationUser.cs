@@ -38,5 +38,8 @@ namespace GabrovoUltraWebApp.Infrastructure.Data.Models
         public int? RegistrationId { get; set; }
         [ForeignKey(nameof(RegistrationId))]
         public Registration Registration { get; set; } = null!;
+        //public string? RefreshToken { get; set; }
+        //public DateTime RefreshTokenExpiryTime { get; set; }
+
     }
 }

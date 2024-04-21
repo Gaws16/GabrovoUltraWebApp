@@ -2,6 +2,7 @@
 using GabrovoUltraWebApp.Infrastructure.Data.Common;
 using GabrovoUltraWebApp.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System.Text;
 
 namespace GabrovoUltraWebApp.Core.Services
@@ -9,6 +10,7 @@ namespace GabrovoUltraWebApp.Core.Services
     public class RegistrationService : IRegistrationService
     {
         private readonly IRepository repository;
+        private readonly ILoggerFactory
         public RegistrationService(IRepository _repository)
         {
             repository = _repository;

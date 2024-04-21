@@ -11,6 +11,7 @@ namespace GabrovoUltraWebApp.Core.Services.Contracts
         Task<TokenResponseDTO> GenerateToken(LoginRequestDTO user);
         Task<string?> GetUserIdAsync(string username);
 
+        Task<string> RefreshToken(string token);
         Task<ApplicationUser?> GetUserByIdAsync(string id);
     }
 }

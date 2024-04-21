@@ -156,6 +156,7 @@ namespace GabrovoUltraWebApp.Server.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = "Writer,Reader")]
         [ValidateModelState]
         public async Task<IActionResult> EditUser([FromRoute] string id, [FromBody] UpdateUserRequestDTO updateUserRequestDTO)
         {

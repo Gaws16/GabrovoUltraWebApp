@@ -57,6 +57,16 @@ namespace GabrovoUltraWebApp.Server.Controllers
             return BadRequest(errorResponse);
         }
 
+       
+        //public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequestDTO refreshTokenRequestDTO)
+        //{
+        //    var token = await authService.RefreshToken(refreshTokenRequestDTO);
+        //    if (token == null)
+        //    {
+        //        return BadRequest("Invalid token");
+        //    }
+        //    return Ok(token);
+        //}
 
     }
 }
