@@ -1,4 +1,20 @@
+using GabrovoUltraWebApp.Server.Middleware;
+using Serilog;
+
 var builder = WebApplication.CreateBuilder(args);
+
+
+//TODO: Move this to a config file
+var logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .MinimumLevel.Information()
+    .WriteTo.File("Logs/GabrovoUltraLog-.txt",Serilog.Events.LogEventLevel.Warning,
+    rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+
+builder.Logging.ClearProviders();
+builder.Services.AddSerilog(logger);
+
 
 builder.Services.AddControllers();
 
@@ -26,7 +42,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
+app.UseMiddleware<ExceptionsHandlerMiddleware>();
 
 app.UseCors("CorsPolicy");
 

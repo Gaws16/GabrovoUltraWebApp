@@ -14,10 +14,13 @@ namespace GabrovoUltraWebApp.Server.Controllers
     {
         private readonly IRaceService raceService;
         private readonly IMapper mapper;
-        public RaceController(IRaceService _raceService, IMapper _mapper)
+        private readonly ILogger<RaceController> logger;
+
+        public RaceController(IRaceService _raceService, IMapper _mapper, ILogger<RaceController> _logger)
         {
             raceService = _raceService;
             mapper = _mapper;
+            logger = _logger;
         }
         // GET: api/Race
         // Get all races
