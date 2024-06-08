@@ -10,13 +10,14 @@ namespace GabrovoUltraWebApp.Core.Services
     public class RegistrationService : IRegistrationService
     {
         private readonly IRepository repository;
-        private readonly ILoggerFactory
         public RegistrationService(IRepository _repository)
         {
             repository = _repository;
         }
         public async Task<Registration?> CreateAsync(Distance distance, ApplicationUser user, Race race)
         {
+
+            
             //Check if the user already has a registration
             if (user.RegistrationId != null)
             {

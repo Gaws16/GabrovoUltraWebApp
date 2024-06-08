@@ -37,6 +37,7 @@ function Login() {
           },
         }
       );
+      console.log("asd");
       const firstName = response?.data?.firstName;
       const lastName = response?.data?.lastName;
       const accessToken = response?.data?.jwtToken;
@@ -50,7 +51,7 @@ function Login() {
         setErrMsg("No server response");
       } else if (err.response?.status === 400) {
         console.log(err.response);
-        setErrMsg("Missing username or password");
+        setErrMsg("Invalid username or password");
       } else if (err.response?.status === 401) {
         setErrMsg("Unauthorized access");
       } else {

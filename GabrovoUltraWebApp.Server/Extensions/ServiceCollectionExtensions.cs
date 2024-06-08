@@ -67,7 +67,13 @@ namespace Microsoft.Extensions.DependencyInjection
 
         public static IServiceCollection AddApplicationDbContext(this IServiceCollection services, IConfiguration config)
         {
-            var connectionString = config.GetConnectionString("DefaultConnection");
+            var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
+            var dbName = Environment.GetEnvironmentVariable("DB_NAME");
+            var dbPassword = Environment.GetEnvironmentVariable("DB_PASSWORD");
+            var connectionString = dbHost == null ? config.GetConnectionString("DefaultConnection")
+                : $"Data Source={dbHost};Initial Catalog={dbName};User ID=sa;Password={dbPassword}";
+
+
             services.AddDbContext<GabrovoUltraContext>(options =>
                 options.UseSqlServer(connectionString));
 

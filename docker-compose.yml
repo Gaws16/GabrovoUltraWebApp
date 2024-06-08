@@ -1,0 +1,31 @@
+version: '3.4'
+networks:
+  gabrovoultranet:
+services:
+  gabrovoultradb:
+    container_name: gabrovoultradb
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+    - 8002:1433 
+    environment:
+        - ACCEPT_EULA=Y
+        - SA_PASSWORD=Password123!
+    networks:
+    - gabrovoultranet
+  gabrovoultrawebapp.server:
+    container_name: gabrovoultrawebapp.server
+    image: ${DOCKER_REGISTRY-}gabrovoultrawebappserver
+    build:
+      context: .
+      dockerfile: GabrovoUltraWebApp.Server/Dockerfile
+    ports:
+        - 8001:8080
+        - 8001:8081
+    depends_on:
+    - gabrovoultradb
+    environment:
+        - DB_HOST=gabrovoultradb
+        - DB_NAME=GabrovoUltra
+        - DB_SA_PASSWORD=Password123!
+    networks:
+    - gabrovoultranet

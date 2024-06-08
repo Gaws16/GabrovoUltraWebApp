@@ -13,7 +13,8 @@ namespace GabrovoUltraWebApp.Infrastructure.Data.Models
         [Required]
         [StringLength(NameMaxLength)]
         [Comment("Name of the distance")]
-        public string Name { get; set; } = null!;
+        public string Name { get;  set; } = null!;
+
 
         [Required]
         [StringLength(DescriptionMaxLength)]
