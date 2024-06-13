@@ -132,7 +132,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 options.AddPolicy("CorsPolicy",
                     builder =>
                     builder
-                    .WithOrigins("https://localhost:5173")
+                    .WithOrigins("https://localhost:5173", "https://app-gabrovoultra-gwc-dev-001.azurewebsites.net/")
                     //.AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowCredentials()

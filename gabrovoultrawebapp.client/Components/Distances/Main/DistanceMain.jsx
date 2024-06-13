@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { Card, Container, Button, Row, Image } from "react-bootstrap";
 import styles from "./DistanceMain.module.css";
 import JoinDIstance from "../AddToDistanceModal/JoinDistance";
-const API_URI = "https://localhost:7263/api/Distances";
+const API_URI =
+  "https://app-gabrovoultra-gwc-dev-001.azurewebsites.net/api/Distances";
 function DistancesMain() {
   const [distances, setDistances] = useState([]);
 

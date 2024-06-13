@@ -1,4 +1,6 @@
+using GabrovoUltraWebApp.Infrastructure.Data;
 using GabrovoUltraWebApp.Server.Middleware;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -53,7 +55,12 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
-app.MapFallbackToFile("/index.html");
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<GabrovoUltraContext>();
+    context.Database.Migrate();
+}
+    app.MapFallbackToFile("/index.html");
 
 app.Run();
