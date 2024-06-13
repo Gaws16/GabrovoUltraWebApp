@@ -1,6 +1,6 @@
 import Axios from "axios";
 
-const BASE_URL = "https://localhost:7263/api";
+const BASE_URL = "https://app-gabrovoultra-gwc-dev-001.azurewebsites.net/api";
 
 export const axios = Axios.create({
   baseURL: BASE_URL,
