@@ -9,7 +9,7 @@ export const Gallery = () => {
       try {
         setLoading(true);
         const response = await fetch(
-          "https://localhost:7263/api/HeroSection/All"
+          "https://app-gabrovoultra-gwc-dev-001.azurewebsites.net/api/HeroSection/All"
         );
 
         setHeroSections(await response.json());
